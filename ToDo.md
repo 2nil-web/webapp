@@ -26,6 +26,8 @@
 
 ## Code
 
+- [ ] --func-help not working although -u works ...
+
 - [ ] Cleaning up code, especially dead code
 
 - [ ] Improve GTK 3
@@ -42,22 +44,4 @@
 
 - [ ] May be a reworking/reorganization/refactoring of the conditional compilation
 
-- [ ] Fusionner parse_ini et read_ini dans wrap.cpp 
-
-- [ ] Ajouter des fonctions pure js dans l'init webapp pour notamment (pas sûr):
-
-```javascript
-String.prototype.toHtmlEntities = function() {
-  return this.replace(/./gm, function(s) {
-    return (s.match(/[a-z0-9\s]+/i)) ? s : "&#" + s.charCodeAt(0) + ";";
-  });
-};
-```
-
-```javascript
-String.prototype.fromHtmlEntities = function() {
-  return this.replace(/&#\d+;/gm,function(s) {
-    return String.fromCharCode(s.match(/\d+/gm)[0]);
-  })
-};
-```
+- [ ] 
