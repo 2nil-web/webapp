@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## TO create a new delivery
+## To create a new delivery
 # Check remote tags   :
 #    git ls-remote --tags origin # default is for github
 #    git ls-remote --tags gitlab # non default is for gitlab
