@@ -1,0 +1,14 @@
+#terminal {
+    position: absolute;
+    inset: 2px 2px 2px 2px;
+    /* top right bottom left */
+    padding: 0;
+    /*top: 4px; right: 8px; left: 8px; bottom: 4px;*/
+    /*overflow-y: auto;
+  font-family: monospace;
+  white-space:pre*/
+}
+
+.terminal-type>input:focus {
+    /*  background-color: blue;*/
+}

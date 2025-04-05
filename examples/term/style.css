@@ -1,0 +1,23 @@
+* {
+    font-family: monospace;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
+body {
+    scroll-behavior: smooth;
+}
+
+#output {
+    overflow-wrap: break-word;
+    white-space: pre
+}
+
+#cmd_line {
+    width: 97%;
+    /*  inset: 2px 2px 2px 2px;*/
+
+}

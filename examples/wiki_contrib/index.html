@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+    <title>Wiki contributions</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="loaders.css">
+    <script type="text/javascript" src="../js_include/webapp.js"></script>
+    <script type="text/javascript" src="../js_include/msgbox.js"></script>
+    <script type="text/javascript" src="../js_include/util.js"></script>
+    <script type="text/javascript" src="../js_include/time.js"></script>
+    <script type="text/javascript" src="../js_include/filesystem.js"></script>
+    <script type="text/javascript" src="head.js"></script>
+</head>
+
+<body>
+    <div class="topnav">
+        <a onclick="save_conf_and_exit()">Quit</a>
+        <a onclick="about()">About</a>
+    </div>
+    <div>
+        <fieldset>
+            <legend id="wiki" class="collapser">Confluence wiki</legend>
+            <div class="collapsable">
+                <label for="url">url:</label>
+                <input id="url" style="width:60%" onchange="conf_update('url')">
+                &nbsp;&nbsp;&nbsp;
+                <label for="space">space:</label>
+                <input id="space" style="width:20%" onchange="conf_update('space')">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend id="cred" class="collapser">Credentials</legend>
+            <div class="collapsable">
+                <label for="login">login:</label>
+                <input id="login" style="width:30%" onchange="conf_update('login')">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="psswd">password:</label>
+                <input id="psswd" type="password" style="width:30%" placeholder="Your password input will be hidden." onchange="conf_update('psswd')">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Scan period</legend>
+            <label for="start">Start:</label>
+            <input type="date" id="start_date" onchange="check_period()">
+            &nbsp;&nbsp;&nbsp;
+            <label for="end">End:</label>
+            <input type="date" id="end_date" onchange="check_period()">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span hidden="hidden" id="my_loader" class="" style="vertical-align: baseline;"></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="run" onclick="compute_contrib()">Get contributions</button>
+        </fieldset>
+
+        <fieldset id="contributors">
+            <legend title="Users SIA csv list whose contributions should be scanned.">Contributors</legend>
+            <div>
+                <textarea id="userlist" onchange="conf_update('userlist')"></textarea>
+            </div>
+        </fieldset>
+    </div>
+</body>
+
+</html>

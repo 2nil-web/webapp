@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <style>.spinner_hzlK{animation:spinner_vc4H .8s linear infinite;animation-delay:-.8s}
+ .spinner_koGT{animation-delay:-.65s}
+ .spinner_YF1u{animation-delay:-.5s}@keyframes spinner_vc4H{0%{y:1px;height:22px}93.75%{y:5px;height:14px;opacity:.2}}</style>
+ <g transform="matrix(10.936 0 0 11.455 -8.9355 -9.4545)">
+  <rect class="spinner_hzlK" x="1" y="1" width="3" height="22" fill="#3faa00"/>
+  <rect class="spinner_hzlK spinner_koGT" x="5" y="1" width="3" height="22" fill="#ffc0cb"/>
+  <rect class="spinner_hzlK" x="9" y="1" width="3" height="22" fill="#3faa00"/>
+  <rect class="spinner_hzlK spinner_YF1u" x="13" y="1" width="3" height="22" fill="#8080d9"/>
+  <rect class="spinner_hzlK spinner_koGT" x="17" y="1" width="3" height="22" fill="#ffc0cb"/>
+  <rect class="spinner_hzlK spinner_YF1u" x="21" y="1" width="3" height="22" fill="#8080d9"/>
+ </g>
+</svg>

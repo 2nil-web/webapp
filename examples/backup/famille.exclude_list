@@ -1,0 +1,9 @@
+*.o
+*~
+.AndroidStudio2.3
+.android
+.dl
+Backup
+NoBackup/
+VirtualBox VMs
+Excluded/

@@ -1,0 +1,47 @@
+*.iobj
+*.ipdb
+*.m4a
+*.mp3
+*.o
+*.ogg
+*.pdb
+*.tlog
+*~
+.AndroidStudio2.3
+.VirtualBox
+.android
+.cargo
+.dl
+.vs
+.vscode
+AFaire
+AppData
+Application Data
+Audio
+Backup
+Bibliothéque Calibre
+Debug
+Downloads
+Lecture
+ManiaPlanet
+NL
+NTUSER.DAT*
+Nextcloud
+Nextcloud*
+NoBackup
+OneDrive
+OneDrive - AKKA
+OneDrive*
+Release
+TmForever
+VirtualBox VMs
+bad_roms
+build
+Denis/IntelGraphicsProfiles
+Denis/MyPrograms
+Denis/vim
+ntuser.dat*
+x64
+Excluded/
+.git/
+.gitignore

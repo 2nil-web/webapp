@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=webapp
+Comment=Multiplatform html/css/javscript standalone application builder !
+Exec=/home/denis/webapp/webapp -d -f /home/denis/webapp/index.html
+Icon=/home/denis/webapp/webapp.svg
+Terminal=false
+Type=Application
