@@ -19,13 +19,9 @@ if (false) {
   ico_sfx="\\app.ico";
   sDesk = wsh().SpecialFolders("Desktop")+"\\";
 
-  app_pth=apps_pth+"backup";
-  var mysc=new shortcut(sDesk+"Backup", tgt, args, app_pth,  app_pth+ico_sfx, "Backup selon contexte maison ou travail");
+  app_pth=apps_pth+"01-test_bed";
+  var mysc=new shortcut(sDesk+"Test bed", tgt, args, app_pth,  app_pth+ico_sfx, "Test bed");
   var msg=mysc.info();
-
-  app="01-test_bed";
-  app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Commands test", tgt, args, app_pth,  app_pth+ico_sfx, app);
 
   app="02-stats";
   app_pth=apps_pth+app;
