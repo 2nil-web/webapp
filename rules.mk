@@ -147,6 +147,10 @@ ${SRC_DIR}/%.ico : %.svg
 	${MAGICK} -density 256x256 -background transparent $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
 #	${MAGICK} $< -density 300 -define icon:auto-resize=128,96,64,48,32,16 -background none $@
 
+%.ico : %.svg
+	${MAGICK} -density 256x256 -background transparent $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
+#	${MAGICK} $< -density 300 -define icon:auto-resize=128,96,64,48,32,16 -background none $@
+
 %.png : %.svg
 	${MAGICK} $< -background none $@
 

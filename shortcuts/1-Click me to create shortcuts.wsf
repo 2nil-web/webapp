@@ -23,30 +23,29 @@ if (false) {
   var mysc=new shortcut(sDesk+"Backup", tgt, args, app_pth,  app_pth+ico_sfx, "Backup selon contexte maison ou travail");
   var msg=mysc.info();
 
-//  app="term";
-//  app_pth=apps_pth+app;
-//  msg+=mysc.recreate(sDesk+"Term", tgt, args, app_pth,  app_pth+ico_sfx, "A javascript commands interpretor");
-//  msg+=mysc.recreate(sDesk+"Term", tgt, args, app_pth,  "D:\\Users\\casal\\Documents\\home\\33-webapp\\examples\\ttty\\app.ico", "A javascript commands interpretor");
-/*
-  app="ttty";
+  app="01-test_bed";
   app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Ttty", tgt, args, app_pth,  app_pth+ico_sfx, "A Terminal emulator in javascript");
-*/
-  app="webcrypto";
+  msg+=mysc.recreate(sDesk+"Commands test", tgt, args, app_pth,  app_pth+ico_sfx, app);
+
+  app="02-stats";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Tokei stats", tgt, args, app_pth,  app_pth+ico_sfx, "Tokei stats");
+
+  app="03-webcrypto";
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
 
-  app="test_bed";
+  app="04-curves";
   app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Commands test", tgt, args, app_pth,  app_pth+ico_sfx, app);
-/*
-  app="wiki_contrib";
+  msg+=mysc.recreate(sDesk+"Weird sinusoids", tgt, args, app_pth,  app_pth+ico_sfx, "Weird sinusoids");
+
+  app="05-azimuth";
   app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Wiki contrib", tgt, args, app_pth,  app_pth+ico_sfx, "Wiki contrib");
-*/
-  app="stats";
+  msg+=mysc.recreate(sDesk+"Azimuth computation", tgt, args, app_pth,  app_pth+ico_sfx, "Azimuth computation");
+
+  app="06-backup";
   app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Tokei stats", tgt, args, app_pth,  app_pth+ico_sfx, "Tokei stats");
+  msg+=mysc.recreate(sDesk+"RSync backup", tgt, args, app_pth,  app_pth+ico_sfx, "RSync backup");
 
 
   log(msg.split(ppth).join("..\\").split(sDesk).join("Desktop"));

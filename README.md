@@ -4,7 +4,9 @@
 
 This application uses the : [webview library](https://github.com/webview/webview.git).
 
-1) Prerequisites to build the app are:
+1. For those who want to try the tool, a 'quick and dirty' user documentation and reference is available with the file 'webapp_quick_user_doc_and_reference.pdf'. It basically repeats what is already indicated with the --help and --func-help options and also in the folder 'examples/01-test_bed'.
+
+2. Prerequisites to build the app are:
    
    - git to download the webview library.
    
@@ -20,11 +22,11 @@ This application uses the : [webview library](https://github.com/webview/webview
    
    - lsb_release
 
-2) A Makefile is provided that allow the application to be built under the gcc/g++ compiler suite.
+3. A Makefile is provided that allow the application to be built under the gcc/g++ compiler suite.
 
-3) An .sln/.vcxproj pair of files is provided that allow the application to be built under the MS Visual Studio compiler suite.
+4. An .sln/.vcxproj pair of files is provided that allow the application to be built under the MS Visual Studio compiler suite.
 
-4) The application is written in C++.
+5. The application is written in C++.
    
    - It is (*roughly*) tested under Windows and Linux, mainly Debian, but the binary produced under Debian also works under Fedora, Arch and Ubuntu.
    - It remains to be tested under MacOS although it should work (or at least compile ...), as stated by the webview library documentation ...
@@ -33,12 +35,10 @@ This application uses the : [webview library](https://github.com/webview/webview
    - HTML/CSS/JS files are formatted using js-beautify (from nodejs).
    - The resulting binary size  can be reduced with upx (make upx).
 
-5) Build
+6. Build
    
    - To set the webview library run the "scripts/update_webviews.sh" script under bash. And try to follow the script directives.
    
    - Then run make under gcc.
    
    - Or build the webapp.sln under MS Visual Studio.
-
-6) A 'quick and dirty' user documentation and reference is available with the file 'webapp_quick_user_doc_and_reference.pdf'. It basically repeats what is already indicated with the --help and --func-help options. And also in the folder 'examples/test_bed'.

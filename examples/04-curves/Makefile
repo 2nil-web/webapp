@@ -1,7 +1,7 @@
 
 include ../../header.mk
 
-all : app.png app.ico
+all : app.ico app.png
 
 clean :
 	rm -f app.ico app.png
