@@ -41,6 +41,4 @@ This application uses the : [webview library](https://github.com/webview/webview
    
    - Or build the webapp.sln under MS Visual Studio.
 
-ToDo : see the file ToDo.md
-
-Faire des tests avec Dom Examples : [GitHub - mdn/dom-examples: Code examples that accompany various MDN DOM and Web API documentation pages](https://github.com/mdn/dom-examples.git)
+6) A 'quick and dirty' user documentation and reference is available with the file 'webapp_quick_user_doc_and_reference.pdf'. It basically repeats what is already indicated with the --help and --func-help options. And also in the folder 'examples/test_bed'.

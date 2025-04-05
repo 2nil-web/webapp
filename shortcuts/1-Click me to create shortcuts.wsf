@@ -36,7 +36,7 @@ if (false) {
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
 
-  app="command_line";
+  app="test_bed";
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"Commands test", tgt, args, app_pth,  app_pth+ico_sfx, app);
 /*
