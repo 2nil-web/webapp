@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="128" height="128" fill="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
- <g transform="matrix(2.8117 0 0 3.4563 -3.4813 -18.908)" stroke-linejoin="round" stroke-width="4">
-  <rect x="4" y="8" width="40" height="32" rx="2" fill="#2f88ff" stroke="#000"/>
-  <path d="m12 18 7 6-7 6" stroke="#fff" stroke-linecap="round"/>
-  <path d="m23 32h13" stroke="#fff" stroke-linecap="round"/>
- </g>
-</svg>
