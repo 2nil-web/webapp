@@ -215,7 +215,7 @@ void create_app_binds(webview_wrapper &w)
         std::string res = "{\"w\": " + std::to_string(opw) + ", \"h\": " + std::to_string(oph) + "}";
         int pw, ph, phn = 0;
         js_parami(req, pw, ph, phn);
-        logTrace("app_set_size: old(", opw, ',', oph, ')', ", new(", pw, ",", ph, "),", phn);
+        logDebug("app_set_size: old(", opw, ',', oph, ')', ", new(", pw, ",", ph, "),", phn);
         /* shn values:
           0 Width and height are default size
           1 Width and height are minimum bounds

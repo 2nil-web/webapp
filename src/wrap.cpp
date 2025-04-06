@@ -57,17 +57,17 @@ void webview_wrapper::on_geom()
 {
   if (me)
   {
-    // logDebug("ON_GEOM: new_geom (", new_geom.x, ',', new_geom.y, ',', new_geom.w, ',', new_geom.h, ')');
-    // We may have to save the geometry
-    me->save_conf();
+      logDebug("ON_GEOM: new_geom (", new_geom.x, ',', new_geom.y, ',', new_geom.w, ',', new_geom.h, ')');
+      // We may have to save the geometry
+      me->save_conf();
 
-    // Is there any javascript function connected to the geometry event ?
-    if (me->on_geometry_func != "")
-    {
-      // std::string call = me->on_geometry_func + "(" + std::to_string(conf.xpos) + "," + std::to_string(conf.ypos) + "," + std::to_string(conf.width) + "," + std::to_string(conf.height) + ")";
-      // logDebug("CALL_GEOMETRY_FUNC: " + call);
-      me->eval(me->on_geometry_func);
-    }
+      // Is there any javascript function connected to the geometry event ?
+      if (me->on_geometry_func != "")
+      {
+        // std::string call = me->on_geometry_func + "(" + std::to_string(conf.xpos) + "," + std::to_string(conf.ypos) + "," + std::to_string(conf.width) + "," + std::to_string(conf.height) + ")";
+        // logDebug("CALL_GEOMETRY_FUNC: " + call);
+        me->eval(me->on_geometry_func);
+      }
   }
 }
 
@@ -117,15 +117,13 @@ std::string show_windows_state(GdkWindowState ws)
 GdkWindowState webview_wrapper::current_window_state = GDK_WINDOW_STATE_WITHDRAWN;
 bool webview_wrapper::gtk_on_configure_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
+  logDebug("gtk_on_configure_event-current_window_state: ", show_windows_state(current_window_state));
+
+  if (current_window_state != GDK_WINDOW_STATE_WITHDRAWN) {
   GtkWindow *hw = GTK_WINDOW(widget);
 
-  if (gtk_window_is_active(hw))
-    logDebug("Window is ACTIVE");
-  else
-    logDebug("Window is NOT active");
-  logDebug(show_windows_state(current_window_state));
-
-  if (!gtk_window_is_active(hw) || current_window_state & GDK_WINDOW_STATE_ICONIFIED || current_window_state & GDK_WINDOW_STATE_MAXIMIZED || current_window_state & GDK_WINDOW_STATE_FULLSCREEN)
+  //if (!gtk_window_has_toplevel_focus(hw) || current_window_state & GDK_WINDOW_STATE_ICONIFIED || current_window_state & GDK_WINDOW_STATE_MAXIMIZED || current_window_state & GDK_WINDOW_STATE_FULLSCREEN)
+  if (!(current_window_state & GDK_WINDOW_STATE_FOCUSED))
   {
     logDebug("window_state_event NOT saving geom");
     return false;
@@ -138,6 +136,8 @@ bool webview_wrapper::gtk_on_configure_event(GtkWidget *widget, GdkEvent *event,
 #if GTK_MAJOR_VERSION == 3
     gdk_event_get_coords(event, &dx, &dy);
     gtk_window_get_size(hw, &new_geom.w, &new_geom.h);
+    logDebug("aft gtk_window_get_size - new_geom.w and h: ", new_geom.w, ',', new_geom.h);
+    logDebug("gtk_window_get_size - conf.width and height: ", me->conf.width, ',', me->conf.height);
 #elif GTK_MAJOR_VERSION == 4
     gdk_event_get_position(event, &dx, &dy);
     gtk_window_get_default_size(hw, &new_geom.w, &new_geom.h);
@@ -147,6 +147,7 @@ bool webview_wrapper::gtk_on_configure_event(GtkWidget *widget, GdkEvent *event,
     new_geom.x = dx, new_geom.y = dy;
     logDebug("window_state_event SAVING geom");
     on_geom();
+  }
   }
 
   return false;
@@ -160,6 +161,7 @@ bool webview_wrapper::gtk_on_window_state_event(GtkWidget *widget, GdkEventWindo
   {
     current_window_state = stat_ev->new_window_state;
   }
+  logDebug("gtk_on_window_state_event-current_window_state: ", show_windows_state(current_window_state));
 
   return false;
 }
@@ -173,6 +175,8 @@ namespace detail
 #endif
 void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
 {
+  logDebug("WindowInitialState: ", my_conf.xpos, ',', my_conf.ypos, ',', my_conf.width, ',', my_conf.height);
+
 #ifdef GTK_410_OR_MORE
   // logTrace("Missing gtk_window_move in gtk4");
 #ifdef NE_FONCTIONNE_PAS
@@ -185,9 +189,10 @@ void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
   // gtk_window_present (GTK_WINDOW (m_window));
 #endif
 #else
-  // logTrace("GTK410_LESS, Initial move of window");
+  logTrace("GTK410_LESS, Initial move of window");
   gtk_window_move(GTK_WINDOW(m_window), my_conf.xpos, my_conf.ypos);
 #endif
+  logDebug("gtk_widget_set_size_request: ", my_conf.width, ',', my_conf.height);
   gtk_widget_set_size_request(GTK_WIDGET(m_window), my_conf.width, my_conf.height);
   gtk_widget_grab_focus(GTK_WIDGET(m_webview));
   gtk_compat::widget_set_visible(GTK_WIDGET(m_window), true);
@@ -1187,10 +1192,13 @@ void webview_wrapper::get_size(int &wi, int &he)
 #else
   gtk_window_get_default_size(GTK_WINDOW(window()), &wi, &he);
 #endif
+  logDebug("get_size - width, height: ", wi, ',', he);
 }
 
 void webview_wrapper::set_size(int width, int height, int hints)
 {
+  logDebug("set_size - width, height: ", width, ',', height);
+
   if (hints < 0)
     hints = WEBVIEW_HINT_NONE;
   if (hints == WEBVIEW_HINT_MIN || hints == WEBVIEW_HINT_MAX)
@@ -1198,7 +1206,12 @@ void webview_wrapper::set_size(int width, int height, int hints)
     int owi, ohe;
     get_size(owi, ohe);
     WP->set_size(width, height, (webview_hint_t)hints);
-    WP->set_size(owi, ohe, WEBVIEW_HINT_NONE);
+    logDebug("set_size - width, height: ", width, ',', height);
+
+    if (owi > -1 && ohe > -1) {
+      logDebug("set_size - owi, ohe: ", owi, ',', ohe);
+      WP->set_size(owi, ohe, WEBVIEW_HINT_NONE);
+    } else WP->set_size(width, height, WEBVIEW_HINT_NONE);
   }
   else
   {
@@ -1221,6 +1234,7 @@ void disp_hints()
 
 void webview_wrapper::set_geometry(int x, int y, int w, int h)
 {
+  logDebug("set_geometry: ", x, ',', y, ',', w, ',', h);
   set_pos(x, y);
   set_size(w, h);
   // save_conf(); // already done by set_pos and set_size ...
@@ -1284,6 +1298,8 @@ rectangle gtk_get_monitor_rectangle(GtkWindow *gw)
 
 bool write_ini(std::string fname, webview_conf wvc)
 {
+  logDebug("IN write_ini: ", wvc.xpos, ',', wvc.ypos, ',', wvc.width, ',', wvc.height);
+
   if (std::filesystem::exists(fname))
   {
     struct eInf
@@ -1340,6 +1356,7 @@ bool write_ini(std::string fname, webview_conf wvc)
         {
           to_save[key].saved = true;
           oss << key << " = " << to_save[key].sval << com << std::endl;
+          logDebug("to save: ", key, ':', to_save[key].sval);
         }
         else
         {
@@ -1396,7 +1413,7 @@ bool read_ini(std::string fname, ConfigInfo &cv)
         trim(key);
         std::getline(is_line, cv[key], '#');
         trim(cv[key]);
-        // logTrace("read_ini, key: [", key, "] = [", cv[key], "]");
+        logDebug("read_ini, key: [", key, "] = [", cv[key], "]");
       }
     }
 
@@ -1413,8 +1430,10 @@ bool read_ini(std::string fname, ConfigInfo &cv)
 bool webview_wrapper::restore_conf(webview_conf &p_cnf, std::string fname)
 {
   ConfigInfo cv;
+    logDebug("restore_conf bef read_ini");
   if (read_ini(fname, cv))
   {
+    logDebug("restore_conf aft read_ini");
     int x_offset = 0, y_offset = 0;
 #ifndef WIN32
     // Trying to compensate the offset I noticed between 2 gtk_move_window
@@ -1422,16 +1441,21 @@ bool webview_wrapper::restore_conf(webview_conf &p_cnf, std::string fname)
     y_offset = -29;
 #endif
 
-    if (cv.count("x"))
-      p_cnf.xpos = std::stoi(cv["x"]) + x_offset;
-    if (cv.count("y"))
-      p_cnf.ypos = std::stoi(cv["y"]) + y_offset;
-    if (cv.count("w"))
-      p_cnf.width = std::stoi(cv["w"]);
-    if (cv.count("h"))
-      p_cnf.height = std::stoi(cv["h"]);
     if (cv.count("debug"))
       p_cnf.debug = str2bool(cv["debug"]);
+
+    if (cv.count("x"))
+      p_cnf.xpos = std::stoi(cv["x"]) + x_offset;
+
+    if (cv.count("y"))
+      p_cnf.ypos = std::stoi(cv["y"]) + y_offset;
+
+    if (cv.count("w"))
+      p_cnf.width = std::stoi(cv["w"]);
+
+    if (cv.count("h"))
+      p_cnf.height = std::stoi(cv["h"]);
+
     return true;
   }
 
@@ -1452,7 +1476,9 @@ bool webview_wrapper::may_save_conf()
 
   bool ret = false;
 
-  // Here we have the object that new_geom that is correctly set
+  logDebug("conf (", conf.xpos, ",", conf.ypos, ",", conf.width, ",", conf.height, ")");
+  logDebug("new_geom (", new_geom.x, ",", new_geom.y, ",", new_geom.w, ",", new_geom.h, ")");
+  // Here we have the object new_geom that is correctly set
   if (conf.xpos != new_geom.x)
   {
     conf.xpos = new_geom.x;
@@ -1494,7 +1520,8 @@ bool webview_wrapper::save_conf(std::string fname)
 {
   if (me && may_save_conf())
   {
-    // out_conf("save on: " + fname);
+    out_conf("save on: " + fname);
+    logDebug("bef write_ini");
     write_ini(fname, conf);
     return true;
   }

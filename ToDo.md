@@ -22,7 +22,7 @@
 
 - [ ] Improve code documentation
 
-- [ ] 
+- [ ] Make a tutorial
 
 ## Code
 

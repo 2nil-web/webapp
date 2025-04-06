@@ -243,11 +243,14 @@ void webview_set(win_state init_win_state, bool devmode = false, bool _run_and_e
   }
 #endif
   // if (w) w.conf.debug = devmode;
+  logDebug("title: ", title);
   w.conf = {init_win_state, devmode, true, true, true, true, true, 200, 200, 600, 400};
   if (call_func_help || help_or_version || title == "Missing parameter")
     w.conf.init_win_state = hidden;
   w.create((void *)wnd);
+  logDebug("bef webview_bind");
   webview_bind();
+  logDebug("aft webview_bind");
 }
 
 void GetGeom(HWND hw, int &x, int &y, int &wi, int &he)
@@ -267,6 +270,7 @@ void GetGeom(HWND hw, int &x, int &y, int &wi, int &he)
 
 void webview_run(std::string url, std::string title = "", std::string init_js = "")
 {
+  logDebug("title: ", title);
   if (title == "Missing parameter" && init_js == "")
   {
 #ifdef _WIN32
@@ -430,6 +434,7 @@ int main(int argc, char **argv, char **)
       {
         if (title.empty())
           title = "Missing parameter";
+  logDebug("title: ", title);
 
         std::string hm = usage();
         replace_all(hm, "\r", "<br>");
@@ -445,6 +450,7 @@ int main(int argc, char **argv, char **)
   std::string help_func_tit = "List of the variables and functions extending the webview", help_func_msg = w.help_objs();
   if (call_func_help || title == "Missing parameter")
   {
+  logDebug("title: ", title);
     trim(help_func_msg, "\"");
     replace_all(help_func_msg, "&#xa;", "\n");
     replace_all(help_func_msg, "&#10;", "\n");
@@ -452,7 +458,8 @@ int main(int argc, char **argv, char **)
   }
 
   if (title == "Missing parameter")
-  {
+ {
+  logDebug("title: ", title);
     std::string hf = help_func_msg;
     replace_all(hf, "\\r", "<br>");
     replace_all(hf, "\\n", "<br>");
