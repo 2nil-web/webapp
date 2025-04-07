@@ -81,8 +81,9 @@ async function load(force_compute = false) {
 
         var actual_path = await fs.current_path();
         await fs.current_path("../..");
-        tokei_param = " --hidden --exclude winerrv.h Makefile header.mk rules.mk src scripts assets shortcuts examples/command_line examples/js_include examples/backup examples/webcrypto examples/stats"; // > "+actual_path+"/stats.json";
+        tokei_param = " --hidden --exclude winerrv.h Makefile header.mk rules.mk src scripts assets shortcuts examples/01-test_bed examples/02-stats examples/03-webcrypto examples/04-curves examples/05-azimuth examples/06-backup examples/init_geom examples/js_include"; // > "+actual_path+"/stats.json";
         var tokei_res = "";
+
 
         if (client_system() === "Windows") {
             //await env.add_path(await env.get("LOCALAPPDATA")+"/Microsoft/WinGet/Packages/XAMPPRocky.Tokei_Microsoft.Winget.Source_8wekyb3d8bbwe");
