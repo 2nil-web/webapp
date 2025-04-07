@@ -434,7 +434,7 @@ int main(int argc, char **argv, char **)
       {
         if (title.empty())
           title = "Missing parameter";
-  logDebug("title: ", title);
+        logDebug("title: ", title);
 
         std::string hm = usage();
         replace_all(hm, "\r", "<br>");
@@ -450,7 +450,7 @@ int main(int argc, char **argv, char **)
   std::string help_func_tit = "List of the variables and functions extending the webview", help_func_msg = w.help_objs();
   if (call_func_help || title == "Missing parameter")
   {
-  logDebug("title: ", title);
+    logDebug("title: ", title);
     trim(help_func_msg, "\"");
     replace_all(help_func_msg, "&#xa;", "\n");
     replace_all(help_func_msg, "&#10;", "\n");
@@ -458,8 +458,8 @@ int main(int argc, char **argv, char **)
   }
 
   if (title == "Missing parameter")
- {
-  logDebug("title: ", title);
+  {
+    logDebug("title: ", title);
     std::string hf = help_func_msg;
     replace_all(hf, "\\r", "<br>");
     replace_all(hf, "\\n", "<br>");
