@@ -10,6 +10,8 @@
 
 - [ ] Improve delivery
 
+- [ ] Make a website, see https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site
+
 ## Documentation
 
 - [ ] A rework of the README.md is needed ✅🚧
