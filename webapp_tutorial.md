@@ -87,13 +87,19 @@ Now for a somewhat more complex app, let create another folder, called "second_a
 You may also add a file .config.ini and an application icon.
 
 And when running the webapp binary the following windows will appears:
+
+
 ![](tutorial/second_app.png)
 
 And if you click the "Click me!" button, the following dialog appears:
+
+
 ![](tutorial/second_app-dialog.png)
 
 Also notice that in the way this app has been created, it may also run correctly under a web browser.
 An examples under chrome:
+
+
 ![](tutorial/second_app-web_browser.png)
 
 But this may not always be the case, especially when using the webapp "extended local features", like reading or writing on the local filesystem ... 
