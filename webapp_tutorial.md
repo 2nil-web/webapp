@@ -27,7 +27,20 @@ For the sake of simplicity we will use the first way.
 So when double-clicking on the webapp binary your application appears, like that:
 
 ![](tutorial/first_app.png)
-Now if you want this application to have its geometry permanently reminded, just add a file called ".config.ini" in its folder. And now when you will move or resize its window,  the last same size and position will be used each time the app will be invoked.
+
+Now if you want this application to have a persistent geometry, just add a file called ".config.ini" in its folder. And now when you will move or resize its window,  the last same size and position will be used each time the app will be invoked.
+
+Note that you might get a somewhat similar result in a simpler way by just invoking the webapp binary and providing the html code as a parameter string, like the following:
+
+```bash
+webapp --html "Hello world!"`
+```
+
+But this as limited possibilies. Also try the following:
+
+```bash
+webapp  -d -s -t 'MsgBox' --html 'Hello world!<br/><button onclick=app.exit()>OK</button>' -j "app.set_size(210, 60, 3); app.center(); app.show()"
+```
 
 ## Second step/second app
 

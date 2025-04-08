@@ -140,7 +140,7 @@ std::vector<run_opt> r_opts = {
     {"", '\0', 0, 0, "\tThese three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment.", nullptr},
     {"", '\0', 0, 0, "\tIf neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'.", nullptr},
     // May only be called after the webview creation
-    {"func-help", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the functions extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
+    {"func", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the functions extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
     {"icon", 'n', opt_only, required_argument, "Set windows icon with the provided .ico file.", [](char, std::string, std::string val) -> void { icon_file = val; }},
 #ifdef _WIN32
     {"minimized", 'm', opt_only, no_argument, "The webview window will be minimized at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::minimized; }},
@@ -365,6 +365,9 @@ int WINAPI WinMain(HINSTANCE /*hInst*/, HINSTANCE /*hPrevInst*/, LPSTR /*lpCmdLi
 int main(int argc, char **argv, char **)
 {
 #endif
+  // Calls to logFunctions before getopt_init may not work correctly ...
+  getopt_init(argc, argv, r_opts, appInfo(), "", "(c) Denis Lalanne. Provided as is. NO WARRANTY of any kind.");
+
   // Must force UTF8 with MSVC
 #ifdef _MSC_VER
   setlocale(LC_ALL, ".UTF8");
@@ -400,9 +403,6 @@ int main(int argc, char **argv, char **)
     // do_fstat(url);
   }
 #endif
-
-  // Calls to logFunctions before getopt_init may not respect the logging configuration options
-  getopt_init(argc, argv, r_opts, appInfo(), "", "(c) Denis Lalanne. Provided as is. NO WARRANTY of any kind.");
 
 #ifdef TEST_LOG
   logTrace("Test logTrace");
