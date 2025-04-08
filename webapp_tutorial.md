@@ -26,7 +26,7 @@ For the sake of simplicity we will use the first way.
 
 So when double-clicking on the webapp binary your application appears, like that:
 
-![](tutorial/first_app.png)
+<img src="tutorial/first_app.png" title="" alt="First App" data-align="center">
 
 Now if you want this application to have a persistent geometry, just add a file called ".config.ini" in its folder. And now when you will move or resize its window,  the last same size and position will be used each time the app will be invoked.
 
@@ -88,17 +88,14 @@ You may also add a file .config.ini and an application icon.
 
 And when running the webapp binary the following windows will appears:
 
-
 ![](tutorial/second_app.png)
 
 And if you click the "Click me!" button, the following dialog appears:
-
 
 ![](tutorial/second_app-dialog.png)
 
 Also notice that in the way this app has been created, it may also run correctly under a web browser.
 An examples under chrome:
-
 
 ![](tutorial/second_app-web_browser.png)
 
