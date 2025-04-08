@@ -99,7 +99,7 @@ Also notice that in the way this app has been created, it may also run correctly
 <p align="center"><img src="tutorial/second_app-chrome.png"><br/>Second app under Chrome</p>
 <p align="center"><img src="tutorial/second_app-firefox.png"><br/>Second app under Firefox</p>
 
-But this may not always be the case, especially when using the webapp "extended local features", like reading or writing on the local filesystem ... 
+But it would not always be the case, notably when using the webapp "local objects", like app, fs ... 
 
 ## Afterwards
 
