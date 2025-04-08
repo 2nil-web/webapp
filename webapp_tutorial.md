@@ -26,7 +26,7 @@ For the sake of simplicity we will use the first way.
 
 So when double-clicking on the webapp binary your application appears, like that:
 
-<div align="center"><img src="tutorial/first_app.png"><br/>First app</div>
+<p align="center"><img src="tutorial/first_app.png"><br/>First app</p>
 
 Now if you want this application to have a persistent geometry, just add a file called ".config.ini" in its folder. And now when you will move or resize its window,  the last same size and position will be used each time the app will be invoked.
 
