@@ -28,7 +28,7 @@
 
 ## Code
 
-- [ ] --func-help not working although -u works ...
+- [ ] --func-help not working although -u works ... See n_opt, set_options ... in src/opts.cpp
 
 - [ ] Cleaning up code, especially dead code
 

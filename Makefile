@@ -48,13 +48,23 @@ TARGET_CONS=${TARGET_DIR_CONS}/c${PREFIX}${EXEXT}
 ifeq ($(MAKECMDGOALS),msvc_cons)
 TARGET=${TARGET_CONS}
 endif
-TARGETS=version_check.txt src/version.h src/werr_map.h src/wm_map.h ${SRC_DIR}/${PREFIX}.ico ${TARGET} ${ASSETS}/README.docx
+TARGETS=version_check.txt src/version.h src/werr_map.h src/wm_map.h ${SRC_DIR}/${PREFIX}.ico ${TARGET} README.docx webapp_quick_user_doc_and_reference.pdf
 else
 TARGETS=version_check.txt src/version.h ${TARGET}
 endif
 
 # Cibles génériques
 all : ${TARGETS}
+
+webapp_quick_user_doc_and_reference.pdf : webapp_quick_user_doc_and_reference.docx
+	pandoc -o $@ -V geometry:landscape -f docx -t pdf $<
+
+webapp_tutorial.pdf : webapp_tutorial.md
+	@echo "Converting $< to $@"
+	@pandoc -o $<.html --pdf-engine=xelatex $<
+	@pandoc -o $@ -V geometry:margin=0.4cm --pdf-engine=xelatex $<.html 2>/dev/null | true
+#	@rm $<.html
+#	@pandoc -o $@ -V geometry:landscape --pdf-engine=xelatex $<.html 2>/dev/null | true
 
 ifeq ($(BUILD_SYS),win_msvc)
 msvc : ${TARGETS}

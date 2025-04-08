@@ -136,8 +136,20 @@ define igup
 	$(shell ( echo ${TGT} | grep ^TARGET | sed 's/^TARGET //;s/ /\n/g' | while read tgt; do echo $tgt; done ) >toto)
 endef
 
-${ASSETS}/%.docx : %.md
-	pandoc -o $@ -f markdown -t docx $<
+%.html : %.md
+	pandoc -o $@ --pdf-engine=xelatex $<
+
+%.docx : %.html
+	pandoc -o $@ -f html -t docx $<
+
+%.pdf : %.docx
+	pandoc -o $@ -f docx -t pdf $<
+
+#%.pdf : %.html
+#	pandoc -o $@ --pdf-engine=xelatex $< | true
+
+%.pdf : %.md
+	pandoc -o $@ --pdf-engine=xelatex $< | true
 
 # Multiple resolution or not ?
 ${SRC_DIR}/%.ico : %.png

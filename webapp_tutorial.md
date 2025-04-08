@@ -36,11 +36,15 @@ Note that you might get a somewhat similar result in a simpler way by just invok
 webapp --html "Hello world!"`
 ```
 
-But this as limited possibilies. Also try the following:
+Also try the following:
 
 ```bash
 webapp  -d -s -t 'MsgBox' --html 'Hello world!<br/><button onclick=app.exit()>OK</button>' -j "app.set_size(210, 60, 3); app.center(); app.show()"
 ```
+
+However, using this html string option has limited possibilities.
+
+
 
 ## Second step/second app
 
