@@ -63,43 +63,43 @@
    *<ins>Functions:</ins>  
    Asynchronous ones are prepended by a* '\*'  
    ```bash
-   &nbsp;app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
-   &nbsp;app.echo: accepts up to 10 parameters, echo the parameter  
-   &nbsp;app.restore: restore the webapp window.  
-   &nbsp;app.minimize: minimize the webapp window.  
-   &nbsp;app.maximize: maximize the webapp window.  
-   &nbsp;app.enter_fullscreen: set the webapp window in fullscreen mode.  
-   &nbsp;app.exit_fullscreen: exit the webapp window from fullscreen mode.  
-   &nbsp;app.show: show the webapp window.  
-   &nbsp;app.hide: hide the webapp window.  
-   &nbsp;app.set_title: accepts up to 1 parameter, return the actual app title and change it if a new one is provided as a parameter.  
-   &nbsp;app.set_pos: accepts up to 2 parameters, return the actual app position as a json object (x, y) and if there are parameters then change it.  
-   &nbsp;app.center: center the window on the screen, the x and y position and width and height will never be out of the screen.  
-   &nbsp;app.set_size: accepts up to 3 parameters, return the actual app size as a json object (w, h) and if there are parameters then change it.  
-   &nbsp;app.set_geometry: accepts up to 4 parameters, return the actual app position and size as a json object (x, y, w, h) and if there are parameters then change it.  
-   &nbsp;app.set_icon: accepts up to 1 parameter, set window top left icon and return the previous one if thre was.  
-   &nbsp;app.on_geometry: accepts up to 1 parameter, set callback to detect when webapp has moved.  
-   &nbsp;app.on_exit: accepts up to 1 parameter, set callback to detect when webapp is exiting.  
-   &nbsp;app.exit: exit from webapp.  
+    app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
+    app.echo: accepts up to 10 parameters, echo the parameter  
+    app.restore: restore the webapp window.  
+    app.minimize: minimize the webapp window.  
+    app.maximize: maximize the webapp window.  
+    app.enter_fullscreen: set the webapp window in fullscreen mode.  
+    app.exit_fullscreen: exit the webapp window from fullscreen mode.  
+    app.show: show the webapp window.  
+    app.hide: hide the webapp window.  
+    app.set_title: accepts up to 1 parameter, return the actual app title and change it if a new one is provided as a parameter.  
+    app.set_pos: accepts up to 2 parameters, return the actual app position as a json object (x, y) and if there are parameters then change it.  
+    app.center: center the window on the screen, the x and y position and width and height will never be out of the screen.  
+    app.set_size: accepts up to 3 parameters, return the actual app size as a json object (w, h) and if there are parameters then change it.  
+    app.set_geometry: accepts up to 4 parameters, return the actual app position and size as a json object (x, y, w, h) and if there are parameters then change it.  
+    app.set_icon: accepts up to 1 parameter, set window top left icon and return the previous one if thre was.  
+    app.on_geometry: accepts up to 1 parameter, set callback to detect when webapp has moved.  
+    app.on_exit: accepts up to 1 parameter, set callback to detect when webapp is exiting.  
+    app.exit: exit from webapp.  
    *app.system: needs 1 parameter, run an external command in a thread and return its output.  
    *app.pipe: needs 1 parameter, run an external command in a pipe and return its output.  
    *app.wpipe: needs 1 parameter, run an external command in a wstring pipe and return its URI encoded output.  
    *app.shell: needs 1 parameter, open an external windows command in a thread (See ShellExecute) and return its output.  
    *env.get: needs 1 parameter, return the value of an environment variable.  
-   &nbsp;env.set: needs 2 parameters, set an environment variable to a given value and return the previous one if it existed.  
-   &nbsp;env.ins: needs 2 parameters, insert a value into an environment variable and return the previous one if it existed.  
-   &nbsp;env.add: needs 2 parameters, add a value to an environment variable and return the previous one if it existed.  
-   &nbsp;env.del: needs 1 parameter, delete an environment variable and return its last value if it existed.  
+    env.set: needs 2 parameters, set an environment variable to a given value and return the previous one if it existed.  
+    env.ins: needs 2 parameters, insert a value into an environment variable and return the previous one if it existed.  
+    env.add: needs 2 parameters, add a value to an environment variable and return the previous one if it existed.  
+    env.del: needs 1 parameter, delete an environment variable and return its last value if it existed.  
    *env.get_path: return the value of the PATH environment variable.  
-   &nbsp;env.add_path: needs 1 parameter, add a program path to the PATH env variable if is not yet added.  
-   &nbsp;env.ins_path: needs 1 parameter, insert a program path to the PATH env variable if is not yet added.  
-   &nbsp;env.set_path: needs 1 parameter, replace the whole value of the PATH environment variable with the provided one.  
-   &nbsp;env.del_path: delete the value of the PATH environment variable.  
+    env.add_path: needs 1 parameter, add a program path to the PATH env variable if is not yet added.  
+    env.ins_path: needs 1 parameter, insert a program path to the PATH env variable if is not yet added.  
+    env.set_path: needs 1 parameter, replace the whole value of the PATH environment variable with the provided one.  
+    env.del_path: delete the value of the PATH environment variable.  
    *fs.exists: needs 1 parameter, return true if file exists else false and set 'fs.last_error' variable.  
-   &nbsp;fs.current_path: accepts up to 1 parameter, change the current path to the one provided, if any, and return it, if ok, else return false and set the variable 'fs.last_error'.  
+    fs.current_path: accepts up to 1 parameter, change the current path to the one provided, if any, and return it, if ok, else return false and set the variable 'fs.last_error'.  
    *fs.absolute: needs 1 parameter, return the corresponding absolute path of a the parameter or false if error.  
    *fs.mkdir: needs 1 parameter, create a directory with the provided path if it does not already exists and return true if ok else false and set the variable 'fs.last_error'.  
-   &nbsp;fs.stat: accepts up to 2 parameters, gives information details on the provided path in json format if second parameter is true (else in text).  
+    fs.stat: accepts up to 2 parameters, gives information details on the provided path in json format if second parameter is true (else in text).  
    *fs.ls: accepts up to 4 parameters, list path (default is current directory), in a simple (default) or detailled list if second parameter is true, in one of the following format: text(default), html or json as defined by the third parameter andrecursively if fourth parameter is true (default is not).  
    *fs.copy: needs 2 parameters, copy a file or directory (recursively) from 'path1' to 'path2'. Already existing files are updated if necessary. Return true if ok else false and set the variable 'fs.last_error'.  
    *fs.remove: needs 1 parameter, remove a file or an empty directory, return true if ok else false and set the variable 'fs.last_error'.  
@@ -114,12 +114,12 @@
    *io.read: read a string from stdin and return it.  
    *io.readln: read a line ending with carriage return, from stdin and return it.  
    *io.has_console: return true if has console else false.  
-   &nbsp;gui.msgbox: accepts up to 2 parameters, display a message dialog in a 'close to Windows MessageBox style', First parameter is the message and second one indicate whether we need only an 'OK' button (0), or an 'OK' and a 'Cancel' button (1) or a 'Yes' and a 'No' button (2).  
-   &nbsp;gui.opendlg: accepts up to 3 parameters, display a Windows file selection dialog with the eventually provided filter, initial directory and title. The filter consist in pairs of strings with the first of each providing the name and the second providing the pattern, eventual multiple pattern are separated by a comma (,) and eventual multiple pairs are separated by a pipe (|). If needed ',' & '|' might be neutralized by '\' (a doubled one in javascript).  
-   &nbsp;gui.savedlg: accepts up to 3 parameters, display a Windows file selection dialog with the eventually provided filter, initial directory and title. The filter consist in pairs of strings with the first of each providing the name and the second providing the pattern, eventual multiple pattern are separated by a comma (,) and eventual multiple pairs are separated by a pipe (|). If needed ',' & '|' might be neutralized by '\' (a doubled one in javascript).  
-   &nbsp;gui.folderdlg: accepts up to 3 parameters, display a Windows folder selection dialog with the eventually provided initial directory and title (Windows does not allow filter with folder selection).  
-   &nbsp;win.dark_bar: accepts up to 1 parameter, Set (true) on unset (false) the dark mode for the window bar. It is the responsability of web application to manage a dark mode for the DOM.  
-   &nbsp;win.printdlg: Open a print or preprint dialog (in this case parameter to true or 'preprint'.)  
+    gui.msgbox: accepts up to 2 parameters, display a message dialog in a 'close to Windows MessageBox style', First parameter is the message and second one indicate whether we need only an 'OK' button (0), or an 'OK' and a 'Cancel' button (1) or a 'Yes' and a 'No' button (2).  
+    gui.opendlg: accepts up to 3 parameters, display a Windows file selection dialog with the eventually provided filter, initial directory and title. The filter consist in pairs of strings with the first of each providing the name and the second providing the pattern, eventual multiple pattern are separated by a comma (,) and eventual multiple pairs are separated by a pipe (|). If needed ',' & '|' might be neutralized by '\' (a doubled one in javascript).  
+    gui.savedlg: accepts up to 3 parameters, display a Windows file selection dialog with the eventually provided filter, initial directory and title. The filter consist in pairs of strings with the first of each providing the name and the second providing the pattern, eventual multiple pattern are separated by a comma (,) and eventual multiple pairs are separated by a pipe (|). If needed ',' & '|' might be neutralized by '\' (a doubled one in javascript).  
+    gui.folderdlg: accepts up to 3 parameters, display a Windows folder selection dialog with the eventually provided initial directory and title (Windows does not allow filter with folder selection).  
+    win.dark_bar: accepts up to 1 parameter, Set (true) on unset (false) the dark mode for the window bar. It is the responsability of web application to manage a dark mode for the DOM.  
+    win.printdlg: Open a print or preprint dialog (in this case parameter to true or 'preprint'.)  
    *win.regsto: accepts up to 3 parameters, store a string to the Windows registry.  
    *win.regget: accepts up to 3 parameters, retrieve a string from the Windows registry.  
 ```
