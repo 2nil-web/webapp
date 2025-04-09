@@ -24,4 +24,4 @@ This application uses the : [webview library](https://github.com/webview/webview
 8. Build  
    - To set the webview library run the "scripts/update_webviews.sh" script under bash. And try to follow the script directives.  
    - Then run make under Windows/MSys2 or Linux.  
-   - Or build the webapp.sln under MS Visual Studio.  
+   - Or build the webapp.sln under MS Visual Studio.
