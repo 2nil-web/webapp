@@ -43,23 +43,23 @@
    <ins>List of the variables and functions for the objects extending the webview</ins>  
    *<ins>Variables:</ins>*  
    Read-only ones are prepended by a '-'*  
-   -app.sysname: provide the name of the system, this may help to assert in your javascript code that you are running a webapp, something like console.log(typeof app.system === 'undefined'?'not a webapp':'is a webapp').  
-   -app.x: horizontal position of the upper left corner of the webapp window.  
-   -app.y: vertical position of the upper left corner of the webapp window.  
-   -app.w: horizontal position of the lower left corner of the webapp window.  
-   -app.h: vertical position of the upper left corner of the webapp window.  
-   All these coordinate variables are updated in real time. To assert it, try something like:  
-   (async()=>{ elt=document.createElement('i'); document.body.appendChild(elt); new Promise(function (resolve, reject) { (function _(){ coords=`(${app.x}, ${app.y}, ${app.w}, ${app.h})`; if (elt.innerText != coords) { elt.innerText=coords; } timeoutId=setTimeout(_, 10); })(); }) })()  
-   And to stop it, later:  
-   clearTimeout(timeoutId); elt.remove()  
-   -app.title: title of the webapp window, usually displayed one its title bar.  
-   -app.icon: file name of the icon used by the webapp.  
-   -app.info: informations about the webapp.  
-   -app.state: contains the state of the application windows, may have one of the following values: normal, maximised, minimised, hidden, full_screen  
-   -app.last_error: may contains the last app object error  
-   -env.path: actual value of the PATH environment variable  
-   -fs.last_error: may contains the last fs object error  
-   -fs.cwd: current working directory  
+   <code>-app.sysname: provide the name of the system, this may help to assert in your javascript code that you are running a webapp, something like console.log(typeof app.system === 'undefined'?'not a webapp':'is a webapp').
+   -app.x: horizontal position of the upper left corner of the webapp window.
+   -app.y: vertical position of the upper left corner of the webapp window.
+   -app.w: horizontal position of the lower left corner of the webapp window.
+   -app.h: vertical position of the upper left corner of the webapp window.
+   All these coordinate variables are updated in real time. To assert it, try something like:
+   (async()=>{ elt=document.createElement('i'); document.body.appendChild(elt); new Promise(function (resolve, reject) { (function _(){ coords=`(${app.x}, ${app.y}, ${app.w}, ${app.h})`; if (elt.innerText != coords) { elt.innerText=coords; } timeoutId=setTimeout(_, 10); })(); }) })()
+   And to stop it, later:
+   clearTimeout(timeoutId); elt.remove()
+   -app.title: title of the webapp window, usually displayed one its title bar.
+   -app.icon: file name of the icon used by the webapp.
+   -app.info: informations about the webapp.
+   -app.state: contains the state of the application windows, may have one of the following values: normal, maximised, minimised, hidden, full_screen
+   -app.last_error: may contains the last app object error
+   -env.path: actual value of the PATH environment variable
+   -fs.last_error: may contains the last fs object error
+   -fs.cwd: current working directory</code>
    *<ins>Functions:</ins>  
    Asynchronous ones are prepended by a* '\*'  
    <code>&nbsp;app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.
