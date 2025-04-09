@@ -49,9 +49,9 @@
    -app.w: horizontal position of the lower left corner of the webapp window.
    -app.h: vertical position of the upper left corner of the webapp window.
    All these coordinate variables are updated in real time. To assert it, try something like:
-   (async()=>{ elt=document.createElement('i'); document.body.appendChild(elt); new Promise(function (resolve, reject) { (function _(){ coords=`(${app.x}, ${app.y}, ${app.w}, ${app.h})`; if (elt.innerText != coords) { elt.innerText=coords; } timeoutId=setTimeout(_, 10); })(); }) })()
+   <ins>(async()=>{ elt=document.createElement('i'); document.body.appendChild(elt); new Promise(function (resolve, reject) { (function _(){ coords=`(${app.x}, ${app.y}, ${app.w}, ${app.h})`; if (elt.innerText != coords) { elt.innerText=coords; } timeoutId=setTimeout(_, 10); })(); }) })()</ins>
    And to stop it, later:
-   clearTimeout(timeoutId); elt.remove()
+   <ins>clearTimeout(timeoutId); elt.remove()</ins>
    -app.title: title of the webapp window, usually displayed one its title bar.
    -app.icon: file name of the icon used by the webapp.
    -app.info: informations about the webapp.
