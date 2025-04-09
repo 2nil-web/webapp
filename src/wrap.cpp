@@ -780,11 +780,12 @@ std::string webview_wrapper::help_objs(std::string fmt)
   }
   else
   {
+    std::string vdec = {};
     for (auto fh : func_help)
     {
       // logTrace("DV TEXT" + std::get<1>(fh));
       std::string dv = class_descvars(std::get<1>(fh), false);
-      s += dv;
+      vdec += dv;
 
       // If function is a promise then prefix its name with a star
       s += (std::get<0>(fh) ? "*" : " ");
@@ -818,7 +819,7 @@ std::string webview_wrapper::help_objs(std::string fmt)
 
       s += std::get<3>(fh) + '\n';
     }
-    res = '"' + to_htent(s) + '"';
+    res = "<i><u>Variables:</u>\nRead-only ones are prepended by a '-'</i>\n" + to_htent(vdec) + "<i><u>Functions:</u>\nAsynchronous ones are prepended by a '*'</i>\n" + to_htent(s);
   }
 
   // logTrace(res);
@@ -866,7 +867,7 @@ void webview_wrapper::create(void *wnd)
         auto fmt = json_parse(req, "", 0);
         return help_objs(fmt);
       },
-      "return this help message and the list of all the available variables and functions for the app.", -1);
+      "return this help message and the list of all the available variables and functions for the objects extending the app.", -1);
 }
 
 void webview_wrapper::create(bool debug, void *wnd)
@@ -1734,7 +1735,9 @@ void webview_wrapper::decvar(const std::filesystem::path &pcname, const std::fil
 
   // { "object": "app", "name":  "x", "readonly": true, "desc":  "...", }
   std::string more_desc_json = "{\"object\": \"" + cname + "\",\"var_name\": \"" + vname + "\", \"readonly\": " + ro + ", \"desc\": \"" + desc + "\" }";
-  // logWarn("DECVAR:" + more_desc_json+" ; val: "+sval);
+  // logDebug("DECVAR:" + more_desc_json+" ; val: "+sval);
+
+  logDebug("DECVAR:", more_desc_text, " ; val: ", sval);
 
   vars_desc_json.insert({cname, more_desc_json});
   vars_desc_text.insert({cname, more_desc_text});
@@ -1799,7 +1802,7 @@ std::string webview_wrapper::class_descvars(std::string fname, bool json)
     for (auto range = vars_desc_json.equal_range(cname); auto &[_, value] : std::ranges::subrange(range.first, range.second))
     {
       res += value + ",";
-      // logTrace("DESCVARS_JSON: " + value);
+      logDebug("DESCVARS_JSON: " + value);
     }
 
     if (res == "{\"vars\": [")
@@ -1815,13 +1818,14 @@ std::string webview_wrapper::class_descvars(std::string fname, bool json)
   {
     for (auto range = vars_desc_text.equal_range(cname); auto &[_, value] : std::ranges::subrange(range.first, range.second))
     {
-      res += value + '\n';
-      // logTrace("DESCVARS_TEXT: " + value);
+      res += value.insert(1, cname + '.') + '\n';
+      // res += value + '\n';
+      logDebug("DESCVARS_TEXT: ", value, ", cname: ", cname);
     }
-    if (!res.empty())
-      res = "<i><u>Variables:</u>\nRead-only ones are prepended by a '-'</i>\n" + res + "<i><u>Functions:</u>\nAsynchronous ones are prepended by a '*'</i>\n";
+    //    if (!res.empty()) res = "<i><u>Variables for object '"+cname+"':</u>\nRead-only ones are prepended by a '-'</i>\n" + res + "<i><u>Functions:</u>\nAsynchronous ones are prepended by a '*'</i>\n";
   }
 
+  logDebug("class_descvars", res);
   return res;
 }
 

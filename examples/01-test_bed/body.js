@@ -355,7 +355,7 @@ Something like that:<br/>
 <u><span style=\"font-family:monospace\">${example_string}<\/span></u><br/>
 Try to copy/paste the previous line in the 'Javascript line' field and click on the 'Run the line !' button, or ${example_url}<br/>
 Notice that when calling one of these functions, you have to deal with the asynchronous context by using ${mk_url('promises', prom_url)} or the ${mk_url('await', await_url)} keyword in an ${mk_url('asynchronous function', async_url)}.<br/>
-Basically if you expect a return from any of these function you must call it in an asynchronous way.
+Basically if you expect a return from any of these functions you must call it in an asynchronous way.
 The only context that could allows you to avoid using asynchronous mode would be by calling a function that you do not expect its return, for instance 'app.set_title("New title"), if you don't need to know the old title'.<br/>
 `);
     //s=await window.app.help();

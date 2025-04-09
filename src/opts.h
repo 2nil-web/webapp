@@ -5,11 +5,7 @@
 #include <string>
 #include <vector>
 
-#ifdef _MSVC_LANG
 #include <getopt.h>
-#else
-#include <getopt.h>
-#endif
 
 typedef std::function<void(char c, std::string, std::string)> OptFunc;
 // typedef [](char c, std::string name, std::string val)->void LambdaOptFunc;

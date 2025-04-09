@@ -140,7 +140,7 @@ std::vector<run_opt> r_opts = {
     {"", '\0', 0, 0, "\tThese three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment.", nullptr},
     {"", '\0', 0, 0, "\tIf neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'.", nullptr},
     // May only be called after the webview creation
-    {"func", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the functions extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
+    {"help-js", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the javascript objects extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
     {"icon", 'n', opt_only, required_argument, "Set windows icon with the provided .ico file.", [](char, std::string, std::string val) -> void { icon_file = val; }},
 #ifdef _WIN32
     {"minimized", 'm', opt_only, no_argument, "The webview window will be minimized at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::minimized; }},
@@ -150,7 +150,7 @@ std::vector<run_opt> r_opts = {
     {"hidden", 's', opt_only, no_argument, "The webview window will not be shown at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::hidden; }},
 
 #endif
-    {"hints", 't', opt_only, required_argument,
+    {"hints", 'k', opt_only, required_argument,
      "Set webview hints => 0: width and height are default size, 1 set them as "
      "minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other "
      "value is ignored.",
@@ -365,9 +365,6 @@ int WINAPI WinMain(HINSTANCE /*hInst*/, HINSTANCE /*hPrevInst*/, LPSTR /*lpCmdLi
 int main(int argc, char **argv, char **)
 {
 #endif
-  // Calls to logFunctions before getopt_init may not work correctly ...
-  getopt_init(argc, argv, r_opts, appInfo(), "", "(c) Denis Lalanne. Provided as is. NO WARRANTY of any kind.");
-
   // Must force UTF8 with MSVC
 #ifdef _MSC_VER
   setlocale(LC_ALL, ".UTF8");
@@ -403,6 +400,9 @@ int main(int argc, char **argv, char **)
     // do_fstat(url);
   }
 #endif
+
+  // Calls to logFunctions before getopt_init will not work correctly ...
+  getopt_init(argc, argv, r_opts, appInfo(), "", "(c) Denis Lalanne. Provided as is. NO WARRANTY of any kind.");
 
 #ifdef TEST_LOG
   logTrace("Test logTrace");
@@ -447,28 +447,31 @@ int main(int argc, char **argv, char **)
 
   webview_set(init_win_state, devmode, runjs_and_exit);
 
-  std::string help_func_tit = "List of the variables and functions extending the webview", help_func_msg = w.help_objs();
+  std::string help_func_tit = "List of the variables and functions for the objects extending the webview", help_func_text, help_func_html = w.help_objs();
+
+  help_func_text = help_func_html;
+
   if (call_func_help || title == "Missing parameter")
   {
     logDebug("title: ", title);
-    trim(help_func_msg, "\"");
-    replace_all(help_func_msg, "&#xa;", "\n");
-    replace_all(help_func_msg, "&#10;", "\n");
-    help_func_msg = std::regex_replace(help_func_msg, std::regex("\\<.*?\\>"), "");
+    trim(help_func_text, "\"");
+    replace_all(help_func_text, "&#xa;", "\n");
+    replace_all(help_func_text, "&#10;", "\n");
+    help_func_text = std::regex_replace(help_func_text, std::regex("\\<.*?\\>"), "");
   }
 
   if (title == "Missing parameter")
   {
     logDebug("title: ", title);
-    std::string hf = help_func_msg;
+    std::string hf = help_func_html;
     replace_all(hf, "\\r", "<br>");
     replace_all(hf, "\\n", "<br>");
     if (url.empty())
       url += "html://";
     url += "<pre style=\"white-space: pre-wrap;\"><u>" + help_func_tit + "</u><br/>" + hf + "</pre>";
 
-    if (!hf.empty())
-      std::cout << help_func_tit << std::endl << hf << std::flush;
+    if (!help_func_html.empty())
+      std::cout << help_func_tit << std::endl << help_func_text << std::flush;
   }
 
   if (starts_with(url, "html://"))
@@ -484,7 +487,7 @@ int main(int argc, char **argv, char **)
 
   if (call_func_help)
   {
-    std::string s = help_func_msg;
+    std::string s = help_func_text;
     std::cout << help_func_tit << std::endl << s << std::flush;
   }
   else if (!help_or_version)

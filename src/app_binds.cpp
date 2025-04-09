@@ -408,5 +408,5 @@ void create_app_binds(webview_wrapper &w)
   w.decvar("app", "icon", "file name of the icon used by the webapp.", std::filesystem::path(w.icon_file));
   w.decvar("app", "info", "informations about the webapp.", appInfo());
   w.decvar("app", "state", "contains the state of the application windows, may have one of the following values: normal, maximised, minimised, hidden, full_screen", "normal");
-  w.decvar("app", "last_error", "may contains the last fs object error", "No error with application object");
+  w.decvar("app", "last_error", "may contains the last app object error", "No error with application object");
 }

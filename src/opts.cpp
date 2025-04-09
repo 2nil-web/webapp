@@ -251,7 +251,7 @@ std::string usage(std::ostream &out)
       if (hlp.size() > 0)
         hlp[0] = tolower(hlp[0]);
       // oss.width(rion); oss << std::left << uname;
-      oss << uname << spc;
+      // oss << uname << spc;
       if (isprint(o.val))
         oss << "(" << o.val << ") ";
       else
@@ -263,12 +263,13 @@ std::string usage(std::ostream &out)
       if (o.val == 0)
         oss << "   ";
       else
-        oss << '-' << o.val << ",";
+        oss << '-' << o.val << " ";
       std::string hlp = o.help;
       if (hlp.size() > 0)
         hlp[0] = toupper(hlp[0]);
       // oss.width(rion); oss << std::left << " --"+uname << hlp << std::endl;
-      oss << " --" + uname + spc << hlp << std::endl;
+      // oss << " --" + uname + spc << hlp << std::endl;
+      oss << hlp << std::endl;
     }
   }
 
@@ -315,7 +316,6 @@ std::string appInfo()
   if (app_info::created_at != "")
     aInf += ", " + app_info::created_at;
   aInf += '.';
-  // logTrace(aInf);
   return aInf;
 }
 
@@ -340,7 +340,6 @@ std::wstring appInfoW()
   if (app_info::created_at != "")
     aInf += L", " + s2ws(app_info::created_at);
   aInf += L'.';
-  // logTrace(ws2s(aInf));
   return aInf;
 }
 
@@ -361,7 +360,6 @@ void set_options()
 
   for (size_t i = 0; i < n_opt; i++)
   {
-    // logTrace("myv val ", my_ropts[i].val, ", name ", my_ropts[i].name);
     if (my_ropts[i].name.size() > longest_opname)
       longest_opname = my_ropts[i].name.size();
 
@@ -372,7 +370,9 @@ void set_options()
 
     long_options[i].has_arg = my_ropts[i].has_arg;
     long_options[i].val = my_ropts[i].val;
-    long_options[i].flag = 0;
+    long_options[i].flag = nullptr;
+
+    //   std::cout << "set_options: " << long_options[i].name << ", " << long_options[i].has_arg << ", " << long_options[i].flag << ", " << long_options[i].val << ", " << std::endl;
 
     if (my_ropts[i].val == 0)
       v = val_from_name(my_ropts[i].name);
@@ -397,72 +397,90 @@ void set_options()
     }
   }
 
+  // std::cout << "optstr : " << optstr << std::endl;
   long_options[n_opt] = {0, 0, 0, 0};
 }
 
 std::string get1opts(std::string name, char val, int oi_mode, int has_arg, std::string help, OptFunc func)
 {
-  std::string ret={};
-  if (!name.empty()) {
-    ret+="name: "+name+" / ";
-    ret+="index_from_name(name): "+std::to_string(index_from_name(name))+'('+std::to_string(n_opt)+"), ";
+  std::string ret = {};
+  if (!name.empty())
+  {
+    ret += "name: " + name + " / ";
+    ret += "index_from_name(name): " + std::to_string(index_from_name(name)) + '(' + std::to_string(n_opt) + "), ";
   }
 
-  
-  if (val != 0) {
-  std::string v=std::string(1, val);
-    if (!v.empty()) {
-      ret+="("+v+") / ";
-      ret+="index_from_val(val): "+std::to_string(index_from_val(val))+'('+std::to_string(n_opt)+"), ";
+  if (val != 0)
+  {
+    std::string v = std::string(1, val);
+    if (!v.empty())
+    {
+      ret += "(" + v + ") / ";
+      ret += "index_from_val(val): " + std::to_string(index_from_val(val)) + '(' + std::to_string(n_opt) + "), ";
     }
   }
 
-  switch (oi_mode) {
-    case opt_itr:
-      break;
-    case opt_only:
-      ret+="mode: opt_only, ";
-      break;
-    case itr_only:
-      ret+="mode: itr_only ";
-      break;
-    default:
-      break;
+  switch (oi_mode)
+  {
+  case opt_itr:
+    break;
+  case opt_only:
+    ret += "mode: opt_only, ";
+    break;
+  case itr_only:
+    ret += "mode: itr_only ";
+    break;
+  default:
+    break;
   }
 
-  switch (has_arg) {
-    case no_argument:
-      break;
-    case required_argument:
-      ret+="arg: required_argument ";
-      break;
-    case optional_argument:
-      ret+="arg: optional_argument ";
-      break;
-    default:
-      break;
+  switch (has_arg)
+  {
+  case no_argument:
+    break;
+  case required_argument:
+    ret += "arg: required_argument ";
+    break;
+  case optional_argument:
+    ret += "arg: optional_argument ";
+    break;
+  default:
+    break;
   }
 
-  if (!help.empty()) ret+=help+' ';
-  if (func) ret+="and has a func.";
+  if (!help.empty())
+    ret += help + ' ';
+  if (func)
+    ret += "and has a func.";
 
   return ret;
 }
 
-std::string get1opts(run_opt& opt)
+std::string get1opts(run_opt &opt)
 {
   return get1opts(opt.name, opt.val, opt.oi_mode, opt.has_arg, opt.help, opt.func);
 }
-// Add arg with val and name if not already exists, return true if done else
-// false.
+// insert arg with val and name if not already exists, return true if done else false.
 bool insert_arg_if_missing(const std::string name, const char val, int oi_mode, int has_a = no_argument, const std::string help = "", OptFunc func = nullptr)
 {
-  // logTrace("insert_arg_if_missing, name ", name);
   // Do nothing if val or name already exist
   if (index_from_val(val) > n_opt && index_from_name(name) > n_opt)
   {
-    //    logTrace("Adding ", name );
     my_ropts.insert(my_ropts.begin(), {name, val, oi_mode, has_a, help, func});
+    n_opt++;
+    return true;
+  }
+
+  return false;
+}
+
+// Add arg with val and name if not already exists, return true if done else false.
+bool add_arg_if_missing(const std::string name, const char val, int oi_mode, int has_a = no_argument, const std::string help = "", OptFunc func = nullptr)
+{
+  // Do nothing if val or name already exist
+  if (index_from_val(val) > n_opt && index_from_name(name) > n_opt)
+  {
+    my_ropts.push_back({name, val, oi_mode, has_a, help, func});
     n_opt++;
     return true;
   }
@@ -526,7 +544,7 @@ bool interp()
       {
         if (myopt.oi_mode != opt_only && (myopt.name == cmd || (cmd.size() == 1 && myopt.val == cmd[0])))
         {
-          std::cout << "n [" << myopt.name << "], cmd [" << cmd << ']' << std::endl;
+          // std::cout << "n [" << myopt.name << "], cmd [" << cmd << ']' << std::endl;
           found_cmd = true;
           if (myopt.func != nullptr)
             myopt.func(myopt.val, myopt.name, param);
@@ -549,7 +567,6 @@ bool interp()
   return true;
 }
 
-
 void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std::string pIntro, const std::string pVersion, const std::string pCopyright)
 {
   progpath = std::filesystem::path(argv[0]).stem().string();
@@ -557,14 +574,27 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
   if (pVersion != "")
     app_info::version = pVersion;
   copyright = pCopyright;
-  //std::cout << "1. OPT L: " << pOptions.size() << std::endl;
-  for (auto vo : pOptions)
+  // std::cout << "1. OPT L: " << pOptions.size() << std::endl;
+  auto vo = pOptions.end();
+  while (vo != pOptions.begin())
   {
-    my_ropts.push_back(vo);
-    //std::cout << "1. " << get1opts(vo) << std::endl;
+    --vo;
+    //     std::cout << get1opts(*vo) << std::endl;
+    //    insert_arg_if_missing(vo->name, vo->val, vo->oi_mode, vo->has_arg, vo->help, vo->func);
+    my_ropts.insert(my_ropts.begin(), *vo);
+    //        {vo->name, vo->val, vo->oi_mode, vo->has_arg, vo->help, vo->func});
+    // n_opt++;
   }
+  // for (auto vo : pOptions)
+  //  {
+  // my_ropts.push_back(vo);
+  // Remplacer insert_arg_if_missing par "add_arg_if_missing"
+  //    add_arg_if_missing(vo.name, vo.val, vo.oi_mode, vo.has_arg, vo.help, vo.func);
 
-  n_opt=my_ropts.size();
+  // std::cout << "1. " << get1opts(vo) << std::endl;
+  //  }
+
+  //  n_opt=my_ropts.size();
 
   /*
     insert_arg_if_missing("quiet", 'q', opt_only, no_argument, "Run silently and do not display a banner in interactive mode.", [] (char, std::string, std::string) -> void { quiet=true; });
@@ -575,26 +605,21 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
   insert_arg_if_missing("version", 'v', opt_itr, no_argument, "display version information and eventually exit.", getVersion);
   insert_arg_if_missing("help", 'h', opt_itr, no_argument, "print this message and eventually exit.", getUsage);
 
-  //std::cout << "2. OPT L: " << my_ropts.size() << std::endl;
-  for (auto vo:my_ropts) {
-    //std::cout << "2. " << get1opts(vo) << std::endl;
-    //logTrace("val ", vo.val, ", name ",  vo.name, ", help [[", vo.help, "]]" );
+  // std::cout << "2. OPT L: " << my_ropts.size() << std::endl;
+  for (auto vo : my_ropts)
+  {
+    // std::cout << "2. " << get1opts(vo) << std::endl;
   }
 
   set_options();
-  // logTrace("optstr ", optstr);
 
   int option_index = 0, c;
-
-  // for (int i=0; i < argc; i++) logTrace("argv[", i, "]=", argv[i] );
 
   size_t idx;
   std::string oarg;
 
   while ((c = getopt_long_only(argc, argv, optstr.c_str(), long_options, &option_index)) != -1)
   {
-    // logTrace("LOOP val [", (char)c, "], name [", long_options[option_index].name, "], idx ", option_index, ", n_opt ", n_opt);
-
     if (c == '?')
     {
       usage(std::cerr);
@@ -607,7 +632,6 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
 
       if (idx < n_opt)
       {
-        // logTrace("Activating option '", (char)c, "', name \"", my_ropts[idx].name, "', arg ? ", my_ropts[idx].val, ", optarg [[", (optarg ? optarg : ""), "]]");
 
         if (my_ropts[idx].func != nullptr)
         {
@@ -636,7 +660,6 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
             break;
           }
 
-          // logTrace("Calling func for arg ", my_ropts[idx].val, "|", my_ropts[idx].name, "|", oarg);
           my_ropts[idx].func(c, my_ropts[idx].name, oarg);
         }
       }

@@ -152,7 +152,10 @@ static int process_long_opti_a(int argc, char **argv, const char *optstring, con
     if (!long_only || argv[d->optind][1] == '-' || strchr(optstring, *d->__nextchar) == NULL)
     {
       if (print_errors)
+      {
         fprintf(stderr, "%s: unrecognized option '%s%s'\n", argv[0], prefix, d->__nextchar);
+      }
+
       d->__nextchar = NULL;
       d->optind++;
       d->optopt = 0;
@@ -423,11 +426,7 @@ int _getopt_long_only_r_a(int argc, char *const *argv, const char *options, cons
   return _getopt_internal_r_a(argc, argv, options, long_options, opt_index, 1, d, 0);
 }
 
-//
-//
 //	Unicode Structures and Functions
-//
-//
 
 static struct _getopt_data_w
 {
@@ -566,6 +565,7 @@ static int process_long_opti_w(int argc, wchar_t **argv, const wchar_t *optstrin
     {
       if (print_errors)
         fwprintf(stderr, L"%s: unrecognized option '%s%s'\n", argv[0], prefix, d->__nextchar);
+
       d->__nextchar = NULL;
       d->optind++;
       d->optopt = 0;

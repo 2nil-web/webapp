@@ -6,7 +6,7 @@ include header.mk
 
 PREFIX=webapp
 SRCS=$(wildcard ${SRC_DIR}/*.cpp)
-SRCS:=$(filter-out ${SRC_DIR}/getopt.cpp,${SRCS})
+#SRCS:=$(filter-out ${SRC_DIR}/getopt.cpp,${SRCS})
 #SRCS:=$(addprefix ${SRC_DIR}/,${SRCS})
 
 ifeq (${TARGET_API},windows)
@@ -50,6 +50,7 @@ TARGET=${TARGET_CONS}
 endif
 TARGETS=version_check.txt src/version.h src/werr_map.h src/wm_map.h ${SRC_DIR}/${PREFIX}.ico ${TARGET} README.docx webapp_quick_user_doc_and_reference.pdf
 else
+OBJS:=$(filter-out ${TARGET_DIR}/getopt.o,${OBJS})
 TARGETS=version_check.txt src/version.h ${TARGET}
 endif
 
@@ -58,7 +59,7 @@ all : ${TARGETS}
 
 webapp_quick_user_doc_and_reference.pdf : webapp_quick_user_doc_and_reference.docx
 	pandoc -o $@ -V geometry:landscape -f docx -t pdf $<
-
+ 
 webapp_tutorial.pdf : webapp_tutorial.md
 	@echo "Converting $< to $@"
 	@pandoc -o $<.html --pdf-engine=xelatex $<
