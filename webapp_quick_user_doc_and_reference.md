@@ -34,7 +34,7 @@
    Below is a list of all the added variables and functions to this webview app.  
    To test them you may encapsulated their result in 'template literal' within any output function such as console.log or through the DOM.  
    Something like that:  
-   <ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins>  
+   <code><ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins></code>  
    Notice that when calling one of these functions, you have to deal with the asynchronous context by using  promises or the await keyword in an .  
    Basically if you expect a return from any of these functions you must call it in an asynchronous way. The only context that could allows you to avoid using asynchronous mode would be by calling a function that you do not expect its return, for instance 'app.set_title("New title"), if you don't need to know the old title'.  
 
