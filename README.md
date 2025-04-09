@@ -14,7 +14,7 @@ This application uses the : [webview library](https://github.com/webview/webview
 4. A Makefile is provided that allow the application to be built under the gcc/g++ compiler suite.  
 5. An .sln/.vcxproj pair of files is provided that allow the application to be built under the MS Visual Studio compiler suite.  
 6. The application is written in C++.  
-   - It is (*roughly*) tested under Windows and Linux, mainly Debian, but the binary produced under Debian also works under Fedora, Arch and Ubuntu.  
+   - It is (*roughly*) tested under Windows and Linux(mainly Debian), but the binary produced under Debian also works under Fedora, Arch and Ubuntu.  
    - It remains to be tested under MacOS although it should work (or at least compile ...), as stated by the webview library documentation ...  
    - An svg icon is provided that can be used to create a .ico file with magick convert. Or provide your own .ico file.  
    - C++ files are formatted using clang-format  
@@ -22,5 +22,5 @@ This application uses the : [webview library](https://github.com/webview/webview
    - The resulting binary size  can be reduced with upx (make upx).  
 7. Build  
    - To set the webview library run the "scripts/update_webviews.sh" script under bash. And try to follow the script directives.  
-   - Then run make under gcc.  
+   - Then run make under Windows/MSys2 or Linux.  
    - Or build the webapp.sln under MS Visual Studio.  
