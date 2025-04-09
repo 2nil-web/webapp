@@ -48,7 +48,7 @@ TARGET_CONS=${TARGET_DIR_CONS}/c${PREFIX}${EXEXT}
 ifeq ($(MAKECMDGOALS),msvc_cons)
 TARGET=${TARGET_CONS}
 endif
-TARGETS=version_check.txt src/version.h src/werr_map.h src/wm_map.h ${SRC_DIR}/${PREFIX}.ico ${TARGET} README.docx webapp_quick_user_doc_and_reference.pdf
+TARGETS=version_check.txt src/version.h src/werr_map.h src/wm_map.h ${SRC_DIR}/${PREFIX}.ico ${TARGET} # README.docx webapp_quick_user_doc_and_reference.pdf
 else
 OBJS:=$(filter-out ${TARGET_DIR}/getopt.o,${OBJS})
 TARGETS=version_check.txt src/version.h ${TARGET}
