@@ -32,8 +32,7 @@
 
 2. **<ins>Some indications</ins>**  
    Below is a list of all the added variables and functions to this webview app.  
-   You can test them through the fields 'Javascript line' or 'Javascript file'.  
-   There eventual output may be encapsulated in a  template literal within any output function such as console.log or by displaying their result in the DOM.  
+   To test them you may encapsulated their result in 'template literal' within any output function such as console.log or through the DOM.  
    Something like that:  
    <ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins>  
    Notice that when calling one of these functions, you have to deal with the asynchronous context by using  promises or the await keyword in an .  
