@@ -62,7 +62,7 @@
    -fs.cwd: current working directory  
    *<ins>Functions:</ins>  
    Asynchronous ones are prepended by a* '\*'  
-   ```html
+   <code>
     app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
     app.echo: accepts up to 10 parameters, echo the parameter  
     app.restore: restore the webapp window.  
@@ -122,4 +122,4 @@
     win.printdlg: Open a print or preprint dialog (in this case parameter to true or 'preprint'.)  
    *win.regsto: accepts up to 3 parameters, store a string to the Windows registry.  
    *win.regget: accepts up to 3 parameters, retrieve a string from the Windows registry.  
-```
+</code>
