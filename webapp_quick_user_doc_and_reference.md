@@ -60,9 +60,9 @@
    -env.path: actual value of the PATH environment variable  
    -fs.last_error: may contains the last fs object error  
    -fs.cwd: current working directory  
-   *<ins>Functions:</ins>  
-   Asynchronous ones are prepended by a* '\*'  
-   <code>&nbsp;app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
+*<ins>Functions:</ins>  
+Asynchronous ones are prepended by a* '\*'  
+<code>&nbsp;app.help: accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
 &nbsp;app.echo: accepts up to 10 parameters, echo the parameter  
 &nbsp;app.restore: restore the webapp window.  
 &nbsp;app.minimize: minimize the webapp window.  
