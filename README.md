@@ -2,7 +2,7 @@
 *A tool to create standalone applications based on web technology.*  
 This application uses the : [webview library](https://github.com/webview/webview.git).  
 1. For those who want to try the tool, a small tutorial is available in tutorial.md.  
-2. And to dive a little bit deeper into it, a 'quick and dirty' user documentation and reference is available with the file 'webapp_quick_user_doc_and_reference.pdf'. It basically repeats what is already indicated with the --help and --func-help options and also in the folder 'examples/01-test_bed'.  
+2. And to dive a little bit deeper into it, a 'quick and dirty' user documentation and reference is available with the file 'webapp_quick_user_doc_and_reference.md'. It basically repeats what is already indicated with the --help and --func-help options and also in the folder 'examples/01-test_bed'.  
 3. Prerequisites to build the app are:  
    - git to download the webview library.  
    - make and g++ to build the webview lib and the app under linux, Windows (MSys2) and eventually MacOS (this last one not tested yet).  
