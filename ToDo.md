@@ -14,34 +14,30 @@
 
 ## Documentation
 
-- [ ] A rework of the README.md is needed ✅🚧
+- [ ] A rework of the README.md is needed ✅
 
-- [ ] A Javascript developper's manual/tutorial may be useful ✅🚧
+- [ ] A Javascript developper's tutorial may be useful ✅
 
-- [ ] A Javascript developper reference is needed (see app.help())✅🚧
+- [ ] A Javascript developper reference is needed (see app.help())✅
 
 - [ ] C++ developper code reference/explainations
 
-- [ ] Improve code documentation
+- [ ] Improve code documentation 🚧
 
 - [ ] Make a tutorial ✅
 
 ## Code
 
-- [ ] --func-help not working although -u works ... See n_opt, set_options ... in src/opts.cpp
-
 - [ ] Cleaning up code, especially dead code
 
-- [ ] Improve GTK 3
+- [ ] Improve GTK 3 (or switch to gtkmm).
 
-- [ ] Ensure that the GTK 4 implementation is working correctly and eventually improve it
-  
-   *A good latest Ubuntu or Fedora or Arch machines is needed, as the ones coming with Wsl2 on Windows 10 gives very poor results, unusable at the GUI level*
+- [ ] Try to have the GTK 4 implementation works🚧
 
 - [ ] Consider moving from GTK C to GTKMM
 
 - [ ] CUI : trying to improve this feature under Windows
     *Utf issues*
-    *cpp/gui_cons (see also cpp/redirectio.cpp) - In progress but may be not possible due to Windows poor console management ...
+    *cpp/gui_cons (see also cpp/redirectio.cpp) - In progress but may be not possible due to Windows poor console management ... See with 'Windows terminal'.
 
 - [ ] May be a reworking/reorganization/refactoring of the conditional compilation
