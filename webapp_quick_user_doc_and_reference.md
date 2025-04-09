@@ -5,30 +5,30 @@
    A tool to create standalone applications based on web technology.  
    <ins>Usage:</ins> webapp [OPTIONS] ARGUMENT  
    <ins>Available options</ins>  
-   -h Print this message and eventually exit.  
-   -v Display version information and eventually exit.  
-   -b Provide additional browser arguments to the webview2 component.  
-   -c Provide an html string that will be directly set to the webview.  
-   -f Provide a url (a remote one must prepended with 'http://').  
-   -p Provide the path where could be found a file with a name within the following ones: webview.min.html, webview.html, index.min.html, index.html, index.min.js, index.js.  
-    The use of these 3 previous options is mutually exclusive.  
-    It is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with "html://", for -c.  
-   -t Set the title of the webview windows, default is to display the url as title if it is provided or nothing if just an html string is provided.  
-   -j Inject a javascript command before loading html page.  
-   -r Run the provided javascript command and exits.  
-   -d Activate the developper mode in the webview.  
-   -l Set the log level. Their precedence is: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF.  
-   -g Set the log file name.  
-   -q Alias for -l OFF.  
-    These three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment.  
-    If neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'.  
-   -u List and briefly explain all the javascript objects extending the webview.  
-   -n Set windows icon with the provided .ico file.  
-   -m The webview window will be minimized at startup.  
-   -M The webview window will be maximized at startup.  
-   -s The webview window will not be shown at startup.  
-   -k Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.  
-   -a Do not generate javascript class instanciation for the webview extension functions.  
+   <code>-h Print this message and eventually exit.
+   -v Display version information and eventually exit.
+   -b Provide additional browser arguments to the webview2 component.
+   -c Provide an html string that will be directly set to the webview.
+   -f Provide a url (a remote one must prepended with 'http://').
+   -p Provide the path where could be found a file with a name within the following ones: webview.min.html, webview.html, index.min.html, index.html, index.min.js, index.js.
+    The use of these 3 previous options is mutually exclusive.
+    It is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with "html://", for -c.
+   -t Set the title of the webview windows, default is to display the url as title if it is provided or nothing if just an html string is provided.
+   -j Inject a javascript command before loading html page.
+   -r Run the provided javascript command and exits.
+   -d Activate the developper mode in the webview.
+   -l Set the log level. Their precedence is: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF.
+   -g Set the log file name.
+   -q Alias for -l OFF.
+    These three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment.
+    If neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'.
+   -u List and briefly explain all the javascript objects extending the webview.
+   -n Set windows icon with the provided .ico file.
+   -m The webview window will be minimized at startup.
+   -M The webview window will be maximized at startup.
+   -s The webview window will not be shown at startup.
+   -k Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.
+   -a Do not generate javascript class instanciation for the webview extension functions</code>
 
 2. **<ins>Some indications</ins>**  
    Below is a list of all the added variables and functions to this webview app.  
