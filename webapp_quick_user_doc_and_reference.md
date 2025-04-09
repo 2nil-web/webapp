@@ -1,10 +1,10 @@
 # A quick user help documentation for webapp  
   
-1. <u>**The -h option output**</u>  
+1. <ins>**The -h option output**</ins>  
    **webapp 0.1.1-first-public-release**  
    A tool to create standalone applications based on web technology.  
-   <u>Usage:</u> webapp [OPTIONS] ARGUMENT  
-   <u>Available options</u>  
+   <ins>Usage:</ins> webapp [OPTIONS] ARGUMENT  
+   <ins>Available options</ins>  
    -h Print this message and eventually exit.  
    -v Display version information and eventually exit.  
    -b Provide additional browser arguments to the webview2 component.  
@@ -30,18 +30,18 @@
    -k Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.  
    -a Do not generate javascript class instanciation for the webview extension functions.  
   
-2. **<u>Some indications</u>**  
+2. **<ins>Some indications</ins>**  
    Below is a list of all the added variables and functions to this webview app.  
    You can test them through the fields 'Javascript line' or 'Javascript file'.  
    There eventual output may be encapsulated in a  template literal within any output function such as console.log or by displaying their result in the DOM.  
    Something like that:  
-   <u>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</u>  
+   <ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins>  
    Notice that when calling one of these functions, you have to deal with the asynchronous context by using  promises or the await keyword in an .  
    Basically if you expect a return from any of these functions you must call it in an asynchronous way. The only context that could allows you to avoid using asynchronous mode would be by calling a function that you do not expect its return, for instance 'app.set_title("New title"), if you don't need to know the old title'.  
   
-3. **<u>The -u output</u>**  
-   <u>List of the variables and functions for the objects extending the webview</u>  
-   *<u>Variables:</u>*  
+3. **<ins>The -u output</ins>**  
+   <ins>List of the variables and functions for the objects extending the webview</ins>  
+   *<ins>Variables:</ins>*  
    Read-only ones are prepended by a '-'*  
    -app.sysname: provide the name of the system, this may help to assert in your javascript code that you are running a webapp, something like console.log(typeof app.system === 'undefined'?'not a webapp':'is a webapp').  
    -app.x: horizontal position of the upper left corner of the webapp window.  
@@ -60,7 +60,7 @@
    -env.path: actual value of the PATH environment variable  
    -fs.last_error: may contains the last fs object error  
    -fs.cwd: current working directory  
-   *<u>Functions:</u>  
+   *<ins>Functions:</ins>  
    Asynchronous ones are prepended by a* '\*'  
    app.help:accepts up to 1 parameter, return this help message and the list of all the available variables and functions for the objects extending the app.  
    app.echo:accepts up to 10 parameters, echo the parameter  
