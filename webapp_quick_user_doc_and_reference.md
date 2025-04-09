@@ -1,4 +1,4 @@
-# A quick user help documentation for webapp
+# A quick user documentation for webapp
 
 ### 1. <ins>**The -h option output**</ins>  
    **webapp 0.1.1-first-public-release**  
