@@ -32,9 +32,9 @@
 
 ## 2. **<ins>Some indications</ins>**  
    Regarding the added variables and functions to this webview app.  
-   ### a. To test them you may encapsulated their result in [template literal](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) within any output function such as console.log or through the DOM. Something similar to the following:  
+   a. To test them you may encapsulated their result in [template literal](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) within any output function such as console.log or through the DOM. Something similar to the following:  
       <code><ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins></code>  
-   ### b. Notice that when calling one of these functions, you have to deal with their asynchronous context by using  [promises](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) or the [await](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/await) keyword in an [asynchronous function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/async_function).  
+   b. Notice that when calling one of these functions, you have to deal with their asynchronous context by using  [promises](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) or the [await](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/await) keyword in an [asynchronous function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/async_function).  
       Basically if you expect a return from any of these functions you must call it in an asynchronous way. The only context that could allows you to avoid using asynchronous mode would be by calling a function that you do not expect its return, for instance 'app.set_title("New title"), if you don't need to know the old title'.  
 
 ## 3. **<ins>The -u output</ins>**  
