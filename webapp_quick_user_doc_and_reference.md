@@ -32,7 +32,7 @@
 
 2. **<ins>Some indications</ins>**  
    Below is a list of all the added variables and functions to this webview app.  
-   To test them you may encapsulated their result in 'template literal' within any output function such as console.log or through the DOM.  
+   To test them you may encapsulated their result in [template literal](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Template_literals) within any output function such as console.log or through the DOM.  
    Something like that:  
    <code><ins>cls();console.log("Reworked content of the 'PATH' environment variable (path separators replaced by newlines):");console.log(`${env.path.replace(/;/g, "\n")}`)</ins></code>  
    Notice that when calling one of these functions, you have to deal with the [asynchronous context](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/async_function) by using  [promises](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) or the [await](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/await) keyword in an .  
