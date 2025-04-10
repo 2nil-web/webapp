@@ -88,7 +88,7 @@ struct webview_conf
 {
   win_state init_win_state;
   bool debug, status, zoom, ctx_menu, psw_sav, auto_fill;
-  int xpos, ypos, width, height;
+  int xpos, ypos, width, height, hint;
 };
 
 class webview_wrapper
@@ -153,6 +153,7 @@ public:
   void get_size(int &, int &);
   void set_size(int, int, int hints = -1);
   void set_geometry(int x, int y, int w, int h);
+  void set_hint(int);
   void center();
   bool restore_conf(webview_conf &, std::string fname = ".config.ini");
   bool may_save_conf();

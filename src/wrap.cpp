@@ -1203,7 +1203,7 @@ void webview_wrapper::set_size(int width, int height, int hints)
 
   if (hints < 0)
     hints = WEBVIEW_HINT_NONE;
-  if (hints == WEBVIEW_HINT_MIN || hints == WEBVIEW_HINT_MAX)
+  if (hints >= WEBVIEW_HINT_MIN && hints <= WEBVIEW_HINT_FIXED)
   {
     int owi, ohe;
     get_size(owi, ohe);
@@ -1226,6 +1226,13 @@ void webview_wrapper::set_size(int width, int height, int hints)
   new_geom.w = width;
   new_geom.h = height;
   save_conf();
+}
+
+void webview_wrapper::set_hint(int hint)
+{
+  int aw, ah;
+  get_size(aw, ah);
+  set_size(aw, ah, hint);
 }
 
 void disp_hints()
@@ -1502,8 +1509,10 @@ bool webview_wrapper::may_save_conf()
   {
     if (conf.width != new_geom.w && conf.height != new_geom.h)
     {
-      if (me)
-        me->set_size(conf.width, conf.height);
+      if (me) {
+//        logDebug("conf.width: ", conf.width, ", conf.height: ", conf.height, ", conf.hint: ", conf.hint);
+        me->set_size(conf.width, conf.height, conf.hint);
+      }
       return false;
     }
     else

@@ -18,7 +18,7 @@ Our first application will be the everlasting "Hello World!" app.
 
 You can achieve that in multiple ways:
 
-1. By dropping the webapp binary binary in the folder and just clicking it.
+1. By dropping the webapp binary in the folder and just clicking it.
 2. Or by running at command line the webapp binary and providing it with the path of the folder as its only parameter, something like "/path/to/webapp path/to/first_app"
 3. Or even by embedding the path webapp binary and your app’s folder in a desktop shortcut icon, but the creation of desktop shortcut is not the goal of this tutorial and it may vary depending on the Operating System you’re using.
 
@@ -26,7 +26,7 @@ For the sake of simplicity we will use the first way.
 
 So when double-clicking on the webapp binary your application appears, like that:
 
-<p align="center"><img src="tutorial/first_app.png"><br/>First app</p>
+<p align="center"><img src="tutorial/first_app.png"><br/>Partial view of your First app</p>
 
 Now if you want this application to have a persistent geometry, just add a file called ".config.ini" in its folder. And now when you will move or resize its window,  the last same size and position will be used each time the app will be invoked.
 
@@ -42,9 +42,13 @@ Also try the following:
 webapp  -d -s -t 'MsgBox' --html 'Hello world!<br/><button onclick=app.exit()>OK</button>' -j "app.set_size(210, 60, 3); app.center(); app.show()"
 ```
 
+Or:
+
+```bash
+webapp  -t 'MsgBox' -c 'Hello world!<br/><button onclick=app.exit()>OK</button>' -G 100,100,200,100
+```
+
 However, using this html string option has limited possibilities.
-
-
 
 ## Second step/second app
 

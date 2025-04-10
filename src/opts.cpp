@@ -597,9 +597,8 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
   //  n_opt=my_ropts.size();
 
   /*
-    insert_arg_if_missing("quiet", 'q', opt_only, no_argument, "Run silently and do not display a banner in interactive mode.", [] (char, std::string, std::string) -> void { quiet=true; });
-    insert_arg_if_missing("batch", 'b', opt_only, no_argument, "work in batch mode default is to work in interactive mode if -h or -V are not provided.", [] (char, std::string, std::string) -> void { interp_on=false; });
-    insert_arg_if_missing("inter", 'i', opt_only, no_argument, "work in interactive mode, this is the default mode if -h or -V are not provided.", [] (char, std::string, std::string) -> void { arg_sel=false; interp_on=true; });
+    insert_arg_if_missing("batch", ' ', opt_only, no_argument, "work in batch mode default is to work in interactive mode if -h or -V are not provided.", [] (char, std::string, std::string) -> void { interp_on=false; });
+    insert_arg_if_missing("inter", ' ', opt_only, no_argument, "work in interactive mode, this is the default mode if -h or -V are not provided.", [] (char, std::string, std::string) -> void { arg_sel=false; interp_on=true; });
   */
   // Try to insert --help and --version if not already done
   insert_arg_if_missing("version", 'v', opt_itr, no_argument, "display version information and eventually exit.", getVersion);

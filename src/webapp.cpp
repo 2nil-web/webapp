@@ -34,6 +34,8 @@ typedef void *HWND;
 
 bool devmode = false, runjs_and_exit = false, html_string = false, js_instance = true, call_func_help = false;
 std::string url, title = "", init_js = "";
+webview_wrapper w;
+int ix=200, iy=200, iw=600, ih=400, hint=0;
 
 std::string add_bro_args = "";
 void set_browser_args(char, std::string, std::string val)
@@ -111,7 +113,17 @@ void set_log_level(char, std::string, std::string val)
   check_log_level();
 }
 
-// sed -n "/{/s/.*\('.'\).*/\1/p" src/webapp.cpp | sort
+void chg_ini_geom(char val, std::string name, std::string param)
+{
+  auto scoo=split(param, ',');
+  if (scoo.size() > 0) ix=std::stoi(scoo[0]);
+  if (scoo.size() > 1) iy=std::stoi(scoo[1]);
+  if (scoo.size() > 2) iw=std::stoi(scoo[2]);
+  if (scoo.size() > 3) ih=std::stoi(scoo[3]);
+  if (scoo.size() > 4) hint=std::stoi(scoo[4]);
+}
+
+// sed -n "/{/s/.*, \('.'\).*/\1/p" src/webapp.cpp src/opts.cpp | sort
 void set_path(char, std::string, std::string spath);
 std::vector<run_opt> r_opts = {
 #ifdef _WIN32
@@ -142,6 +154,7 @@ std::vector<run_opt> r_opts = {
     // May only be called after the webview creation
     {"help-js", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the javascript objects extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
     {"icon", 'n', opt_only, required_argument, "Set windows icon with the provided .ico file.", [](char, std::string, std::string val) -> void { icon_file = val; }},
+    {"geometry", 'G', opt_only, required_argument, "Attempt to modify geometry when starting the webapp with the one to four parameter passed, separated by commas (x, y, width, height).", chg_ini_geom},
 #ifdef _WIN32
     {"minimized", 'm', opt_only, no_argument, "The webview window will be minimized at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::minimized; }},
 
@@ -201,7 +214,6 @@ void set_path(std::string spath)
   set_path(0, "", spath);
 }
 
-webview_wrapper w;
 
 HWND *wnd = nullptr;
 
@@ -244,7 +256,7 @@ void webview_set(win_state init_win_state, bool devmode = false, bool _run_and_e
 #endif
   // if (w) w.conf.debug = devmode;
   logDebug("title: ", title);
-  w.conf = {init_win_state, devmode, true, true, true, true, true, 200, 200, 600, 400};
+  w.conf = {init_win_state, devmode, true, true, true, true, true, ix, iy, iw, ih, hint};
   if (call_func_help || help_or_version || title == "Missing parameter")
     w.conf.init_win_state = hidden;
   w.create((void *)wnd);
