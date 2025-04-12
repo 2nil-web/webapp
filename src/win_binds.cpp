@@ -369,60 +369,75 @@ void send_ctrl_p()
   SendKeyUp(VK_CONTROL);
 }
 
-std::string esc_bs(std::string s) {
+std::string esc_bs(std::string s)
+{
   return creplace_all(s, "\\", "\\\\");
 }
 
-std::string esc_brace(std::string s) {
+std::string esc_brace(std::string s)
+{
   return creplace_all(creplace_all(s, "}", "\\}"), "{", "\\{");
 }
 
-struct MONITOR_RESULT {
+struct MONITOR_RESULT
+{
   int n;
   std::string str;
 };
 
-BOOL CALLBACK MonitorEnumProcJSON(HMONITOR monitor, HDC, LPRECT, LPARAM data) {
+BOOL CALLBACK MonitorEnumProcJSON(HMONITOR monitor, HDC, LPRECT, LPARAM data)
+{
   MONITORINFOEXA mi;
-  MONITOR_RESULT* my=(MONITOR_RESULT*)data;
-  
-  mi.cbSize=sizeof(MONITORINFOEXA);
+  MONITOR_RESULT *my = (MONITOR_RESULT *)data;
+
+  mi.cbSize = sizeof(MONITORINFOEXA);
   GetMonitorInfoA(monitor, &mi);
-  if (!my->str.empty()) my->str+=",";
-  my->str+="\"Monitor" + std::to_string(my->n)+"\":{";
-  my->str+=std::string("\"device name\":\"") + esc_bs(mi.szDevice)+"\",";
-  my->str+="\"area\":["+std::to_string(mi.rcMonitor.left)+','+std::to_string(mi.rcMonitor.top)+','+std::to_string(mi.rcMonitor.right)+','+std::to_string(mi.rcMonitor.bottom)+"],";
-  my->str+="\"working area\":["+std::to_string(mi.rcWork.left)+','+std::to_string(mi.rcWork.top)+','+std::to_string(mi.rcWork.right)+','+std::to_string(mi.rcWork.bottom)+"],";
-  my->str+="\"primary monitor\":";
-  if (mi.dwFlags == MONITORINFOF_PRIMARY) my->str+="true";
-  else my->str+="false";
-  my->str+='}';
+  if (!my->str.empty())
+    my->str += ",";
+  my->str += "\"Monitor" + std::to_string(my->n) + "\":{";
+  my->str += std::string("\"device name\":\"") + esc_bs(mi.szDevice) + "\",";
+  my->str += "\"area\":[" + std::to_string(mi.rcMonitor.left) + ',' + std::to_string(mi.rcMonitor.top) + ',' + std::to_string(mi.rcMonitor.right) + ',' + std::to_string(mi.rcMonitor.bottom) + "],";
+  my->str += "\"working area\":[" + std::to_string(mi.rcWork.left) + ',' + std::to_string(mi.rcWork.top) + ',' + std::to_string(mi.rcWork.right) + ',' + std::to_string(mi.rcWork.bottom) + "],";
+  my->str += "\"primary monitor\":";
+  if (mi.dwFlags == MONITORINFOF_PRIMARY)
+    my->str += "true";
+  else
+    my->str += "false";
+  my->str += '}';
   my->n++;
   return TRUE;
 }
 
-std::string GetMonitorsInfoJSON() {
+std::string GetMonitorsInfoJSON()
+{
   MONITOR_RESULT my;
-  my.n=0;
-  my.str={};
+  my.n = 0;
+  my.str = {};
   EnumDisplayMonitors(nullptr, nullptr, MonitorEnumProcJSON, (LPARAM)&my);
-  return '{'+my.str+'}';
+  return '{' + my.str + '}';
 }
 
-bool add_dd(DWORD st, DWORD idd, std::string& s, const std::string sdd) {
-  if (!s.empty()) s +=',';
+bool add_dd(DWORD st, DWORD idd, std::string &s, const std::string sdd)
+{
+  if (!s.empty())
+    s += ',';
 
-  s+='"'+sdd+"\":";
-  if (st & idd) {
-    s+="true";
+  s += '"' + sdd + "\":";
+  if (st & idd)
+  {
+    s += "true";
     return true;
-  } else s+="false";
+  }
+  else
+    s += "false";
   return false;
 }
 
-std::string state_to_json(DWORD st) {
-  std::string s={};
-  if (add_dd(st, DISPLAY_DEVICE_ACTIVE, s, "active")) {
+std::string state_to_json(DWORD st)
+{
+  std::string s = {};
+  if (add_dd(st, DISPLAY_DEVICE_ACTIVE, s, "active"))
+  {
     add_dd(st, DISPLAY_DEVICE_MIRRORING_DRIVER, s, "mirroring driver");
     add_dd(st, DISPLAY_DEVICE_MODESPRUNED, s, "more display modes than its output devices support");
     add_dd(st, DISPLAY_DEVICE_PRIMARY_DEVICE, s, "primary device for desktop");
@@ -436,51 +451,56 @@ std::string state_to_json(DWORD st) {
     add_dd(st, DISPLAY_DEVICE_RDPUDD, s, "rdpudd");
     add_dd(st, DISPLAY_DEVICE_REMOTE, s, "remote");
     add_dd(st, DISPLAY_DEVICE_DISCONNECT, s, "disconnected");
-    if (!st&DISPLAY_DEVICE_ATTACHED_TO_DESKTOP) add_dd(st, DISPLAY_DEVICE_ATTACHED, s, "attached");
+    if (!st & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
+      add_dd(st, DISPLAY_DEVICE_ATTACHED, s, "attached");
   }
   return s;
 }
 
 // Adapter or Monitor
-std::string DumpDevice(const DWORD num, const DISPLAY_DEVICEA dd) {
-  std::string ret={};
-  ret+="\"number\":"+std::to_string(num)+",\"name\":\""+ esc_bs(dd.DeviceName)+"\",\"model\":\""+esc_bs(dd.DeviceString)+"\",";
-  ret+="\"state\":{"+state_to_json(dd.StateFlags)+"},";
-  ret+="\"ID\":\""+esc_bs(dd.DeviceID)+"\",";
-  ret+="\"Key\":\""+esc_bs(esc_brace(dd.DeviceKey))+"\"";
+std::string DumpDevice(const DWORD num, const DISPLAY_DEVICEA dd)
+{
+  std::string ret = {};
+  ret += "\"number\":" + std::to_string(num) + ",\"name\":\"" + esc_bs(dd.DeviceName) + "\",\"model\":\"" + esc_bs(dd.DeviceString) + "\",";
+  ret += "\"state\":{" + state_to_json(dd.StateFlags) + "},";
+  ret += "\"ID\":\"" + esc_bs(dd.DeviceID) + "\",";
+  ret += "\"Key\":\"" + esc_bs(esc_brace(dd.DeviceKey)) + "\"";
   return ret;
 }
 
-std::string GetDevicesInfoJSON() {
+std::string GetDevicesInfoJSON()
+{
   DISPLAY_DEVICEA ad;
-  ad.cb=sizeof(DISPLAY_DEVICEA);
+  ad.cb = sizeof(DISPLAY_DEVICEA);
 
   DISPLAY_DEVICEA mn;
-  mn.cb=sizeof(DISPLAY_DEVICEA);
+  mn.cb = sizeof(DISPLAY_DEVICEA);
   DWORD monitorNum;
 
-  std::string json={};
-  DWORD deviceNum=0;
-  while (EnumDisplayDevicesA(NULL, deviceNum, &ad, 0)) {
-    if (deviceNum > 0) json+=',';
-    json+="\"Adapter"+std::to_string(deviceNum)+"\":{";
-    json+=DumpDevice(deviceNum, ad);
-    monitorNum=0;
-    while (EnumDisplayDevicesA(ad.DeviceName, monitorNum, &mn, 0)) {
-      if (monitorNum > 0) json+=',';
-      json+=",\"Monitor"+std::to_string(monitorNum)+"\":{"+DumpDevice(monitorNum, mn)+'}';
+  std::string json = {};
+  DWORD deviceNum = 0;
+  while (EnumDisplayDevicesA(NULL, deviceNum, &ad, 0))
+  {
+    if (deviceNum > 0)
+      json += ',';
+    json += "\"Adapter" + std::to_string(deviceNum) + "\":{";
+    json += DumpDevice(deviceNum, ad);
+    monitorNum = 0;
+    while (EnumDisplayDevicesA(ad.DeviceName, monitorNum, &mn, 0))
+    {
+      if (monitorNum > 0)
+        json += ',';
+      json += ",\"Monitor" + std::to_string(monitorNum) + "\":{" + DumpDevice(monitorNum, mn) + '}';
       monitorNum++;
     }
-    json+='}';
+    json += '}';
     deviceNum++;
   }
 
-  return '{'+json+'}';
+  return '{' + json + '}';
 }
 
 #endif
-
-
 
 void create_win_binds(webview_wrapper &w)
 {
@@ -564,20 +584,16 @@ void create_win_binds(webview_wrapper &w)
       -3);
 
   w.bind_doc(
-      "win_monitors_info",                             //
+      "win_monitors_info",                    //
       [&](const std::string &) -> std::string //
-      {
-        return GetMonitorsInfoJSON();
-      },
+      { return GetMonitorsInfoJSON(); },
       "Return all monitors information in JSON format." //
   );
 
   w.bind_doc(
-      "win_devices_info",                             //
+      "win_devices_info",                     //
       [&](const std::string &) -> std::string //
-      {
-        return GetDevicesInfoJSON();
-      },
+      { return GetDevicesInfoJSON(); },
       "Return all devices information in JSON format." //
   );
 

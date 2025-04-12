@@ -35,7 +35,7 @@ typedef void *HWND;
 bool devmode = false, runjs_and_exit = false, html_string = false, js_instance = true, call_func_help = false;
 std::string url, title = "", init_js = "";
 webview_wrapper w;
-int ix=200, iy=200, iw=600, ih=400, hint=0;
+int ix = 200, iy = 200, iw = 600, ih = 400, hint = 0;
 
 std::string add_bro_args = "";
 void set_browser_args(char, std::string, std::string val)
@@ -115,12 +115,17 @@ void set_log_level(char, std::string, std::string val)
 
 void chg_ini_geom(char val, std::string name, std::string param)
 {
-  auto scoo=split(param, ',');
-  if (scoo.size() > 0) ix=std::stoi(scoo[0]);
-  if (scoo.size() > 1) iy=std::stoi(scoo[1]);
-  if (scoo.size() > 2) iw=std::stoi(scoo[2]);
-  if (scoo.size() > 3) ih=std::stoi(scoo[3]);
-  if (scoo.size() > 4) hint=std::stoi(scoo[4]);
+  auto scoo = split(param, ',');
+  if (scoo.size() > 0)
+    ix = std::stoi(scoo[0]);
+  if (scoo.size() > 1)
+    iy = std::stoi(scoo[1]);
+  if (scoo.size() > 2)
+    iw = std::stoi(scoo[2]);
+  if (scoo.size() > 3)
+    ih = std::stoi(scoo[3]);
+  if (scoo.size() > 4)
+    hint = std::stoi(scoo[4]);
 }
 
 // sed -n "/{/s/.*, \('.'\).*/\1/p" src/webapp.cpp src/opts.cpp | sort
@@ -213,7 +218,6 @@ void set_path(std::string spath)
 {
   set_path(0, "", spath);
 }
-
 
 HWND *wnd = nullptr;
 

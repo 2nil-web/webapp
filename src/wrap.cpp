@@ -1509,8 +1509,9 @@ bool webview_wrapper::may_save_conf()
   {
     if (conf.width != new_geom.w && conf.height != new_geom.h)
     {
-      if (me) {
-//        logDebug("conf.width: ", conf.width, ", conf.height: ", conf.height, ", conf.hint: ", conf.hint);
+      if (me)
+      {
+        //        logDebug("conf.width: ", conf.width, ", conf.height: ", conf.height, ", conf.hint: ", conf.hint);
         me->set_size(conf.width, conf.height, conf.hint);
       }
       return false;
