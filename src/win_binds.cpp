@@ -500,6 +500,96 @@ std::string GetDevicesInfoJSON()
   return '{' + json + '}';
 }
 
+#define func_die(msg)                                                                                                                                                                                                                                          \
+  {                                                                                                                                                                                                                                                            \
+    logError(msg);                                                                                                                                                                                                                                             \
+    return 0;                                                                                                                                                                                                                                                  \
+  }
+
+bool InitWallpaper(IDesktopWallpaper **idw)
+{
+  *idw = nullptr;
+  if (FAILED(CoInitialize(NULL)))
+    func_die("CoInitialize");
+  if (FAILED(CoCreateInstance(__uuidof(DesktopWallpaper), NULL, CLSCTX_LOCAL_SERVER, __uuidof(IDesktopWallpaper), (void **)idw)))
+    func_die("CoCreateInstance");
+
+  return true;
+}
+
+void ExitWallpaper(IDesktopWallpaper *idw)
+{
+  if (idw != nullptr)
+    idw->Release();
+  CoUninitialize();
+}
+
+#define MAX_STR 30000
+std::string WallpapersInfoJSON()
+{
+  IDesktopWallpaper *idw;
+  std::string s = {};
+
+  if (InitWallpaper(&idw) && idw != nullptr)
+  {
+    unsigned int n;
+
+    if (idw->GetMonitorDevicePathCount(&n) == S_OK)
+    {
+      unsigned int i;
+      LPWSTR id[MAX_STR], wp[MAX_STR];
+      RECT rc;
+
+      bool first_comma = true;
+      std::string s_id = {}, s_file = {}, s_rc = {};
+      for (i = 0; i < n; i++)
+      {
+        if (idw->GetMonitorDevicePathAt(i, id) == S_OK)
+        {
+          s_id = esc_bs(ws2s(*id));
+
+          if (idw->GetWallpaper(*id, wp) == S_OK)
+            s_file = esc_bs(ws2s(*wp));
+          else
+            s_file = {};
+
+          if (idw->GetMonitorRECT(*id, &rc) == S_OK)
+            s_rc = std::to_string(rc.left) + ',' + std::to_string(rc.top) + ',' + std::to_string(rc.right) + ',' + std::to_string(rc.bottom);
+          else
+            s_rc = {};
+
+          if (!first_comma)
+            s += ',';
+          else
+            first_comma = false;
+          s += "\"monitor" + std::to_string(i) + "\":{";
+          s += "\"id\":\"" + s_id + "\",";
+          s += "\"file\":\"" + s_file + "\",";
+          s += "\"rect\":[" + s_rc + ']';
+          s += '}';
+        }
+      }
+    }
+    ExitWallpaper(idw);
+  }
+  return '{' + s + '}';
+}
+
+bool NextWallpaper(LPWSTR *pMonID = nullptr, DESKTOP_SLIDESHOW_DIRECTION dir = DESKTOP_SLIDESHOW_DIRECTION::DSD_FORWARD)
+{
+  IDesktopWallpaper *idw;
+  if (InitWallpaper(&idw) && idw != nullptr)
+  {
+    if (FAILED(idw->AdvanceSlideshow((LPCWSTR)pMonID, dir)))
+      func_die("AdvanceSlideshow");
+    if (pMonID != nullptr)
+      delete[] pMonID;
+    ExitWallpaper(idw);
+    return true;
+  }
+  return false;
+}
+
 #endif
 
 void create_win_binds(webview_wrapper &w)
@@ -595,6 +685,20 @@ void create_win_binds(webview_wrapper &w)
       [&](const std::string &) -> std::string //
       { return GetDevicesInfoJSON(); },
       "Return all devices information in JSON format." //
+  );
+
+  w.bind_doc(
+      "win_wallpapers_info",                  //
+      [&](const std::string &) -> std::string //
+      { return WallpapersInfoJSON(); },
+      "Return all wallpapers information in JSON format." //
+  );
+
+  w.bind_doc(
+      "win_next_wallpaper",                   //
+      [&](const std::string &) -> std::string //
+      { return NextWallpaper() ? "true" : "false"; },
+      "Try to advance to the next wallpaper in the slideshow, and return true if ok, else false." //
   );
 
 #endif
