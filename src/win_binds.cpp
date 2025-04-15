@@ -478,14 +478,14 @@ std::string GetDevicesInfoJSON()
   DWORD monitorNum;
 
   std::string json = {};
-  DWORD deviceNum = 0;
+  DWORD deviceNum = 1;
   while (EnumDisplayDevicesA(NULL, deviceNum, &ad, 0))
   {
     if (deviceNum > 0)
       json += ',';
     json += "\"Adapter" + std::to_string(deviceNum) + "\":{";
     json += DumpDevice(deviceNum, ad);
-    monitorNum = 0;
+    monitorNum = 1;
     while (EnumDisplayDevicesA(ad.DeviceName, monitorNum, &mn, 0))
     {
       if (monitorNum > 0)
@@ -562,7 +562,7 @@ std::string WallpapersInfoJSON()
             s += ',';
           else
             first_comma = false;
-          s += "\"monitor" + std::to_string(i) + "\":{";
+          s += "\"monitor" + std::to_string(i + 1) + "\":{";
           s += "\"id\":\"" + s_id + "\",";
           s += "\"file\":\"" + s_file + "\",";
           s += "\"rect\":[" + s_rc + ']';

@@ -114,12 +114,12 @@ function cls() {
   output.scrollTop = output.scrollHeight;
 }
 
-function print(s, scrollToBottom = true) {
+function print(s = "", scrollToBottom = true) {
   output.innerHTML += s;
   if (scrollToBottom) output.scrollTop = output.scrollHeight;
 }
 
-function println(s, scrollToBottom = true) {
+function println(s = "", scrollToBottom = true) {
   output.innerHTML += s + "<br/>";
   if (scrollToBottom) output.scrollTop = output.scrollHeight;
 }

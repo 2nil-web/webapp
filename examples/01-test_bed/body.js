@@ -226,75 +226,110 @@ function reduce(numerator, denominator) {
 
 async function get_virtual_resolution() {
   var wpi = await win.wallpapers_info();
-  var vleft, vtop, vright, vbottom, m_leftmost, m_rightmost, m_highest, m_lowest;
-  var first_iter = true;
+  var n_monitor = Object.keys(wpi).length;
+  println("Number of monitor(s): " + n_monitor);
+  console.log(wpi);
 
-  console.log(Object.keys(wpi).length);
-  //console.log(wpi);
-
-  for (k in wpi) {
-    var cwi = wpi[k];
-    var rc = cwi["rect"];
+  if (n_monitor > 0) {
+    //var prev_k=Object.keys(wpi)[0], prev_rc=wpi[prev_k].rect;
     // Rect[] is left, top, right, bottom
-    var cleft = parseInt(rc[0]),
-      ctop = parseInt(rc[1]),
-      cright = parseInt(rc[2]),
-      cbottom = parseInt(rc[3]);
-    //console.log(rc);
-    var width = cright - cleft;
-    var height = cbottom - ctop;
-    var [num, den] = reduce(width, height);
-    var gcd = compute_gcd(width, height);
-    println(`${k}`);
-    println(`&nbsp;coordinates: (${cleft},${ctop},${cright},${cbottom})`);
-    println(`&nbsp;actual dimensions : (${width}, ${height})`);
-    println(`&nbsp;gcd=${gcd}`);
-    println(`&nbsp;minimal integer dimensions: (${num}, ${den})`);
+    var out_x_or_y = 100000;
+    var vleft = out_x_or_y,
+      vtop = out_x_or_y,
+      vright = -out_x_or_y,
+      vbottom = -out_x_or_y;
+    var prev_rc = [vleft, vtop, vright, vbottom],
+      l_to_r = [],
+      t_to_b = [];
 
-    if (first_iter) {
-      first_iter = false;
-      m_leftmost = m_highest = m_rightmost = m_lowest = k;
-      vleft = cleft;
-      vtop = ctop;
-      vright = cright;
-      vbottom = cbottom;
-      m_lowest = k;
-    } else {
-      if (cleft < vleft) {
-        m_leftmost = k;
-        vleft = cleft;
-      }
-      if (ctop < vtop) {
-        m_highest = k;
-        vtop = ctop;
-      }
-      if (cright > vright) {
-        m_rightmost = k;
-        vright = cright;
-      }
-      if (cbottom > vbottom) {
-        m_lowest = k;
-        vbottom = cbottom;
+    for (k in wpi) {
+      console.log(`Processing ${k}`);
+      var cwi = wpi[k];
+      var rc = cwi["rect"];
+      var width = rc[2] - rc[0];
+      var height = rc[3] - rc[1];
+      var [num, den] = reduce(width, height);
+      println(`${k}`);
+      println(`&nbsp;coordinates: (${rc[0]},${rc[1]},${rc[2]},${rc[3]})`);
+      println(`&nbsp;actual dimensions : (${width}, ${height})`);
+      //println(`&nbsp;gcd=${gcd}`);
+      println(`&nbsp;minimal integer dimensions: (${num}, ${den})`);
+
+      // Try to order monitors if more than 1
+      if (n_monitor > 1) {
+        // Horizontal ordering of monitors from left to right, if possible
+        if (rc[0] > prev_rc[0]) {
+          l_to_r.push(k);
+        } else {
+          if (rc[0] != prev_rc[0]) {
+            var pk = "none";
+            if (l_to_r.length > 0) pk = l_to_r.pop();
+            l_to_r.push(k);
+            if (pk != k && pk != "none") l_to_r.push(pk);
+            vleft = rc[0];
+          }
+        }
+
+        // Vertical ordering of monitors from top to bottom, if possible
+        if (rc[1] > prev_rc[1]) {
+          t_to_b.push(k);
+        } else {
+          if (rc[1] != prev_rc[1]) {
+            var pk = "none";
+            if (t_to_b.length > 0) pk = t_to_b.pop();
+            t_to_b.push(k);
+            if (pk != k && pk != "none") t_to_b.push(pk);
+            vtop = rc[1];
+          }
+        }
+
+        if (rc[2] > vright) vright = rc[2];
+        if (rc[3] > vbottom) vbottom = rc[3];
+
+        prev_rc = rc;
       }
     }
+
+    println("Virtual screen");
+    println(`&nbsp;coordinates: (${vleft},${vtop},${vright},${vbottom})`);
+    var vwidth = vright - vleft,
+      vheight = vbottom - vtop;
+    println(`&nbsp;actual dimensions : (${vwidth}, ${vheight})`);
+
+    var [vnum, vden] = reduce(vwidth, vheight);
+    println(`&nbsp;minimal integer dimensions: (${vnum}, ${vden})`);
+    println("");
+
+    if (l_to_r.length > 2) {
+      print("Horizontal order of monitors, from left to right, is: ");
+      for (var i = 0; i < l_to_r.length; i++) {
+        print(l_to_r[i]);
+        if (i < l_to_r.length - 1) print(", ");
+      }
+      println("");
+    }
+
+    if (l_to_r.length > 1) {
+      println(`Leftmost monitor is ${l_to_r[0]} and Rightmost is ${l_to_r.at(-1)}`);
+    }
+
+    if (t_to_b.length > 2) {
+      print("Vertical order of monitors, from top to bottom, is: ");
+      for (var i = 0; i < t_to_b.length; i++) {
+        print(l_to_r[i]);
+        if (i < t_to_b.length - 1) print(", ");
+      }
+      println("");
+    }
+
+    if (t_to_b.length > 1) {
+      println(`Highest monitor is ${t_to_b[0]} and Lowest is ${t_to_b.at(-1)}`);
+    }
+
+    return [vleft, vtop, vright, vbottom];
   }
 
-  println("Virtual screen");
-  println(`&nbsp;coordinates: (${vleft},${vtop},${vright},${vbottom})`);
-  var vwidth = vright - vleft,
-    vheight = vbottom - vtop;
-  var [vnum, vden] = reduce(vwidth, vheight);
-  var vgcd = compute_gcd(vwidth, vheight);
-  println(`&nbsp;actual dimensions : (${vwidth}, ${vheight})`);
-  println(`&nbsp;gcd=${vgcd}`);
-  println(`&nbsp;minimal integer dimensions: (${vnum}, ${vden})`);
-  println("");
-  println(`Leftmost is ${m_leftmost}`);
-  println(`Rightmost is ${m_rightmost}`);
-  println(`Highest is ${m_highest}`);
-  println(`Lowest is ${m_lowest}`);
-
-  return [vleft, vtop, vright, vbottom];
+  return [];
 }
 
 async function next_wallpaper_infos() {
