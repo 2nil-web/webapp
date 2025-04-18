@@ -39,6 +39,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdint>
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 #include <filesystem>
@@ -357,6 +358,31 @@ std::string file2s(std::filesystem::path p)
   if (s.length() == 0)
     s = "File " + p.string() + " is empty.";
   return s;
+}
+
+bool file2bin(std::filesystem::path p, std::vector<std::uint8_t> &buffer)
+{
+  std::ifstream input(p, std::ios::binary);
+  if (input.good())
+  {
+    std::vector<std::uint8_t> buffer1(std::istreambuf_iterator<char>(input), {});
+    buffer = buffer1;
+    input.close();
+    return true;
+  }
+  return false;
+}
+
+bool bin2file(std::filesystem::path p, std::vector<std::uint8_t> &buffer)
+{
+  std::ofstream output(p, std::ios::binary);
+  if (output.good())
+  {
+    output.write(reinterpret_cast<const char *>(buffer.data()), buffer.size());
+    output.close();
+    return true;
+  }
+  return false;
 }
 
 std::wstring file2ws(std::filesystem::path p)

@@ -11,19 +11,20 @@
 #include <string>
 #include <thread>
 
+// clang-format off
 #ifdef _WIN32
-#include "reg.h"
-#include "sendkeys.h"
-#include "winapi.h"
+#include <windows.h>
 #include <commctrl.h>
 #include <commdlg.h>
 #include <oleacc.h>
 #include <shobjidl.h>
 #pragma comment(lib, "Oleacc.lib")
 #include <WebView2.h>
+#include "reg.h"
+#include "sendkeys.h"
+#include "winapi.h"
 #endif
 
-// clang-format off
 #include "util.h"
 #include "log.h"
 #include "opts.h"
@@ -445,7 +446,9 @@ std::string state_to_json(DWORD st)
     add_dd(st, DISPLAY_DEVICE_VGA_COMPATIBLE, s, "vga compatible");
     add_dd(st, DISPLAY_DEVICE_ATTACHED_TO_DESKTOP, s, "attached to desktop");
     add_dd(st, DISPLAY_DEVICE_MULTI_DRIVER, s, "multi driver");
+#if _WIN32_WINNT >= 0x0602
     add_dd(st, DISPLAY_DEVICE_ACC_DRIVER, s, "acc driver");
+#endif
     add_dd(st, DISPLAY_DEVICE_TS_COMPATIBLE, s, "ts compatible");
     add_dd(st, DISPLAY_DEVICE_UNSAFE_MODES_ON, s, "unsafe modes_on");
     add_dd(st, DISPLAY_DEVICE_RDPUDD, s, "rdpudd");
@@ -481,7 +484,7 @@ std::string GetDevicesInfoJSON()
   DWORD deviceNum = 1;
   while (EnumDisplayDevicesA(NULL, deviceNum, &ad, 0))
   {
-    if (deviceNum > 0)
+    if (deviceNum > 1)
       json += ',';
     json += "\"Adapter" + std::to_string(deviceNum) + "\":{";
     json += DumpDevice(deviceNum, ad);
@@ -497,6 +500,7 @@ std::string GetDevicesInfoJSON()
     deviceNum++;
   }
 
+  logDebug(json);
   return '{' + json + '}';
 }
 
@@ -572,6 +576,7 @@ std::string WallpapersInfoJSON()
     }
     ExitWallpaper(idw);
   }
+  logDebug(s);
   return '{' + s + '}';
 }
 

@@ -31,6 +31,7 @@
 #include "util.h"
 #include "log.h"
 #include "opts.h"
+#include "base64.h"
 #include "wrap.h"
 #include "path_entity.h"
 #include "fs_binds.h"
@@ -888,6 +889,30 @@ void create_fs_binds(webview_wrapper &w)
         }).detach();
       },
       "read a file with the provided file name and return its content, if possible.", //
+      1);
+
+  w.bind_doc(                                                     //
+      "fs_read_to_base64",                                        //
+      [&](const std::string &seq, const std::string &req, void *) //
+      {
+        std::thread([&, seq, req] {
+          std::filesystem::path p = json_parse(req, "", 0);
+          std::vector<std::uint8_t> data;
+          std::string s = {};
+
+          if (file2bin(p, data))
+          {
+            s = to_base64(data);
+            logDebug("fs_read_to_base64: file2bin OK");
+            // logDebug("fs_read_to_base64: "+s);
+          }
+          else
+            logDebug("fs_read_to_base64: file2bin KO");
+
+          w.resolve(seq, 0, w.json_escape(s));
+        }).detach();
+      },
+      "read a binary file with the provided file name and return its content in base64 encoded text, if possible.", //
       1);
 
   w.bind_doc(     //

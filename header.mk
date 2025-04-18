@@ -41,6 +41,8 @@ BUILD_SYS=linux_gcc
 ifeq ($(MAKECMDGOALS),w64)
 TARGET_API=windows
 CPPFLAGS += -DWIN32_LEAN_AND_MEAN
+# For IDesktopWallpaper
+CPPFLAGS += -DNTDDI_VERSION=NTDDI_WIN8
 CC=/usr/bin/x86_64-w64-mingw32-gcc-win32${EXEXT}
 CXX=/usr/bin/x86_64-w64-mingw32-g++-win32${EXEXT}
 RC=/usr/bin/x86_64-w64-mingw32-windres${EXEXT}
@@ -155,6 +157,8 @@ endif
 WV2SUBDIR=Microsoft.Web.WebView2.1.0.3124.44
 CPPFLAGS += -I ${WVDIR}/build/external/libs/${WV2SUBDIR}/build/native/include
 CPPFLAGS += -DWIN32_LEAN_AND_MEAN
+# For IDesktopWallpaper
+CPPFLAGS += -DNTDDI_VERSION=NTDDI_WIN8
 #CPPFLAGS += -D_CONSOLE
 LDFLAGS += -mwindows
 LDFLAGS += -static

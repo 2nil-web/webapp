@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(2.5909 0 0 2.5909 1.6717 1.633)">
+  <g transform="matrix(.12011 0 0 .13261 8.7716 7.4111)" fill="none" font-family="none" font-size="none" font-weight="none" stroke-miterlimit="10" text-anchor="none" style="mix-blend-mode:normal">
+   <g transform="scale(5.3333)">
+    <path d="m40 41h-32c-2.2 0-4-1.8-4-4v-26c0-2.2 1.8-4 4-4h32c2.2 0 4 1.8 4 4v26c0 2.2-1.8 4-4 4z" fill="#f57c00"/>
+    <path d="m35 13c-1.6568 0-3 1.3432-3 3s1.3432 3 3 3 3-1.3432 3-3-1.3432-3-3-3z" fill="#fff9c4"/>
+    <path d="m20 16-11 16h22z" fill="#942a09"/>
+    <path d="m31 22-8 10h16z" fill="#bf360c"/>
+   </g>
+  </g>
+  <g transform="matrix(1.2335 0 0 1 -5.5474 .22939)" fill="#1565c0">
+   <path d="m13 13c0-3.3 2.7-6 6-6h10c3.3 0 6 2.7 6 6h4c0-5.5-4.5-10-10-10h-10c-5.5 0-10 4.5-10 10v11.2h4z"/>
+   <path d="m4.6 22 6.4 8.4 6.4-8.4z"/>
+   <path d="m35 35c0 3.3-2.7 6-6 6h-10c-3.3 0-6-2.7-6-6h-4c0 5.5 4.5 10 10 10h10c5.5 0 10-4.5 10-10v-12h-4z"/>
+   <path d="m30.6 26 6.4-8.4 6.4 8.4z"/>
+  </g>
+ </g>
+</svg>

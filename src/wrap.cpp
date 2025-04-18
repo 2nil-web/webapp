@@ -613,6 +613,30 @@ bool try_stoi(std::string s, int &n)
   return ret;
 }
 
+bool try_stoll(std::string s, long long &n)
+{
+  std::size_t pos{};
+  bool ret = false;
+  try
+  {
+    const long long i{std::stoll(s, &pos)};
+    n = i;
+    ret = true;
+  }
+  catch (std::invalid_argument const &ex)
+  {
+    logError("std::invalid_argument::what(): ", ex.what());
+    ;
+  }
+  catch (std::out_of_range const &ex)
+  {
+    logError("std::out_of_range::what(): ", ex.what());
+    ;
+  }
+
+  return ret;
+}
+
 bool try_stof(std::string s, float &n)
 {
   std::size_t pos{};
@@ -946,6 +970,7 @@ void webview_wrapper::run()
 
 void *webview_wrapper::window()
 {
+  //  std::cout << webview_get_window(w) << std::endl;
   return webview_get_window(w);
 }
 
@@ -1453,6 +1478,9 @@ bool webview_wrapper::restore_conf(webview_conf &p_cnf, std::string fname)
     y_offset = -29;
 #endif
 
+    if (cv.count("init_state"))
+      p_cnf.init_win_state = (win_state)std::stoi(cv["init_state"]); // => hidden = 0, normal = 1, minimized = 2, maximized = 3
+
     if (cv.count("debug"))
       p_cnf.debug = str2bool(cv["debug"]);
 
@@ -1780,6 +1808,11 @@ void webview_wrapper::decvar(const std::string &cname, const std::string &vname,
 void webview_wrapper::decvar(const std::string &cname, const std::string &vname, const std::string &desc, const float fval, const bool readonly)
 {
   decvar(cname, vname, desc, std::to_string(fval), readonly, false);
+}
+
+void webview_wrapper::decvar(const std::string &cname, const std::string &vname, const std::string &desc, const unsigned long long ullval, const bool readonly)
+{
+  decvar(cname, vname, desc, std::to_string(ullval), readonly, false);
 }
 
 std::string class_declvars(std::string cname, std::multimap<std::string, std::string> vars_init)

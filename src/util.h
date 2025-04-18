@@ -59,6 +59,9 @@ std::string file2s(std::filesystem::path p);
 std::wstring file2ws(std::filesystem::path p);
 std::filesystem::path file2p(std::filesystem::path p);
 
+bool file2bin(std::filesystem::path, std::vector<std::uint8_t> &);
+bool bin2file(std::filesystem::path, std::vector<std::uint8_t> &);
+
 std::string rtrim(std::string &s, const std::string ws = " \t\n\r\f\v");
 std::string ltrim(std::string &s, const std::string ws = " \t\n\r\f\v");
 std::string trim(std::string &s, const std::string ws = " \t\n\r\f\v");

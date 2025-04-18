@@ -79,14 +79,48 @@ void create_app_binds(webview_wrapper &w)
         std::cout << ret << std::endl;
         return w.json_escape(ret);
       },
-      "echo the parameter", //
-      -10);                 //
+      "echo the parameter(s) and display on stdout", //
+      -10);                                          //
+
+  w.bind_doc(
+      "app_bring_to_top",                        //
+      [&](const std::string &req) -> std::string //
+      {
+        std::string ret = "false";
+#ifdef _WIN32
+        std::string win_id = json_parse(req, "", 0);
+
+        HWND hw;
+        if (win_id.empty())
+        {
+          hw = (HWND)w.window();
+        }
+        else
+        {
+          long long ll;
+          if (try_stoll(win_id, ll))
+          {
+            hw = (HWND)ll;
+          }
+          else
+          {
+            hw = (HWND)w.window();
+          }
+        }
+
+        if (BringWindowToTop(hw))
+          ret = "true";
+#endif
+        return ret;
+      },
+      "Bring the window whose id is provided (or by default the app window) to the top of the z order.", //
+      -1);
 
   w.bind_doc(
       "app_restore",                             //
       [&](const std::string &req) -> std::string //
       {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
         w.setvar("app", "state", "normal");
         return "";
@@ -98,7 +132,7 @@ void create_app_binds(webview_wrapper &w)
       "app_minimize",                            //
       [&](const std::string &req) -> std::string //
       {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.minimize();
         w.setvar("app", "state", "minimized");
         return "";
@@ -110,7 +144,7 @@ void create_app_binds(webview_wrapper &w)
       "app_maximize",                            //
       [&](const std::string &req) -> std::string //
       {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.maximize();
         w.setvar("app", "state", "maximized");
         return "";
@@ -122,7 +156,7 @@ void create_app_binds(webview_wrapper &w)
       "app_enter_fullscreen",                    //
       [&](const std::string &req) -> std::string //
       {
-        trc w.enter_fullscreen();
+        w.enter_fullscreen();
         w.setvar("app", "state", "fullscreen");
         return "";
       },
@@ -133,7 +167,7 @@ void create_app_binds(webview_wrapper &w)
       "app_exit_fullscreen",                     //
       [&](const std::string &req) -> std::string //
       {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
         w.setvar("app", "state", "normal");
         return "";
@@ -145,7 +179,7 @@ void create_app_binds(webview_wrapper &w)
       "app_show",                                //
       [&](const std::string &req) -> std::string //
       {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
         w.show();
         w.setvar("app", "state", "normal");
@@ -158,7 +192,7 @@ void create_app_binds(webview_wrapper &w)
       "app_hide",                                //
       [&](const std::string &req) -> std::string //
       {
-        trc w.hide();
+        w.hide();
         w.setvar("app", "state", "hidden");
         return "";
       },
@@ -176,10 +210,8 @@ void create_app_binds(webview_wrapper &w)
       "app_set_pos",                             //
       [&](const std::string &req) -> std::string //
       {
-        trc
-            // Get actual position
-            int px,
-            py;
+        // Get actual position
+        int px, py;
         w.exit_fullscreen();
         w.restore();
         w.get_pos(px, py);
@@ -194,7 +226,7 @@ void create_app_binds(webview_wrapper &w)
   w.bind_doc(
       "app_center", //
       [&](const std::string &req) -> std::string {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
         w.center();
         w.setvar("app", "state", "normal");
@@ -207,7 +239,7 @@ void create_app_binds(webview_wrapper &w)
   w.bind_doc(
       "app_set_size", //
       [&](const std::string &req) -> std::string {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
 
         int opw, oph;
@@ -233,7 +265,7 @@ void create_app_binds(webview_wrapper &w)
   w.bind_doc(
       "app_set_geometry", //
       [&](const std::string &req) -> std::string {
-        trc w.exit_fullscreen();
+        w.exit_fullscreen();
         w.restore();
         int gx, gy, gw, gh;
         js_parami(req, gx, gy, gw, gh);
@@ -389,6 +421,9 @@ void create_app_binds(webview_wrapper &w)
   sys_info = "Unknown operating system";
 #endif
 
+  std::string win_id = std::to_string((unsigned long long)w.window());
+
+  w.decvar("app", "window_id", "window id.", win_id);
   w.decvar("app", "sysname", "provide the name of the system, this may help to assert in your javascript code that you are running a webapp, something like <u>console.log(typeof app.system === 'undefined'?'not a webapp':'is a webapp')</u>.", sys_info);
 
   int appx, appy, appw, apph;

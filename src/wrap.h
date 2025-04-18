@@ -44,6 +44,11 @@ using tupple_class = std::tuple<std::string, std::string, int, std::string>;
 
 std::string json_parse(const std::string &s, const std::string &key, const int index);
 void debug_js_parse(const std::string);
+
+bool try_stoi(std::string s, int &n);
+bool try_stoll(std::string s, long long &n);
+bool try_stof(std::string s, float &n);
+
 bool get_params(const std::string, std::string &);
 bool get_parami(const std::string, int &);
 bool get_paramf(const std::string, float &);
@@ -166,6 +171,7 @@ public:
   void decvar(const std::string &cname, const std::string &vname, const std::string &desc = {}, const bool bval = false, const bool readonly = true);
   void decvar(const std::string &cname, const std::string &vname, const std::string &desc = {}, const int ival = 0, const bool readonly = true);
   void decvar(const std::string &cname, const std::string &vname, const std::string &desc = {}, const float fval = 0, const bool readonly = true);
+  void decvar(const std::string &cname, const std::string &vname, const std::string &desc = {}, const unsigned long long ullval = 0, const bool readonly = true);
 
   void setvar(const std::filesystem::path &cname, const std::filesystem::path &vname, const std::filesystem::path &sval = {}, const bool readonly = true, const bool is_string = true);
   void setvar(const std::string &cname, const std::string &vname, const std::string &sval = {}, const bool readonly = true, const bool is_string = true);

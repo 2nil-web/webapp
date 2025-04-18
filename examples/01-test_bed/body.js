@@ -224,7 +224,7 @@ function reduce(numerator, denominator) {
   return [numerator / gcd, denominator / gcd];
 }
 
-async function get_virtual_resolution(trace=true) {
+async function get_virtual_resolution(trace = true) {
   var wpi = await win.wallpapers_info();
   var n_monitors = Object.keys(wpi).length;
   if (trace) {
@@ -241,7 +241,8 @@ async function get_virtual_resolution(trace=true) {
       vtop = out_x_or_y,
       vright = -out_x_or_y,
       vbottom = -out_x_or_y;
-    var left_to_right = Array(), top_to_bottom = Array();
+    var left_to_right = Array(),
+      top_to_bottom = Array();
 
     for (k in wpi) {
       console.log(`Processing ${k}`);
@@ -291,7 +292,8 @@ async function get_virtual_resolution(trace=true) {
     }
 
     if (n_monitors > 1) {
-      var vwidth = vright - vleft, vheight = vbottom - vtop;
+      var vwidth = vright - vleft,
+        vheight = vbottom - vtop;
       var [vnum, vden] = reduce(vwidth, vheight);
 
       if (trace) {
@@ -330,7 +332,7 @@ async function get_virtual_resolution(trace=true) {
 
       return [vleft, vtop, vright, vbottom];
     } else {
-      var k=Object.keys(wpi)[0];
+      var k = Object.keys(wpi)[0];
       return wpi[k].rect;
     }
   }
