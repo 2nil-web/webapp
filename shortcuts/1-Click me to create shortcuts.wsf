@@ -1,0 +1,55 @@
+<job id="allargs">
+  <script language="vbscript" src="args.vbs"/>
+  <script language="jscript" src="args.js"/>
+  <script language="jscript" src="create_shortcut.js"/>
+  <script language="jscript">
+if (false) {
+  // Exemple : cscript create_shortcut.wsf toto tutu /titi:12 /tutu:tata /rere:15 /roro:zeze
+  var myArgs=new Args();
+  myArgs.ListAll();
+  log();
+  myArgs.ListNamed();
+  log();
+  myArgs.ListUnnamed();
+} else {
+  ppth=fso().GetParentFolderName(wsh().CurrentDirectory)+"\\";
+  tgt=ppth+"build\\msvc\\win\\x64\\Release\\webapp.exe";
+  args="-d";
+  apps_pth=ppth+"examples\\";
+  ico_sfx="\\app.ico";
+  sDesk = wsh().SpecialFolders("Desktop")+"\\";
+
+  app_pth=apps_pth+"01-test_bed";
+  var mysc=new shortcut(sDesk+"Test bed", tgt, args, app_pth,  app_pth+ico_sfx, "Test bed");
+  var msg=mysc.info();
+
+  app="02-stats";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Tokei stats", tgt, args, app_pth,  app_pth+ico_sfx, "Tokei stats");
+
+  app="03-webcrypto";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
+
+  app="04-curves";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Weird sinusoids", tgt, args, app_pth,  app_pth+ico_sfx, "Weird sinusoids");
+
+  app="05-azimuth";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Azimuth computation", tgt, args, app_pth,  app_pth+ico_sfx, "Azimuth computation");
+
+  app="06-backup";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"RSync backup", tgt, args, app_pth,  app_pth+ico_sfx, "RSync backup");
+
+  app="background_selector";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"background_selector", tgt, args, app_pth,  app_pth+ico_sfx, "background_selector");
+
+
+  log(msg.split(ppth).join("..\\").split(sDesk).join("Desktop"));
+}
+  </script>
+</job>
+

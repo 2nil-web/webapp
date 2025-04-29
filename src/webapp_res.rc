@@ -1,0 +1,10 @@
+
+#include <windows.h>
+#include <richedit.h>
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST    "webapp.manifest"
+
+IDI_APPLICATION ICON DISCARDABLE "webapp.ico"
+IDI_WINLOGO ICON DISCARDABLE "webapp.ico"
+

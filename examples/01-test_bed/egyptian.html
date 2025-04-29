@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>𓂀Egyptian Hieroglyphs𓀀</title>
+</head>
+
+<body>
+</body>
+<script>
+  if (typeof app.set_title === "function") {
+    app.set_title(document.title);
+
+    function exit_on_esc() {
+      if (event.keyCode === 27) app.exit();
+    }
+    document.addEventListener("keyup", exit_on_esc);
+  }
+  var body = document.body,
+    tbl = document.createElement('table'),
+    tbdy = document.createElement('tbody'),
+    tr, td;
+  tbl.style.border = '1px solid black';
+  tbl.style.borderCollapse = 'collapse';
+  for (i = 0x13000; i < 0x1342F; i++) {
+    ih = i.toString(16);
+    if (i % 16 === 0) {
+      tr = tbl.insertRow();
+      tr.style.border = '1px solid black';
+      tr.style.borderCollapse = 'collapse';
+      td = tr.insertCell();
+      td.style.border = '1px solid black';
+      td.style.borderCollapse = 'collapse';
+      td.style.fontSize = '14px';
+      hih = ih.slice(0, -1) + 'x';
+      td.innerHTML = "U+" + hih;
+    }
+    td = tr.insertCell();
+    td.style.border = '1px solid black';
+    td.style.borderCollapse = 'collapse';
+    td.style.fontSize = '32px';
+    td.innerHTML = "&#x" + ih + ";";
+    td.title = "U+" + ih;
+  }
+  body.appendChild(tbl);
+</script>
+<html>

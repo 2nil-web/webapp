@@ -1,0 +1,4 @@
+
+TARGET: C:\UnixTools\msys64\usr\bin\bash.exe -c "export PATH=/usr/bin:/mingw64/bin:$PATH && gitk"
+Starts in: C:\Users\Denis\Documents\home\33-webapp
+

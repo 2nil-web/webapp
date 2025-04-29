@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g>
+  <g transform="matrix(1.115 0 0 1.115 -13.611 -5.2662)">
+   <g fill="none">
+    <path d="m205.96 136.2a88.816 37.201 0 1 1-177.63 0 88.816 37.201 0 1 1 177.63 0z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6315"/>
+    <path d="m179.39 162.94-64.023-27.502 90.075 1.0388" stroke="#00f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.224"/>
+    <path d="m117.34 137.38s22.618-36.753 42.561-70.259c7.1246 7.5505 27.386 32.291 20.328 95.277" stroke="#000" stroke-dasharray="3.19643, 3.19643" stroke-width="1.0655"/>
+   </g>
+   <path d="m119.63 135.66a3.7953 3.7953 0 1 1-7.5906 0 3.7953 3.7953 0 1 1 7.5906 0z" fill-rule="evenodd"/>
+   <path d="m164.9 74.483-5.0899-3.3777-5.11 3.7183 1.6221-6.2962-4.7448-3.8909 6.0924-0.51358 2.1776-6.1231 2.1432 5.9787 6.0906 0.10665-4.7678 4.2086z" fill="#a32f2f" fill-rule="evenodd"/>
+   <g font-size="11.379px" stroke-width=".10344">
+    <text x="12.888781" y="120.42724" style="line-height:0%" xml:space="preserve"><tspan x="12.888781" y="120.42724" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">Point</tspan></text>
+    <text x="12.888781" y="134.09029" style="line-height:0%" xml:space="preserve"><tspan x="12.888781" y="134.09029" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">Méridional</tspan></text>
+    <text x="81.695992" y="132.43195" style="line-height:0%" xml:space="preserve"><tspan x="81.695992" y="132.43195" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">Observateur</tspan></text>
+    <text x="145.41537" y="57.163277" style="line-height:0%" xml:space="preserve"><tspan x="145.41537" y="57.163277" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">Étoile</tspan></text>
+    <text x="211.93692" y="120.38087" style="line-height:0%" xml:space="preserve"><tspan x="211.93692" y="120.38087" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">Point</tspan></text>
+    <text x="166.25464" y="132.01978" style="line-height:0%" xml:space="preserve"><tspan x="166.25464" y="132.01978" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">septentrional</tspan></text>
+    <text x="159.37738" y="177.44618" style="line-height:0%" xml:space="preserve"><tspan x="159.37738" y="177.44618" fill="#0000ff" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344">45° est</tspan></text>
+   </g>
+   <text x="77.29808" y="165.01259" fill="#0000ff" font-family="'Bitstream Vera Sans'" font-size="14.896px" font-weight="bold" stroke-width=".10344px" style="line-height:0%" xml:space="preserve"><tspan x="77.29808" y="165.01259" stroke-width=".10344px">AZIMUTH</tspan></text>
+   <path d="m205.96 136.2a88.816 37.201 0 1 1-177.63 0 88.816 37.201 0 1 1 177.63 0z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6315"/>
+   <text transform="rotate(.040962)" x="93.159195" y="184.60971" fill="#000000" font-family="'Bitstream Vera Sans'" font-size="11.379px" stroke-width=".10344" style="line-height:0%" xml:space="preserve"><tspan stroke-width=".10344">Horizon</tspan></text>
+  </g>
+ </g>
+</svg>

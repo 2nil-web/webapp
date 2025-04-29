@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{371dd3d7-5b32-4c16-9699-a2cfa455f6e4}</ProjectGuid>
+    <RootNamespace>webviewapp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental />
+    <IntDir>$(SolutionDir)build\msvc\win\$(Platform)\$(Configuration)\Int\</IntDir>
+    <OutDir>$(SolutionDir)build\msvc\win\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(SolutionDir)build\msvc\win\$(Platform)\$(Configuration)\Int\</IntDir>
+    <OutDir>$(SolutionDir)build\msvc\win\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
+      <ObjectFileName>$(OutDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <AssemblerListingLocation>$(OutDir)</AssemblerListingLocation>
+      <ModuleOutputFile>$(OutDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir)</ModuleDependenciesFile>
+      <XMLDocumentationFileName>$(OutDir)</XMLDocumentationFileName>
+      <SourceDependenciesFile>$(OutDir)</SourceDependenciesFile>
+      <BrowseInformationFile>$(OutDir)</BrowseInformationFile>
+      <PrecompiledHeaderOutputFile>$(OutDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>user32.lib;gdi32.lib;comctl32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;ws2_32.lib;wldap32.lib;crypt32.lib;Normaliz.lib;Crypt32.lib;shlwapi.lib;mpr.lib;Pathcch.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <IncrementalLinkDatabaseFile>$(OutDir)$(TargetName).ilk</IncrementalLinkDatabaseFile>
+      <ManifestFile>$(OutDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <LinkTimeCodeGenerationObjectFile>$(OutDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile>
+    </Link>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(OutDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <BuildLog>
+      <Path>$(OutDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
+      <ObjectFileName>$(OutDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <AssemblerListingLocation>$(OutDir)</AssemblerListingLocation>
+      <ModuleOutputFile>$(OutDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir)</ModuleDependenciesFile>
+      <XMLDocumentationFileName>$(OutDir)</XMLDocumentationFileName>
+      <SourceDependenciesFile>$(OutDir)</SourceDependenciesFile>
+      <BrowseInformationFile>$(OutDir)</BrowseInformationFile>
+      <PrecompiledHeaderOutputFile>$(OutDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>user32.lib;gdi32.lib;comctl32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;ws2_32.lib;wldap32.lib;crypt32.lib;Normaliz.lib;Crypt32.lib;shlwapi.lib;mpr.lib;Pathcch.lib;Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IncrementalLinkDatabaseFile>$(OutDir)$(TargetName).ilk</IncrementalLinkDatabaseFile>
+      <ManifestFile>$(OutDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+      <LinkTimeCodeGenerationObjectFile>$(OutDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile>
+    </Link>
+    <ResourceCompile>
+      <ResourceOutputFileName>$(OutDir)%(Filename).res</ResourceOutputFileName>
+    </ResourceCompile>
+    <BuildLog>
+      <Path>$(OutDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="webview\core\include\webview\webview.h" />
+    <ClInclude Include="src\version.h" />
+    <ClInclude Include="src\app_binds.h" />
+    <ClInclude Include="src\env_binds.h" />
+    <ClInclude Include="src\fs_binds.h" />
+    <ClInclude Include="src\io_binds.h" />
+    <ClInclude Include="src\getopt.h" />
+    <ClInclude Include="src\opts.h" />
+    <ClInclude Include="src\reg.h" />
+    <ClInclude Include="src\util.h" />
+    <ClInclude Include="src\path_entity.h" />
+    <ClInclude Include="src\gtk_binds.h" />
+    <ClInclude Include="src\win_binds.h" />
+    <ClInclude Include="src\winapi.h" />
+    <ClInclude Include="src\sendkeys.h" />
+    <ClInclude Include="src\wm_map.h" />
+    <ClInclude Include="src\werr_map.h" />
+    <ClInclude Include="src\wrap.h" />
+    <ClInclude Include="src\base64.h" />
+    <ClInclude Include="src\log.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\webapp.cpp" />
+    <ClCompile Include="src\app_binds.cpp" />
+    <ClCompile Include="src\env_binds.cpp" />
+    <ClCompile Include="src\fs_binds.cpp" />
+    <ClCompile Include="src\io_binds.cpp" />
+    <ClCompile Include="src\getopt.cpp" />
+    <ClCompile Include="src\opts.cpp" />
+    <ClCompile Include="src\reg.cpp" />
+    <ClCompile Include="src\util.cpp" />
+    <ClCompile Include="src\sizeof.cpp" />
+    <ClCompile Include="src\path_entity.cpp" />
+    <ClCompile Include="src\gtk_binds.cpp" />
+    <ClCompile Include="src\win_binds.cpp" />
+    <ClCompile Include="src\winapi.cpp" />
+    <ClCompile Include="src\sendkeys.cpp" />
+    <ClCompile Include="src\wrap.cpp" />
+    <ClCompile Include="src\base64.cpp" />
+    <ClCompile Include="src\log.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\webapp_res.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\webapp.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

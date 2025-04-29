@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Azimuth</title>
+  <script>
+    var appName = "Azimuth";
+    if (typeof app_title === "function") {
+      app_title(appName);
+      app_icon("app.ico");
+      app_size(320, 310, 3);
+
+      function exit_on_esc() {
+        if (event.keyCode === 27) app_exit();
+      }
+      document.addEventListener("keyup", exit_on_esc);
+    }
+  </script>
+</head>
+
+<body>
+  <table>
+    <h2>Angles are in degrees</h2>
+    <tr>
+      <td>Orientation angle</td>
+      <td><input type="number" id="OrAng" value="179.6952529"></td>
+    </tr>
+    <tr>
+      <td>Across angle</td>
+      <td><input type="number" id="AcAng" value="-1.56467805577114"></td>
+    </tr>
+    <tr>
+      <td>Along angle</td>
+      <td><input type="number" id="AlAng" value="15.43383037"></td>
+    </tr>
+    <tr>
+      <td>Across tangent</td>
+      <td><input type="number" id="AcTan" value=""></td>
+    </tr>
+    <tr>
+      <td>Along tangent</td>
+      <td><input type="number" id="AlTan" value=""></td>
+    </tr>
+    <tr>
+      <td>Arc tangent2</td>
+      <td><input type="number" id="ArcTan2" value=""></td>
+    </tr>
+    <tr>
+      <td>Azimuth</td>
+      <td><input type="number" readonly id="AzAng" /></td>
+    </tr>
+  </table>
+  <br />
+  <button id="run" onclick="calc()">Calcul</button>
+</body>
+<script>
+  function calc() {
+    AlAngRad = (AlAng.value * Math.PI) / 180;
+    AcAngRad = (AcAng.value * Math.PI) / 180;
+    AlTan.value = Math.tan(AlAngRad);
+    AcTan.value = Math.tan(AcAngRad);
+    Atan2 = Math.atan2(AlTan.value, AcTan.value);
+    ArcTan2.value = (Atan2 * 180) / Math.PI;
+    AzA = (OrAng.value - ArcTan2.value); //%360;
+    console.log("AlAngRad: " + AlAngRad);
+    console.log("AcAngRad: " + AcAngRad);
+    console.log("TanAl: " + AlTan.value);
+    console.log("TanAc: " + AcTan.value);
+    console.log("Atan2: " + Atan2);
+    console.log("Atan2Deg: " + ArcTan2.value);
+    console.log("AzA: " + AzA);
+    AzAng.value = AzA;
+  }
+</script>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+  canvas {
+    border: 1px solid
+  }
+</style>
+
+<body>
+  <canvas id='c'></canvas>
+  <table>
+    <tr>
+      <td>angular velocity:</td>
+      <td> <input type="range" id="v" min="0" max="0.5" step="0.01" value="0.2" /></td>
+      <td id="vlabel"></td>
+    </tr>
+    <tr>
+      <td>tension</td>
+      <td> <input type="range" id="t" min="0" max="1" step="0.1" value="0.8" /></td>
+      <td id="tlabel"></td>
+    </tr>
+    <tr>
+      <td>remix</td>
+      <td> <button id="r"> + </button></td>
+      <td></td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+    var c = document.getElementById("c");
+    var ctx = c.getContext("2d");
+    var cw = c.width = 600;
+    var ch = c.height = 400;
+    var cx = cw / 4,
+      cy = ch / 2;
+    var angVel = v.value;
+    var tension = t.value;
+    ctx.lineWidth = 4;
+    var npts = 60;
+    var dw = Array();
+    var xs = Array();
+    var ys = Array();
+    var vxs = Array();
+    var vys = Array();
+
+    function Randomize() {
+      for (var i = 0; i < npts; i++) {
+        dw[i] = (2 * Math.random() - 1);
+      }
+    }
+
+    function ComputePath() {
+      xs[0] = cx;
+      ys[0] = cy;
+      var angle = 0;
+      for (var i = 0; i < npts; i++) {
+        vxs[i] = 10 * Math.cos(2 * Math.PI * angle);
+        vys[i] = 10 * Math.sin(2 * Math.PI * angle);
+        angle = angle + dw[i] * angVel;
+      }
+      for (var i = 1; i < npts; i++) {
+        xs[i] = xs[i - 1] + 3 * (vxs[i - 1] + vxs[i]) / 2;
+        ys[i] = ys[i - 1] + 3 * (vys[i - 1] + vys[i]) / 2;
+      }
+    }
+
+    function Draw() {
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.beginPath();
+      ctx.moveTo(xs[0], ys[0]);
+      for (var i = 1; i < npts; i++) {
+        var cp1x = xs[i - 1] + tension * vxs[i - 1];
+        var cp1y = ys[i - 1] + tension * vys[i - 1];
+        var cp2x = xs[i] - tension * vxs[i];
+        var cp2y = ys[i] - tension * vys[i]
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, xs[i], ys[i]);
+      }
+      ctx.stroke();
+    }
+    Randomize();
+    ComputePath();
+    Draw();
+    r.addEventListener("click", () => {
+      Randomize();
+      ComputePath();
+      Draw();
+    })
+    v.addEventListener("input", () => {
+      angVel = v.value;
+      vlabel.innerHTML = "" + angVel;
+      ComputePath();
+      Draw();
+    })
+    t.addEventListener("input", () => {
+      tension = t.value;
+      tlabel.innerHTML = "" + tension;
+      Draw();
+    })
+  </script>
+</body>
+<html>

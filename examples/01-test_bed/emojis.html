@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>🤖Emojis💥</title>
+</head>
+
+<body>
+</body>
+<script>
+  if (typeof app !== 'undefined' && typeof app.set_title === "function") {
+    app.set_title(document.title);
+
+    function exit_on_esc() {
+      if (event.keyCode === 27) app.exit();
+    }
+    document.addEventListener("keyup", exit_on_esc);
+  }
+  var body = document.body,
+    tbl = document.createElement('table'),
+    tbdy = document.createElement('tbody'),
+    tr, td;
+  tbl.style.border = '1px solid black';
+  tbl.style.borderCollapse = 'collapse';
+
+  function tbl_rng(i_first, i_last) {
+    for (i = i_first; i < i_last + 1; i++) {
+      ih = String.fromCodePoint(i);
+      if (i % 16 === 0) {
+        tr = tbl.insertRow();
+        tr.style.border = '1px solid black';
+        tr.style.borderCollapse = 'collapse';
+        td = tr.insertCell();
+        td.style.border = '1px solid black';
+        td.style.borderCollapse = 'collapse';
+        td.style.fontSize = '14px';
+        hih = i.toString(16).slice(0, -1) + 'x';
+        td.innerHTML = "U+" + hih;
+      }
+      td = tr.insertCell();
+      td.style.border = '1px solid black';
+      td.style.borderCollapse = 'collapse';
+      td.style.fontSize = '32px';
+      he = ih;
+      //console.log(he);
+      td.innerHTML = he;
+      //console.log(td.innerHTML);
+      td.title = "U+" + i.toString(16);
+    }
+  }
+  tbl_rng(0x2030, 0x205F);
+  tbl_rng(0x2100, 0x2426);
+  tbl_rng(0x2440, 0x244A);
+  tbl_rng(0x2460, 0x2E5D);
+  tbl_rng(0x2E80, 0x2fd5);
+  tbl_rng(0x2ff0, 0x329F);
+  tbl_rng(0x1F000, 0x1F1ad);
+  tbl_rng(0x1F1e0, 0x1F26F);
+  tbl_rng(0x1F300, 0x1F7EF);
+  tbl_rng(0x1F910, 0x1F9FF);
+  tbl_rng(0x1FA70, 0x1FAFF);
+  body.appendChild(tbl);
+</script>
+<html>

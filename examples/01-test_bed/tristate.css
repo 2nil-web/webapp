@@ -1,0 +1,14 @@
+.tristate {
+  /* top | right | bottom | left */
+  margin: 4px 4px 4px 4px;
+  padding: 0 3px 0 3px;
+  width: 8px;
+  border: 1px transparent;
+  color=white;
+  background: grey;
+  border-radius: 3px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: default;
+  pointer-events: none;
+}

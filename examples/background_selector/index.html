@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>Background selector</title>
+  <link rel="icon" type="image/x-icon" href="app.svg">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="config.js"></script>
+  <script type="text/javascript" src="head.js"></script>
+
+<body>
+  <div id='cnfDiv' style="display: none; ">
+    <fieldset>
+      <legend>Choose background colors</legend>
+      <label for="wbgcolor">For the entire window :</label>
+      <input type="color" id="wbgcolor" onchange="setDarkMode()" style="position: absolute; right: 50%">
+      <button onclick="document.body.style.backgroundColor=wbgcolor.value='#f0f0f0';setDarkMode()" style="position: absolute; right: 20%">Reset to default</button>
+      <br />
+      <br />
+      <label for="bgcolor">For the images :</label>
+      <input type="color" id="bgcolor" style="position: absolute; right: 50%">
+      <button onclick="bgcolor.value='#0078d4'" style="position: absolute; right: 20%">Reset to default</button>
+      <br />
+      <br />
+    </fieldset>
+    <br />
+
+    <div>
+      <label for="darkmode" style="position: absolute; left: 10%">Dark mode</label>
+      <input type="checkbox" style="position: absolute; left: 25%" onclick="setDarkMode()" id="darkmode">
+
+      <label for="img_margin" style="position: absolute; right: 20%">Image margin</label>
+      <input type="number" min="1" max="20" pattern="[0-9]{2}" id="img_margin" style="position: absolute; right: 10%; width: 30px">
+    </div>
+    <br />
+    <br />
+
+    <fieldset style="text-align: center;">
+      <legend>Pictures rejection method</legend>
+      <fieldset style="border:none">
+        <input type="radio" id="movpic" name="rejmeth" onchange="setRejFold('move')" checked>
+        <label for="movpic">Move to the folder below</label>
+        <label for="rempic" style="margin-left:30px;">Delete definitely</label>
+        <input type="radio" id="rempic" name="rejmeth" onchange="setRejFold('delete')">
+      </fieldset>
+
+      <input type="text" id='rejectfolder' style="width: ; width:80%;">
+      <button id='choicefolder' onclick="setRejFolder();" style="margin-left: 10px">Browse</button>
+    </fieldset>
+    <br>
+    <button onclick="cnfDivOk();" style="position: absolute; width: 80px; left: 20%;">Ok</button>
+    <button onclick="cnfDivCancel();" style="position: absolute; width: 80px; right: 20%;">Cancel</button>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+#cnv_sta {
+  outline: black 1px solid;
+  position: absolute;
+  left: 8px;
+  top: 8;
+}
+
+#cnv_ref,
+#cnv_cor {
+  outline: black 1px solid;
+  position: absolute;
+  left: 8px;
+  top: 20px;
+}
+
+#cnv_ref {
+  z-index: 1;
+}
+
+#cnv_cor {
+  z-index: 2;
+}
+
+#under_div {
+  position: absolute;
+  top: 220px;
+}
+
+#factor {
+  width: 50px;
+}

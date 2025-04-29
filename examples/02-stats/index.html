@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>Tokei stats</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="head.js"></script>
+  <script type="text/javascript" src="../js_include/util.js"></script>
+</head>
+
+<body onload="load()">
+  <fieldset id="toggleDark" class="toggleDark" style="display:none">
+    <label>
+      <input type="radio" class="radioStar" id="lightMode" onclick="setDarkMode(false)" checked>
+      <img src="sun.svg" class="radioImage" alt="Set light mode">
+    </label>
+    <label>
+      <input type="radio" class="radioStar" id="darkMode" onclick="setDarkMode(true)">
+      <img src="moon.svg" class="radioImage" alt="Set dark mode">
+    </label>
+    <input type="image" src="run.svg" class="radioImage" id="force_compute" onclick="load(true)" alt="Click me to force rerun tokei">
+  </fieldset>
+  <center id="spinCenter">
+    <h1>Updating project stats, please wait ...</h1>
+    <img id="spinner" src="spinner0.svg">
+  </center>
+  <div id="dynaDiv" style="display:none">
+  </div>
+</body>
+
+</html>

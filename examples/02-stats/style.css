@@ -1,0 +1,106 @@
+/*html:has(#lightMode:checked) {*/
+body {
+  background-color: #eeeeee;
+}
+
+/*}*/
+html:has(#darkMode:checked) {
+  body {
+    background-color: #242528;
+    color: #c9cacf;
+  }
+
+  table,
+  td {
+    border: 1px solid white;
+  }
+}
+
+.toggleDark {
+  border: 2px solid #CCC;
+  border-radius: 24px;
+  inline-size: fit-content;
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 4px;
+}
+
+.toggleDark label {
+  border-radius: 21px;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 3px;
+  text-align: center;
+  user-select: none;
+}
+
+.toggleDark label:has(input:checked) {
+  background-color: #99f;
+  color: #333;
+}
+
+.radioStar {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+#force_compute {
+  position: absolute;
+  right: 4px;
+  white-space: nowrap;
+}
+
+.radioImage {
+  width: 22px;
+}
+
+table,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  white-space: nowrap;
+  text-align: end;
+  font-family: Roboto;
+}
+
+td {
+  width: 80px;
+}
+
+/* 1ére colonne */
+table td:first-child {
+  background-color: #b70178;
+  color: #eefa88;
+}
+
+/* 1ére ligne */
+table tr:first-child {
+  background-color: #fcba03;
+  color: #444444;
+}
+
+/* Dernière ligne */
+table tr:last-child {
+  background-color: #33aa00;
+  color: #ffeedd;
+}
+
+table tr:first-child,
+table tr:last-child,
+table td:first-child {
+  font-weight: bold;
+}
+
+table tr:first-child td {
+  text-align: center;
+}
+
+table td:first-child {
+  width: 110px;
+  text-align: start;
+}

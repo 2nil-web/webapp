@@ -1,0 +1,24 @@
+<job id="allargs">
+  <script language="vbscript" src="args.vbs"/>
+  <script language="jscript" src="args.js"/>
+  <script language="jscript">
+function log(msg) { wscript.echo(msg); }
+
+var myArgs=new Args();
+log("AllArgs:"+myArgs.All.length);
+for (var k in myArgs.All) {
+    log(k+":"+myArgs.All[k]);
+}
+
+log();
+log("NamedArgs:"+myArgs.Named.length);
+for (var k in myArgs.Named) { log(k+":"+myArgs.Named[k]); }
+
+
+log();
+log("UnamedArgs:"+myArgs.Unamed.length);
+//for (var i=0; i < myArgs.Unamed.length; i++) { log(i+":"+myArgs.Unamed[i]); }
+
+  </script>   
+</job>
+

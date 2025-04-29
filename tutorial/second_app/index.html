@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>🤖My second app💥</title>
+  <link rel="icon" type="image/x-icon" href="app.ico">
+  <style>
+  </style>
+  <script>
+    const msg = "My wonderful app (c) <Your name>";
+    if (typeof app != "undefined" && typeof app.set_title == "function") {
+      console.log("Starting as a webapp");
+      app.show();
+      app.set_title(document.title);
+      app.set_icon("app.ico");
+      //app.set_size(300,200);
+      function clicked() {
+        gui.msgbox("&#128570;" + msg + '\nBased on ' + app.info)
+      }
+    } else {
+      console.log("Starting as a web page");
+
+      function clicked() {
+        alert("😺" + msg);
+      }
+    }
+  </script>
+</head>
+
+<body> Hello world ! <br />
+  <button onclick="clicked()">Click me !</button>
+</body>
+
+</html>

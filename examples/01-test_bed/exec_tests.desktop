@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=web-app-demo1
+Comment=Multiplatform html/css/javscript standalone application builder !
+Exec=sh -c "cd ${HOME}/webview-app/examples/exec_tests && ${HOME}/webview-app/webview-app -d"
+Path=${HOME}/webview-app/examples/exec_tests
+Icon=/root/webview-app/examples/exec_tests/app.svg
+Terminal=false
+Type=Application
+StartupNotify=false

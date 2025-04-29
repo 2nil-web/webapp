@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>🤖Test bed💥</title>
+  <link rel="icon" type="image/x-icon" href="app.svg">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="../js_include/msgbox.js"></script>
+  <script type="text/javascript" src="../js_include/util.js"></script>
+  <script type="text/javascript" src="../js_include/time.js"></script>
+  <script type="text/javascript" src="../js_include/filesystem.js"></script>
+  <script type="text/javascript" src="head.js"></script>
+</head>
+
+<body>
+  <div class="topnav">
+    <a onclick="clean_exit()">Quit</a>
+    <a onclick="do_print()">Print</a>
+    <a onclick="about()">About</a>
+  </div>
+  <div class="dvh">
+    <label for="cmd_line">Javascript line:</label>
+    <input type="text" list="cmd_list" rows="5" id="cmd_line" title='Enter some commands separated by two semi-colon (;;)&#13;And click the "Run" button or press the <Enter> key.' />
+    <datalist id="cmd_list"></datalist>
+    <input type="button" id="jscript_line" value="Run the line !" title='Click this button or press the <Enter> key in the "Javascript line" field to run it.&#13;See help button.' />
+    <input type="button" id="help" value="Help" onclick="cls(); help()" title="Some help and the list of available functions for this app." />
+  </div>
+  <div class="dvh">
+    <label for="cmd_file">Javascript file:</label>
+    <input type="text" id="cmd_file" title='Select a javascript file and click the "Run" button.' placeholder="Select a javascript file and click the " Run" button." />
+    <input type="button" id="select_file" value="Select a file" />
+    <input type="button" id="jscript_file" value="Run the file !" />
+    <input type="button" id="output_clear" value="Clean output" onclick="cls()" title="Clear the output" />
+    <input type="button" id="breaks" title="Toggle word wrapping in the output." value="Lines are not wrapped" onclick="toggle_output_flex()">
+  </div>
+  <div id="output" contentEditable=true spellCheck="false"></div>
+</body>
+<script type="text/javascript" src="body.js"></script>
+
+</html>

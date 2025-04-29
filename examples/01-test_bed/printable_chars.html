@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+  <div id="output" contentEditable=true spellCheck="false" style="width:100%;height:100%"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.min.js"></script>
+  <script type="text/javascript">
+    const CharClassRanges = [
+      //     '0-9', // Numeric
+      //     'a-z', // Latin
+      //     'α-ω', // Greek
+      //     '一-龯', // Japanese -- https://gist.github.com/terrancesnyder/1345094
+      '\u1F600-\u1F64F', // 
+      //     '\uFB1D-\uFB4F', // Hebrew (a few in range are unprintable)
+      //     '!"#$%&\'()*+,.\/:;<=>?@\\[\\] ^_`{|}~-' // Special characters
+    ];
+    const PrintableUnicode = new RegExp(`^[${CharClassRanges.join('')}]*$`, 'i');
+    // Generate a range of UTF-16 Unicode values from 0xFEFF0000 to 0xFEFFFFFF.
+    // @see http://www.fileformat.info/info/charset/UTF-16/list.htm 
+    function* generatePrintableUTF16() {
+      const result = [];
+      for (let i = 0x1F600; i < 0x1F64F; i++) {
+        const value = punycode.ucs2.encode([i]);
+        if (PrintableUnicode.test(value)) {
+          yield value;
+        }
+      }
+    };
+    output.innerHTML = [...generatePrintableUTF16()].join(''); // Scroll to see all
+  </script>
+</body>
+
+</html>
