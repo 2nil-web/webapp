@@ -43,9 +43,9 @@ if (false) {
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"RSync backup", tgt, args, app_pth,  app_pth+ico_sfx, "RSync backup");
 
-  app="background_selector";
-  app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"background_selector", tgt, args, app_pth,  app_pth+ico_sfx, "background_selector");
+  app="Wallpaper_selector";
+  app_pth="C:\\Users\\Denis\\Documents\\home\\32-Wallpaper-selector";
+  msg+=mysc.recreate(sDesk+"Wallpaper_selector", tgt, args, app_pth,  app_pth+ico_sfx, "Wallpaper_selector");
 
 
   log(msg.split(ppth).join("..\\").split(sDesk).join("Desktop"));

@@ -168,16 +168,17 @@ endef
 ${SRC_DIR}/%.ico : %.png
 	${MAGICK} $< -density 300 -define icon:auto-resize=128,96,64,48,32,16 -background none $@
 
-${SRC_DIR}/%.ico : %.svg
-	${MAGICK} -density 256x256 -background transparent $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
+#${SRC_DIR}/%.ico : %.svg
+#	${MAGICK} -density 256x256 -background none $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
 #	${MAGICK} $< -density 300 -define icon:auto-resize=128,96,64,48,32,16 -background none $@
 
-%.ico : %.svg
-	${MAGICK} -density 256x256 -background transparent $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
+%.ico : %.png
+	${MAGICK} -density 256x256 -background none $< -define icon:auto-resize=128,96,64,48,32,16 -colors 256 $@
 #	${MAGICK} $< -density 300 -define icon:auto-resize=128,96,64,48,32,16 -background none $@
 
 %.png : %.svg
-	${MAGICK} $< -background none $@
+	inkscape --export-type=png --export-background-opacity=0 $<
+#	${MAGICK} $< -background none $@
 
 ifneq ($(MAKECMDGOALS),clean)
 ifndef NO_OBJS
