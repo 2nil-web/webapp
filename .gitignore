@@ -1,0 +1,80 @@
+.config.ini
+git*_access.sh
+webapp
+webview
+.vs
+.geometry
+# ignore all .sln except webapp.sln and tests/TemplateApp.sln
+*.sln
+!webapp.sln
+!webapp-console.sln
+!webapp_curl.sln
+!tests/TemplateApp.sln
+# ignore all .vcxproj except webapp*.vcxproj and tests/TemplateApp.vcxproj
+*.vcxproj
+!webapp.vcxproj
+!webapp-console.vcxproj
+!webapp_curl.vcxproj
+!tests/TemplateApp.vcxproj
+
+x64
+webview-gcc
+webview-vs
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+
+# Executables
+*.exe
+*.out
+*.app
+
+version_check.txt
+version.h
+version.json
+*.ico
+README.docx
+
+*.dll
+*.old
+wiki_contrib/wiki_contrib.csv
+wiki_contrib/*.xlsx
+
+tmp_test/
+wiki_contrib/wiki_contrib.min.json
+*.min.html
+*.nomin.html
+tests_cpp/*.txt
+*.lnk
+*.zip
+*.RES
+wv_ghrepo
+
+examples/name*.txt
+app.ico
+app.png
+name*.txt
+*.log
+webapp_quick_user_doc_and_reference.docx
+examples/RES
+removed.*
