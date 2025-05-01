@@ -46,7 +46,7 @@ var HostName = "";
     app.set_title(appName);
     app.set_icon("app.ico");
     // Fixed size
-    app.set_size(704, 150, 3);
+    //app.set_size(704, 150, 0);
     HostName = await env.get("COMPUTERNAME");
   }
   // Get all the backup targets

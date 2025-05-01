@@ -143,6 +143,14 @@ deliv : ${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
 #	@echo "Delivering it to gitlab"
 #	@./scripts/gitlab_release.sh $< ${PREFIX} ${VERSION}
 
+ALL_SRCS=$(wildcard ${SRC_DIR}/*.cpp) $(wildcard ${SRC_DIR}/*.hpp) $(wildcard ${SRC_DIR}/*.h)
+format :
+	@echo "Formatting with clang, the following files: ${ALL_SRCS}"
+	@clang-format -style="{ BasedOnStyle: Microsoft, ColumnLimit: 256, IndentWidth: 2, TabWidth: 2, UseTab: Never }" --sort-includes -i ${ALL_SRCS}
+	@echo "Formatting with js-beautify, all the html, css and js files in the subdirectories of the examples directory"
+	@js-beautify -type html -s 2 -r examples/*/*.html tutorial/*/*.html
+	@js-beautify -type css -s 2 -r examples/*/*.css tutorial/*/*.css
+	@js-beautify -type js -s 2 -r examples/*/*.js tutorial/*/*.js
 
 clean :
 	rm -f *~ ${SRC_DIR}/${PREFIX}.ico ${ASSETS}/README.docx ${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip # ${PREFIX}*.vcxproj.user

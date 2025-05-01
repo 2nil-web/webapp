@@ -112,15 +112,6 @@ help :
 	@echo -e "     Have a look at the following files : header.mk, Makefile, rules.mk, webapp.vcxproj and webapp-console.vcxproj."
 
 
-ALL_SRCS=$(wildcard ${SRC_DIR}/*.cpp) $(wildcard ${SRC_DIR}/*.hpp) $(wildcard ${SRC_DIR}/*.h)
-format :
-	@echo "Formatting with clang, the following files: ${ALL_SRCS}"
-	@clang-format -style="{ BasedOnStyle: Microsoft, ColumnLimit: 256, IndentWidth: 2, TabWidth: 2, UseTab: Never }" --sort-includes -i ${ALL_SRCS}
-	@echo "Formatting with js-beautify, all the html, css and js files in the subdirectories of the examples directory"
-	@js-beautify -type html -s 2 -r examples/*/*.html tutorial/*/*.html
-	@js-beautify -type css -s 2 -r examples/*/*.css tutorial/*/*.css
-	@js-beautify -type js -s 2 -r examples/*/*.js tutorial/*/*.js
-
 # Ces régles implicites ne sont pas utiles quand on fait 'make clean'
 ifneq ($(MAKECMDGOALS),clean)
 ifeq ($(DO_MSBUILD),yes)
