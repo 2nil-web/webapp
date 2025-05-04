@@ -280,7 +280,7 @@ void webview_wrapper::set_dark_bar(bool set)
   SetForegroundWindow((HWND)window());
 }
 
-//#include <wil/com.h>
+// #include <wil/com.h>
 #include <WebView2.h>
 ICoreWebView2 *curr_m_webView = nullptr;
 ICoreWebView2Controller *curr_mctl = nullptr;
@@ -939,6 +939,7 @@ webview_wrapper::~webview_wrapper()
 
 void webview_wrapper::navigate(const std::string &url)
 {
+  logDebug("URL: ", url);
   WP->navigate(url);
 }
 
@@ -963,8 +964,10 @@ void webview_wrapper::resolve(const std::string &seq, int status, const std::str
   WP->resolve(seq, status, result);
 }
 
-void webview_wrapper::run()
+void webview_wrapper::run(std::string p_js_args)
 {
+  js_args = p_js_args;
+  logDebug("URL JS ARGS: ", js_args);
   WP->run();
 }
 

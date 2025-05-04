@@ -114,6 +114,7 @@ private:
 
 public:
   static webview_conf conf;
+  std::string js_args = {};
 
   void out_conf(std::string s = {});
   webview_wrapper();
@@ -133,7 +134,7 @@ public:
   void resolve(const std::string &seq, int status, const std::string &result);
 
   void navigate(const std::string &url);
-  void run();
+  void run(std::string p_js_args = {});
   void unbind(const std::string &name);
   void *window();
   void terminate();
@@ -192,9 +193,9 @@ public:
 #if GTK_MAJOR_VERSION == 3
   static bool gtk_on_configure_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
   static bool gtk_on_window_state_event(GtkWidget *widget, GdkEventWindowState *event, gpointer user_data);
-  //#else
-  //  static bool gtk_on_configure_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
-  //  static bool gtk_on_window_state_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+  // #else
+  //   static bool gtk_on_configure_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+  //   static bool gtk_on_window_state_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
   static GdkWindowState current_window_state;
 #endif
 //  GtkWindow* m_window();

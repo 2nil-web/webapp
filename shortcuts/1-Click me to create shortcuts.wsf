@@ -27,17 +27,17 @@ if (false) {
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"Tokei stats", tgt, args, app_pth,  app_pth+ico_sfx, "Tokei stats");
 
-  app="03-webcrypto";
-  app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
+//  app="03-webcrypto";
+//  app_pth=apps_pth+app;
+//  msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
 
-  app="04-curves";
-  app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Weird sinusoids", tgt, args, app_pth,  app_pth+ico_sfx, "Weird sinusoids");
+//  app="04-curves";
+//  app_pth=apps_pth+app;
+//  msg+=mysc.recreate(sDesk+"Weird sinusoids", tgt, args, app_pth,  app_pth+ico_sfx, "Weird sinusoids");
 
-  app="05-azimuth";
-  app_pth=apps_pth+app;
-  msg+=mysc.recreate(sDesk+"Azimuth computation", tgt, args, app_pth,  app_pth+ico_sfx, "Azimuth computation");
+//  app="05-azimuth";
+//  app_pth=apps_pth+app;
+//  msg+=mysc.recreate(sDesk+"Azimuth computation", tgt, args, app_pth,  app_pth+ico_sfx, "Azimuth computation");
 
   app="06-backup";
   app_pth=apps_pth+app;
@@ -45,7 +45,7 @@ if (false) {
 
   app="Wallpaper_selector";
   app_pth="C:\\Users\\Denis\\Documents\\home\\32-Wallpaper-selector";
-  msg+=mysc.recreate(sDesk+"Wallpaper_selector", tgt, args, app_pth,  app_pth+ico_sfx, "Wallpaper_selector");
+  msg+=mysc.recreate(sDesk+"wp_sel", tgt, args, app_pth,  app_pth+ico_sfx, "Wallpaper_selector");
 
 
   log(msg.split(ppth).join("..\\").split(sDesk).join("Desktop"));

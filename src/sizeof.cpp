@@ -66,7 +66,7 @@ std::string type_hierarchy(bool _markdown, bool _size_sortable)
   }
 
 #ifdef AVOID_GCC_WARNING // _MSC_VER
-  output_type(void); // Although not compiling with msvc, it only triggers a warning with gcc
+  output_type(void);     // Although not compiling with msvc, it only triggers a warning with gcc
 #endif
 
   if (!size_sortable)
@@ -138,21 +138,21 @@ std::string type_hierarchy(bool _markdown, bool _size_sortable)
   s += "\n";
 
   //  output_type(nullptr_t); // is also scalar
-  //#  object
-  //##  scalar # arithmetic and nullptr_t are also fundamentals
-  //### member pointer
+  // #  object
+  // ##  scalar # arithmetic and nullptr_t are also fundamentals
+  // ### member pointer
   //  output_type(member object pointer);
   //  output_type(member function pointer);
-  //### pointer # is also compound
+  // ### pointer # is also compound
   //  output_type(enum); // # is also compound
-  //### array # is also compound
+  // ### array # is also compound
   //  output_type(union); // # is also compound
   //  output_type(class); // # is also compound
-  //#  compound
-  //## reference
-  //### lvalue reference
-  //### rvalue reference
-  //## function
+  // #  compound
+  // ## reference
+  // ### lvalue reference
+  // ### rvalue reference
+  // ## function
 
   return s;
 }

@@ -135,7 +135,7 @@ std::vector<run_opt> r_opts = {
     {"browser-args", 'b', opt_only, required_argument, "Provide additional browser arguments to the webview2 component.", set_browser_args},
 #endif
     {"html", 'c', opt_only, required_argument, "Provide an html string that will be directly set to the webview.", ins_html},
-    {"url", 'f', opt_only, required_argument, "Provide a url (a remote one must prepended with 'http://').", set_url},
+    {"url", 'f', opt_only, required_argument, "Provide a url, a remote one must prepended with 'http://', a local one must have one of the following extensions .html, .htm, .webapp or .wa.", set_url},
     {"path", 'p', opt_only, required_argument, "Provide the path where could be found a file with a name within the following ones: " + idxs + ".", set_path},
     {"", '\0', 0, 0, "\tThe use of these 3 previous options is mutually exclusive.", nullptr},
     {"", '\0', 0, 0, "\tIt is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with \"html://\", for -c.", nullptr},
@@ -284,7 +284,7 @@ void GetGeom(HWND hw, int &x, int &y, int &wi, int &he)
 
 #define trc std::cout << __LINE__ << std::endl;
 
-void webview_run(std::string url, std::string title = "", std::string init_js = "")
+void webview_run(std::string url, std::string title = "", std::string init_js = "", std::string wa_args = "")
 {
   logDebug("title: ", title);
   if (title == "Missing parameter" && init_js == "")
@@ -320,6 +320,8 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
   }
   else
   {
+    logDebug("URL: ", url);
+
     if (!init_js.empty())
     {
       w.init(init_js);
@@ -332,15 +334,30 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
     }
     else
     {
-      if (!starts_with(url, "http://") && !starts_with(url, "https://"))
+      // If file ends with .wa or .webapp extension then load and run it as html string
+      auto ext = std::filesystem::path(url).extension().string();
+      if (ext == ".wa" || ext == ".webapp")
       {
-        url = "file://" + url;
+        auto s = file2s(url);
+        w.set_html(s);
       }
-      w.navigate(url);
+      else
+      {
+        if (!starts_with(url, "http://") && !starts_with(url, "https://"))
+        {
+          url = "file://" + url;
+        }
+
+        logDebug("URL FILE EXT: ", std::filesystem::path(url).extension().string());
+
+        logDebug("URL: ", url);
+        w.navigate(url);
+      }
     }
   }
 
-  w.run();
+  logDebug("URL: ", url);
+  w.run(wa_args);
 }
 
 // Live html test :
@@ -430,16 +447,30 @@ int main(int argc, char **argv, char **)
   logFatal("Test logFatal");
 #endif
 
+  std::string wa_args = {};
+
   if (url.empty())
   {
     if (optind < argc)
     {
       url = argv[optind];
+      logDebug("URL: ", url);
 
       if (starts_with(url, "file://"))
         url = std::filesystem::absolute(url.substr(7)).generic_string();
       else if (!starts_with(url, "html://") && !starts_with(url, "http://") && !starts_with(url, "https://"))
         set_path(std::filesystem::absolute(url).generic_string());
+
+      for (int i = optind + 1; i < argc; i++)
+      {
+        wa_args += argv[i];
+        if (i < argc - 1)
+          wa_args += ", ";
+      }
+      if (!wa_args.empty())
+        wa_args = "[ " + wa_args + " ]";
+
+      logDebug("URL ARGS", wa_args);
     }
     else
     {
@@ -507,7 +538,10 @@ int main(int argc, char **argv, char **)
     std::cout << help_func_tit << std::endl << s << std::flush;
   }
   else if (!help_or_version)
-    webview_run(url, title, init_js);
+  {
+    logDebug("URL ARGS: ", wa_args);
+    webview_run(url, title, init_js, wa_args);
+  }
 
   w.terminate();
 

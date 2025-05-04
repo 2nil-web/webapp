@@ -107,7 +107,7 @@ std::vector<byte> from_base64(const std::string &input)
 
     decoded.push_back((temp >> 16) & 0x000000FF);
     decoded.push_back((temp >> 8) & 0x000000FF);
-    decoded.push_back((temp)&0x000000FF);
+    decoded.push_back((temp) & 0x000000FF);
   }
 
   return decoded;

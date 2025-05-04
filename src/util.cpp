@@ -12,19 +12,20 @@
 #endif
 // clang-format on
 #else
-#include <string.h>
-#include <unistd.h>
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #endif
 
 #include <algorithm>
 #include <cctype>
 #include <chrono>
 #include <codecvt>
-#include <cstdlib>
+#include <cstdint>
 #include <cstdio>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <functional>
@@ -39,7 +40,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <cstdint>
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 #include <filesystem>
@@ -50,9 +50,9 @@
 #ifdef _WIN32
 #include "winapi.h"
 #endif
-#include "wrap.h"
 #include "log.h"
 #include "util.h"
+#include "wrap.h"
 
 // For lack of starts_with in gcc < 13
 bool starts_with(std::string str, std::string prefix)
@@ -655,7 +655,7 @@ std::string CP1252_to_UTF8(const std::string &byte_array)
   for (size_t i = 0; i < unicode.size(); ++i)
     unicode[i] = CP1252_UNICODE_TABLE[(uint8_t)byte_array[i]];
 
-    // Unicode => UTF8.
+  // Unicode => UTF8.
 #ifdef _MSC_VER
   return ws2s(unicode);
 
