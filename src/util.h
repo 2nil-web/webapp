@@ -76,7 +76,7 @@ bool any_of_ctype(const std::string, std::function<int(int)>);
 bool all_of_ctype(const std::string, std::function<int(int)>);
 
 std::string temppath();
-std::string tempfile(std::string tpath = "", std::string pfx = "");
+std::string tempfile(std::string tpath = "", std::string pfx = "", unsigned int uniq=0);
 
 std::string exec_cmd(std::string cmd);
 std::string wexec_cmd(std::wstring cmd);

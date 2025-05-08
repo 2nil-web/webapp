@@ -1,5 +1,7 @@
 
 #ifdef _WIN32
+#include <windows.h>
+#include <fileapi.h>
 #include "winapi.h"
 #endif
 
@@ -284,7 +286,7 @@ void GetGeom(HWND hw, int &x, int &y, int &wi, int &he)
 
 #define trc std::cout << __LINE__ << std::endl;
 
-void webview_run(std::string url, std::string title = "", std::string init_js = "", std::string wa_args = "")
+void webview_run(std::string url, std::string title = "", std::string init_js = "")
 {
   logDebug("title: ", title);
   if (title == "Missing parameter" && init_js == "")
@@ -309,7 +311,7 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
 
   // webview_bind();
 
-  logDebug("URL: ", url, ", TITLE: ", title, ", INIT: ", init_js);
+  //logDebug("URL: ", url, ", TITLE: ", title, ", INIT: ", init_js);
   if (run_and_exit)
   {
     if (init_js.back() != ';')
@@ -320,7 +322,7 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
   }
   else
   {
-    logDebug("URL: ", url);
+    //logDebug("URL: ", url);
 
     if (!init_js.empty())
     {
@@ -334,30 +336,22 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
     }
     else
     {
-      // If file ends with .wa or .webapp extension then load and run it as html string
-      auto ext = std::filesystem::path(url).extension().string();
-      if (ext == ".wa" || ext == ".webapp")
-      {
-        auto s = file2s(url);
-        w.set_html(s);
-      }
-      else
       {
         if (!starts_with(url, "http://") && !starts_with(url, "https://"))
         {
           url = "file://" + url;
         }
 
-        logDebug("URL FILE EXT: ", std::filesystem::path(url).extension().string());
+        //logDebug("URL FILE EXT: ", std::filesystem::path(url).extension().string());
 
-        logDebug("URL: ", url);
+        //logDebug("URL: ", url);
         w.navigate(url);
       }
     }
   }
 
-  logDebug("URL: ", url);
-  w.run(wa_args);
+  //logDebug("URL: ", url);
+  w.run();
 }
 
 // Live html test :
@@ -447,30 +441,21 @@ int main(int argc, char **argv, char **)
   logFatal("Test logFatal");
 #endif
 
-  std::string wa_args = {};
+  std::string tmp_htm={};
 
   if (url.empty())
   {
     if (optind < argc)
     {
       url = argv[optind];
-      logDebug("URL: ", url);
+      //logDebug("URL: ", url);
 
       if (starts_with(url, "file://"))
         url = std::filesystem::absolute(url.substr(7)).generic_string();
       else if (!starts_with(url, "html://") && !starts_with(url, "http://") && !starts_with(url, "https://"))
         set_path(std::filesystem::absolute(url).generic_string());
 
-      for (int i = optind + 1; i < argc; i++)
-      {
-        wa_args += argv[i];
-        if (i < argc - 1)
-          wa_args += ", ";
-      }
-      if (!wa_args.empty())
-        wa_args = "[ " + wa_args + " ]";
-
-      logDebug("URL ARGS", wa_args);
+      w.set_js_args(argc, optind, argv);
     }
     else
     {
@@ -491,6 +476,27 @@ int main(int argc, char **argv, char **)
       }
     }
   }
+
+#ifdef RUN_IT
+  // If file ends with .wa or .webapp then replace it by a temporary file ending with .html
+  auto ext = std::filesystem::path(url).extension().string();
+  if (ext == ".wa" || ext == ".webapp")
+  {
+    extern bool set_fs_error(webview_wrapper &w, std::filesystem::path pcaller, const std::error_code ec);
+    std::error_code ec;
+
+    auto pp=std::filesystem::path(url).parent_path();
+    // Create a temporary html file
+    tmp_htm=tempfile(pp.string(), ".tmp.XXXXXX", 1)+".html";
+    std::filesystem::copy_file(url, tmp_htm, ec);
+#ifdef _WIN32
+    SetFileAttributes(tmp_htm.c_str(), FILE_ATTRIBUTE_HIDDEN);
+#endif
+     if (set_fs_error(w, std::filesystem::path("Failed to copy '" + url + "' to '"+tmp_htm), ec)) exit(1);
+
+    url=tmp_htm;
+  }
+#endif
 
   webview_set(init_win_state, devmode, runjs_and_exit);
 
@@ -539,8 +545,12 @@ int main(int argc, char **argv, char **)
   }
   else if (!help_or_version)
   {
-    logDebug("URL ARGS: ", wa_args);
-    webview_run(url, title, init_js, wa_args);
+    webview_run(url, title, init_js);
+  }
+
+
+  if (!tmp_htm.empty() && std::filesystem::exists(tmp_htm)) {
+    std::filesystem::remove(tmp_htm);
   }
 
   w.terminate();

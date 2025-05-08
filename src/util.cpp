@@ -531,7 +531,7 @@ std::string temppath()
   return tpath;
 }
 
-std::string tempfile(std::string tpath, std::string pfx)
+std::string tempfile(std::string tpath, std::string pfx, unsigned int uniq)
 {
   std::string tfn = "";
 
@@ -542,7 +542,7 @@ std::string tempfile(std::string tpath, std::string pfx)
 #ifdef _WIN32
   replace_all(tpath, "/", "\\");
   char tfnw[MAX_PATH];
-  if (GetTempFileName(tpath.c_str(), pfx.c_str(), 0, tfnw) != 0)
+  if (GetTempFileName(tpath.c_str(), pfx.c_str(), uniq, tfnw) != 0)
     tfn = tfnw;
 #else
   tfn = std::string((tpath + '/' + pfx).c_str());

@@ -57,7 +57,7 @@ void webview_wrapper::on_geom()
 {
   if (me)
   {
-    logDebug("ON_GEOM: new_geom (", new_geom.x, ',', new_geom.y, ',', new_geom.w, ',', new_geom.h, ')');
+    //logDebug("ON_GEOM: new_geom (", new_geom.x, ',', new_geom.y, ',', new_geom.w, ',', new_geom.h, ')');
     // We may have to save the geometry
     me->save_conf();
 
@@ -939,7 +939,7 @@ webview_wrapper::~webview_wrapper()
 
 void webview_wrapper::navigate(const std::string &url)
 {
-  logDebug("URL: ", url);
+  //logDebug("URL: ", url);
   WP->navigate(url);
 }
 
@@ -964,10 +964,25 @@ void webview_wrapper::resolve(const std::string &seq, int status, const std::str
   WP->resolve(seq, status, result);
 }
 
-void webview_wrapper::run(std::string p_js_args)
+void webview_wrapper::set_js_args(int argc, int optind, char **argv) {
+  js_args="";
+
+  for (int i = optind + 1; i < argc; i++)
+  {
+    js_args += argv[i];
+    if (i < argc - 1) js_args += ',';
+  }
+
+  //json_escape(js_args);
+  //js_args = json_escape('['+js_args+']', true);
+  //js_args = "[" + js_args + "]";
+
+  logDebug("URL ARGS: ", js_args);
+}
+
+void webview_wrapper::run()
 {
-  js_args = p_js_args;
-  logDebug("URL JS ARGS: ", js_args);
+  //logDebug("URL JS ARGS: ", js_args);
   WP->run();
 }
 
@@ -1504,10 +1519,10 @@ bool read_ini(std::string fname, ConfigInfo &cv)
 bool webview_wrapper::restore_conf(webview_conf &p_cnf, std::string fname)
 {
   ConfigInfo cv;
-  logDebug("restore_conf bef read_ini");
+  //logDebug("restore_conf bef read_ini");
   if (read_ini(fname, cv))
   {
-    logDebug("restore_conf aft read_ini");
+    //logDebug("restore_conf aft read_ini");
     int x_offset = 0, y_offset = 0;
 #ifndef WIN32
     // Trying to compensate the offset I noticed between 2 gtk_move_window
@@ -1554,8 +1569,8 @@ bool webview_wrapper::may_save_conf()
 
   bool ret = false;
 
-  logDebug("conf (", conf.xpos, ",", conf.ypos, ",", conf.width, ",", conf.height, ")");
-  logDebug("new_geom (", new_geom.x, ",", new_geom.y, ",", new_geom.w, ",", new_geom.h, ")");
+  //logDebug("conf (", conf.xpos, ",", conf.ypos, ",", conf.width, ",", conf.height, ")");
+  //logDebug("new_geom (", new_geom.x, ",", new_geom.y, ",", new_geom.w, ",", new_geom.h, ")");
   // Here we have the object new_geom that is correctly set
   if (conf.xpos != new_geom.x)
   {

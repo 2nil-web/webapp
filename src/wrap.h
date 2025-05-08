@@ -114,7 +114,7 @@ private:
 
 public:
   static webview_conf conf;
-  std::string js_args = {};
+  std::string js_args = "[]";
 
   void out_conf(std::string s = {});
   webview_wrapper();
@@ -134,7 +134,8 @@ public:
   void resolve(const std::string &seq, int status, const std::string &result);
 
   void navigate(const std::string &url);
-  void run(std::string p_js_args = {});
+  void set_js_args(int argc, int optind, char **argv);
+  void run();
   void unbind(const std::string &name);
   void *window();
   void terminate();

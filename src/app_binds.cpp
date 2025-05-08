@@ -64,18 +64,19 @@ void create_app_binds(webview_wrapper &w)
       [&](const std::string &req) -> std::string //
       {
         std::string p[10], ret = {};
+        logDebug("ARGS req", req);
+
         js_params(req, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+
         for (int i = 0; i < 10; i++)
         {
-          if (!p[i].empty())
-          {
-            ret += p[i];
-            if (i < 9)
-              ret += ", ";
-          }
+          logDebug("ARGS", i, ": [", p[i],"]");
+
+          if (!p[i].empty()) ret += p[i];
+          if (!p[i].empty() && i < 9) ret += ", ";
         }
 
-        logTrace(ret);
+        logDebug("ARG: "+ret);
         std::cout << ret << std::endl;
         return w.json_escape(ret);
       },
@@ -436,6 +437,7 @@ void create_app_binds(webview_wrapper &w)
   w.decvar("app", "title", "title of the webapp window, usually displayed one its title bar.", std::filesystem::path(w.get_title()));
   w.decvar("app", "icon", "file name of the icon used by the webapp.", std::filesystem::path(w.icon_file));
   w.decvar("app", "info", "informations about the webapp.", appInfo());
+  w.decvar("app", "args_line", "A comma separated string containing the args passed to the webapp", w.js_args);
 
   w.decvar("app", "x", "horizontal position of the upper left corner of the webapp window.", appx);
   w.decvar("app", "y", "vertical position of the upper left corner of the webapp window.", appy);
@@ -455,8 +457,6 @@ void create_app_binds(webview_wrapper &w)
   w.decvar("app", "bottom_border", "bottom size of the vertical border.", b_b);
 #endif
 
-  logDebug("URL JS ARGS: ", w.js_args);
-  w.decvar("app", "args", "", w.js_args);
   w.decvar("app", "state", "contains the state of the application windows, may have one of the following values: normal, maximised, minimised, hidden, full_screen", "normal");
   w.decvar("app", "last_error", "may contains the last app object error", "No error with application object");
 }
