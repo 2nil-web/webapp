@@ -656,13 +656,13 @@ std::string CP1252_to_UTF8(const std::string &byte_array)
     unicode[i] = CP1252_UNICODE_TABLE[(uint8_t)byte_array[i]];
 
   // Unicode => UTF8.
-#ifdef _MSC_VER
+//#ifdef _MSC_VER
   return ws2s(unicode);
 
-#else
+/*#else
   std::wstring_convert<std::codecvt_utf8<wchar_t>> unicode_to_utf8;
   return unicode_to_utf8.to_bytes(unicode);
-#endif
+#endif*/
 }
 
 // Convert non ascii characters of a wstring to html entities form in decimal (default) or hexa &#[x]value;

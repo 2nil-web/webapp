@@ -120,7 +120,7 @@ TARGET_DIR_CONS=build/gcc/win_cons/${msystem_low}
 else
 ifeq ($(MAKECMDGOALS),w64)
 TARGET_API=windows
-# Croos compiling for Windows under Linux (but not differencing whether it is mingw64/ucrt64/clang64, for now)
+# Cross compiling for Windows under Linux (but not differencing whether it is mingw64/ucrt64/clang64, for now)
 TARGET_DIR=build/gcc/cross_win
 else
 TARGET_DIR=build/gcc/${OS_ID}
@@ -154,7 +154,7 @@ GCC=${GCC_PATH}/gcc${EXEXT}
 CC=${GCC_PATH}/gcc${EXEXT}
 CXX=${GCC_PATH}/g++${EXEXT}
 endif
-WV2SUBDIR=Microsoft.Web.WebView2.1.0.3179.45
+WV2SUBDIR=Microsoft.Web.WebView2.1.0.3240.44
 CPPFLAGS += -I ${WVDIR}/build/external/libs/${WV2SUBDIR}/build/native/include
 CPPFLAGS += -DWIN32_LEAN_AND_MEAN
 # For IDesktopWallpaper

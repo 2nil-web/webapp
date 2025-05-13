@@ -87,7 +87,7 @@
       <PreprocessorDefinitions>_CONSOLE;WIN32;_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
@@ -104,7 +104,7 @@
       <PreprocessorDefinitions>_CONSOLE;WIN32;NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>_CONSOLE;_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
       <ObjectFileName>$(OutDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -165,7 +165,7 @@
       <PreprocessorDefinitions>_CONSOLE;NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3179.45\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
       <ObjectFileName>$(OutDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -211,6 +211,7 @@
     <ClInclude Include="src\gtk_binds.h" />
     <ClInclude Include="src\win_binds.h" />
     <ClInclude Include="src\winapi.h" />
+    <ClInclude Include="src\tail.h" />
     <ClInclude Include="src\sendkeys.h" />
     <ClInclude Include="src\wm_map.h" />
     <ClInclude Include="src\werr_map.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="src\gtk_binds.cpp" />
     <ClCompile Include="src\win_binds.cpp" />
     <ClCompile Include="src\winapi.cpp" />
+    <ClCompile Include="src\tail.cpp" />
     <ClCompile Include="src\sendkeys.cpp" />
     <ClCompile Include="src\wrap.cpp" />
     <ClCompile Include="src\base64.cpp" />

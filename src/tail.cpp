@@ -8,6 +8,8 @@
 #include <thread>
 #include <vector>
 
+#include "tail.h"
+
 std::string progname;
 
 // clear to eol in pure C/C++
@@ -52,7 +54,7 @@ inline size_t linecount(std::ifstream &file)
   return std::count_if(std::istreambuf_iterator<char>{file}, {}, [](char c) { return c == '\n'; });
 }
 
-// Get a file path the line count
+// Get a file path lines count
 size_t linecount(const std::string filename)
 {
   std::ifstream file(filename);
@@ -62,7 +64,7 @@ size_t linecount(const std::string filename)
 }
 
 // Tail an ifstream from a specific position
-size_t tail_from_pos(std::ifstream &file, size_t pos, size_t total_line, size_t start_line = 0, bool forward = true)
+size_t tail_from_pos(std::ifstream &file, size_t pos, size_t total_line, size_t start_line, bool forward)
 {
   // Position in the file from the start or from the end
   if (forward)
@@ -115,7 +117,7 @@ size_t tail_from_pos(std::ifstream &file, size_t pos, size_t total_line, size_t 
 }
 
 // Tail a file path from a specific position
-size_t tail_from_pos(std::string filename, size_t pos, size_t total_line = 0, size_t start_line = 0, bool forward = true)
+size_t tail_from_pos(std::string filename, size_t pos, size_t total_line, size_t start_line, bool forward)
 {
   std::ifstream file(filename);
   size_t file_size = tail_from_pos(file, pos, total_line, start_line, forward);
@@ -124,7 +126,7 @@ size_t tail_from_pos(std::string filename, size_t pos, size_t total_line = 0, si
 }
 
 // Tail a file at the character position corresponding to the provided start_line
-size_t tail_once(std::string filename, size_t &total_line, bool num, const size_t start_line, size_t seek_step = 0)
+size_t tail_once(std::string filename, size_t &total_line, bool num, const size_t start_line, size_t seek_step)
 {
   // First line number is 1, and zero is assumed as the 'after last line number', then it is non sense asking to tail a file after its last line
   if (start_line == 0)
@@ -186,7 +188,7 @@ size_t tail_once(std::string filename, size_t &total_line, bool num, const size_
 }
 
 // The main feature interface function
-size_t tail(std::string filename, bool poll = false, bool num = false, const size_t start_line = 10, size_t seek_step = 0)
+size_t tail(std::string filename, bool poll, bool num , const size_t start_line, size_t seek_step)
 {
   // First tail of the provided file
   size_t total_line = 0, file_size = tail_once(filename, total_line, num, start_line, seek_step);
@@ -218,7 +220,7 @@ size_t tail(std::string filename, bool poll = false, bool num = false, const siz
       { // The file is shrinking
         std::cerr << progname << ": file '" << filename << "' has been truncated, displaying only its last " << start_line << " lines." << std::endl;
         total_line = 0;
-        file_size = tail_once(filename, total_line, num, start_line);
+        file_size = tail_once(filename, total_line, num, start_line, seek_step);
       }
     }
   }
@@ -226,6 +228,7 @@ size_t tail(std::string filename, bool poll = false, bool num = false, const siz
   return file_size;
 }
 
+#ifdef STAND_ALONE
 // A little help message
 void usage()
 {
@@ -298,3 +301,4 @@ int main(int argc, char **argv, char **)
 
   return 0;
 }
+#endif
