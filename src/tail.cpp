@@ -99,7 +99,7 @@ size_t tail_from_pos(std::ifstream &file, size_t pos, size_t total_line, size_t 
       // Get the widdest line number
       size_t ln_width = std::to_string(1 + positioned_lines.back().s.size()).size();
       // Set the the first line number of the deque
-      size_t line_number = 1 + total_line - positioned_lines.back().s.size();
+      size_t line_number = 1 + total_line - start_line; // positioned_lines.back().s.size();
       // Display the numbered positioned_lines
       for (auto positioned_line : positioned_lines)
         std::cout << std::setfill('0') << std::setw(ln_width) << line_number++ << ':' << positioned_line.s << std::endl;
@@ -188,7 +188,7 @@ size_t tail_once(std::string filename, size_t &total_line, bool num, const size_
 }
 
 // The main feature interface function
-size_t tail(std::string filename, bool poll, bool num , const size_t start_line, size_t seek_step)
+size_t tail(std::string filename, bool poll, bool num, const size_t start_line, size_t seek_step)
 {
   // First tail of the provided file
   size_t total_line = 0, file_size = tail_once(filename, total_line, num, start_line, seek_step);
