@@ -70,13 +70,15 @@ void create_app_binds(webview_wrapper &w)
 
         for (int i = 0; i < 10; i++)
         {
-          logDebug("ARGS", i, ": [", p[i],"]");
+          logDebug("ARGS", i, ": [", p[i], "]");
 
-          if (!p[i].empty()) ret += p[i];
-          if (!p[i].empty() && i < 9) ret += ", ";
+          if (!p[i].empty())
+            ret += p[i];
+          if (!p[i].empty() && i < 9)
+            ret += ", ";
         }
 
-        logDebug("ARG: "+ret);
+        logDebug("ARG: " + ret);
         std::cout << ret << std::endl;
         return w.json_escape(ret);
       },

@@ -1,8 +1,8 @@
 
 #ifdef _WIN32
-#include <windows.h>
-#include <fileapi.h>
 #include "winapi.h"
+#include <fileapi.h>
+#include <windows.h>
 #endif
 
 #include <chrono>
@@ -311,7 +311,7 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
 
   // webview_bind();
 
-  //logDebug("URL: ", url, ", TITLE: ", title, ", INIT: ", init_js);
+  // logDebug("URL: ", url, ", TITLE: ", title, ", INIT: ", init_js);
   if (run_and_exit)
   {
     if (init_js.back() != ';')
@@ -322,7 +322,7 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
   }
   else
   {
-    //logDebug("URL: ", url);
+    // logDebug("URL: ", url);
 
     if (!init_js.empty())
     {
@@ -342,15 +342,15 @@ void webview_run(std::string url, std::string title = "", std::string init_js = 
           url = "file://" + url;
         }
 
-        //logDebug("URL FILE EXT: ", std::filesystem::path(url).extension().string());
+        // logDebug("URL FILE EXT: ", std::filesystem::path(url).extension().string());
 
-        //logDebug("URL: ", url);
+        // logDebug("URL: ", url);
         w.navigate(url);
       }
     }
   }
 
-  //logDebug("URL: ", url);
+  // logDebug("URL: ", url);
   w.run();
 }
 
@@ -441,14 +441,14 @@ int main(int argc, char **argv, char **)
   logFatal("Test logFatal");
 #endif
 
-  std::string tmp_htm={};
+  std::string tmp_htm = {};
 
   if (url.empty())
   {
     if (optind < argc)
     {
       url = argv[optind];
-      //logDebug("URL: ", url);
+      // logDebug("URL: ", url);
 
       if (starts_with(url, "file://"))
         url = std::filesystem::absolute(url.substr(7)).generic_string();
@@ -482,19 +482,20 @@ int main(int argc, char **argv, char **)
   auto ext = std::filesystem::path(url).extension().string();
   if (ext == ".wa" || ext == ".webapp")
   {
-    extern bool set_fs_error(webview_wrapper &w, std::filesystem::path pcaller, const std::error_code ec);
+    extern bool set_fs_error(webview_wrapper & w, std::filesystem::path pcaller, const std::error_code ec);
     std::error_code ec;
 
-    auto pp=std::filesystem::path(url).parent_path();
+    auto pp = std::filesystem::path(url).parent_path();
     // Create a temporary html file
-    tmp_htm=tempfile(pp.string(), ".tmp.XXXXXX", 1)+".html";
+    tmp_htm = tempfile(pp.string(), ".tmp.XXXXXX", 1) + ".html";
     std::filesystem::copy_file(url, tmp_htm, ec);
 #ifdef _WIN32
     SetFileAttributes(tmp_htm.c_str(), FILE_ATTRIBUTE_HIDDEN);
 #endif
-     if (set_fs_error(w, std::filesystem::path("Failed to copy '" + url + "' to '"+tmp_htm), ec)) exit(1);
+    if (set_fs_error(w, std::filesystem::path("Failed to copy '" + url + "' to '" + tmp_htm), ec))
+      exit(1);
 
-    url=tmp_htm;
+    url = tmp_htm;
   }
 #endif
 
@@ -548,8 +549,8 @@ int main(int argc, char **argv, char **)
     webview_run(url, title, init_js);
   }
 
-
-  if (!tmp_htm.empty() && std::filesystem::exists(tmp_htm)) {
+  if (!tmp_htm.empty() && std::filesystem::exists(tmp_htm))
+  {
     std::filesystem::remove(tmp_htm);
   }
 
