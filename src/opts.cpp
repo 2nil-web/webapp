@@ -216,9 +216,9 @@ std::string usage(std::ostream &out)
 
   std::ostringstream oss;
 
-  oss << "<b>" << app_info::name << ' ' << app_info::version << '-' << app_info::commit << "</b>";
-  if (!app_info::decoration.empty())
-    oss << '.' << app_info::decoration;
+  oss << "<b>" << app_info.name << ' ' << app_info.version << '-' << app_info.commit << "</b>";
+  if (!app_info.decoration.empty())
+    oss << '.' << app_info.decoration;
   oss << std::endl;
   oss << "<i>A tool to create standalone applications based on web technology.</i>" << std::endl;
 
@@ -300,12 +300,12 @@ std::string appInfo()
   std::string ppath = progpath;
   // if (ppath.size() > 0) ppath[0] = toupper(ppath[0]);
 
-  std::string aInf = ppath + ' ' + app_info::version;
-  if (app_info::commit != "")
-    aInf += '-' + app_info::commit;
+  std::string aInf = ppath + ' ' + app_info.version;
+  if (app_info.commit != "")
+    aInf += '-' + app_info.commit;
   std::string metadata = "";
-  if (app_info::decoration != "")
-    metadata += app_info::decoration;
+  if (app_info.decoration != "")
+    metadata += app_info.decoration;
   if (metadata != "")
     aInf += '+' + metadata;
   //  aInf += '.';
@@ -313,8 +313,8 @@ std::string appInfo()
     aInf += "\n  " + copyright;
   aInf += "\nBased on webview " + webview_wrapper::version() + WVCR;
   aInf += "\nBuild for " + getBuild();
-  if (app_info::created_at != "")
-    aInf += ", " + app_info::created_at;
+  if (app_info.created_at != "")
+    aInf += ", " + app_info.created_at;
   aInf += '.';
   return aInf;
 }
@@ -324,12 +324,12 @@ std::wstring appInfoW()
   std::string ppath = progpath;
   // if (ppath.size() > 0) ppath[0] = toupper(ppath[0]);
 
-  std::wstring aInf = s2ws(ppath) + L' ' + s2ws(app_info::version);
-  if (app_info::commit != "")
-    aInf += L'-' + s2ws(app_info::commit);
+  std::wstring aInf = s2ws(ppath) + L' ' + s2ws(app_info.version);
+  if (app_info.commit != "")
+    aInf += L'-' + s2ws(app_info.commit);
   std::string metadata = "";
-  if (app_info::decoration != "")
-    metadata += app_info::decoration;
+  if (app_info.decoration != "")
+    metadata += app_info.decoration;
   if (metadata != "")
     aInf += L'+' + s2ws(metadata);
   //  aInf += '.';
@@ -337,8 +337,8 @@ std::wstring appInfoW()
     aInf += L"\n  " + s2ws(copyright);
   aInf += L"\nBased on webview " + s2ws(webview_wrapper::version()) + s2ws(WVCR);
   aInf += L"\nBuild for " + s2ws(getBuild());
-  if (app_info::created_at != "")
-    aInf += L", " + s2ws(app_info::created_at);
+  if (app_info.created_at != "")
+    aInf += L", " + s2ws(app_info.created_at);
   aInf += L'.';
   return aInf;
 }
@@ -572,7 +572,7 @@ void getopt_init(int argc, char **argv, std::vector<run_opt> pOptions, const std
   progpath = std::filesystem::path(argv[0]).stem().string();
   intro = pIntro;
   if (pVersion != "")
-    app_info::version = pVersion;
+    app_info.version = pVersion;
   copyright = pCopyright;
   // std::cout << "1. OPT L: " << pOptions.size() << std::endl;
   auto vo = pOptions.end();

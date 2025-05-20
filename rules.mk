@@ -8,18 +8,18 @@ endif
 # Génération du version.h intégré dans l'appli
 src/version.h : version_check.txt
 	@${ECHO} "Building C++ header $@"
-	${ECHO} "#ifndef VERSION_H\n#define VERSION_H\nnamespace app_info { std::string name=\"${PREFIX}\", version=\"${VERSION}\", decoration=\"${DECORATION}\", commit=\"${COMMIT}\", created_at=\"${ISO8601}\"; }\n#endif" >$@
+	${ECHO} "#ifndef VERSION_H\n#define VERSION_H\nstruct s_app_info\n{\n  std::string name = \"${PREFIX}\", version = \"${VERSION}\", copyright = \"${COPYRIGHT}\", decoration = \"${DECORATION}\", commit = \"${COMMIT}\", created_at = \"${ISO8601}\";\n};\nstatic s_app_info app_info;\n#endif" >$@
 	dos2unix $@
 
 # Génération du version.json intégré dans le paquetage
 version.json : version_check.txt
 	@${ECHO} "Building json file $@"
-	@${ECHO} -e '{ "name":"${PREFIX}", "version":"${VERSION}", "decoration":"${DECORATION}", "commit":"${COMMIT}","created_at":"${ISO8601}" }' >$@
+	@${ECHO} -e '{ "name":"${PREFIX}", "version":"${VERSION}", copyright:"${COPYRIGHT}", "decoration":"${DECORATION}", "commit":"${COMMIT}","created_at":"${ISO8601}" }' >$@
 	dos2unix $@
 
-# Pour regénérer silencieusement version.h et version.json dès qu'un des champs version ou decoration ou commit, est modifié.
+# Pour regénérer silencieusement version.h et version.json dès qu'un des champs version ou copyright ou decoration ou commit, est modifié.
 version_check.txt : FORCE
-	@${ECHO} "Version:${VERSION}, decoration:${DECORATION}, commit:${COMMIT}" >new_$@
+	@${ECHO} "Version:${VERSION}, copyright:${COPYRIGHT}, decoration:${DECORATION}, commit:${COMMIT}" >new_$@
 	@-( if [ ! -f $@ ]; then cp new_$@ $@; sleep 0.4; fi )
 	@-( if diff new_$@ $@ >/dev/null 2>&1; then rm -f new_$@; \
 		  else mv -f new_$@ $@; rm -f ${PREFIX}.iss ${PREFIX}-standalone.iss; fi )

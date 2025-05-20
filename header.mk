@@ -69,8 +69,9 @@ STRIP=strip
 UPX=upx
 
 VERSION=$(shell git describe --abbrev=0 --tags 2>/dev/null || echo 'Unknown_version')
-COMMIT=$(shell git rev-parse --short HEAD 2>/dev/null || echo 'Unknown_commit')
+COPYRIGHT=(C) D. LALANNE - MIT License.
 DECORATION=
+COMMIT=$(shell git rev-parse --short HEAD 2>/dev/null || echo 'Unknown_commit')
 ISO8601 := $(shell date +%Y-%m-%dT%H:%M:%SZ)
 TMSTAMP := $(shell date +%Y%m%d%H%M%S)
 
