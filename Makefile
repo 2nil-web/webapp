@@ -17,6 +17,8 @@ SRCS:=$(filter-out ${SRC_DIR}/sendkeys.cpp,${SRCS})
 SRCS:=$(filter-out ${SRC_DIR}/reg.cpp,${SRCS})
 SRCS:=$(filter-out ${SRC_DIR}/Utf8ConvTest.cpp,${SRCS})
 endif
+SRCS:=$(filter-out ${SRC_DIR}/getopt.cpp,${SRCS})
+SRCS:=$(filter-out ${SRC_DIR}/opts.cpp,${SRCS})
 
 ifeq ($(BUILD_SYS),win_msvc)
 MSVC_SLN=webapp.sln

@@ -6,6 +6,7 @@
 #endif
 
 #include <chrono>
+#include <deque>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -19,11 +20,7 @@
 
 // clang-format off
 #include "log.h"
-#ifdef NEW_OPTIONS
 #include "options.h"
-#else
-#include "opts.h"
-#endif
 #include "util.h"
 #include "wrap.h"
 #include "app_binds.h"
@@ -38,27 +35,29 @@
 typedef void *HWND;
 #endif
 
+options myopt;
+
 bool devmode = false, runjs_and_exit = false, html_string = false, js_instance = true, call_func_help = false;
 std::string url, title = "", init_js = "";
 webview_wrapper w;
 int ix = 200, iy = 200, iw = 600, ih = 400, hint = 0;
 
 std::string add_bro_args = "";
-void set_browser_args(char, std::string, std::string val)
+void set_browser_args(s_opt_params &p)
 {
   // logTrace("Adding browser argument [--", val, "]");
-  add_bro_args += " --" + val;
+  add_bro_args += " --" + p.val;
 }
 
-void set_url(char, std::string, std::string val)
+void set_url(s_opt_params &p)
 {
-  if (starts_with(val, "http:") || starts_with(val, "https:"))
+  if (starts_with(p.val, "http:") || starts_with(p.val, "https:"))
   {
-    url = val;
+    url = p.val;
   }
   else
   {
-    url = std::filesystem::absolute(val).generic_string();
+    url = std::filesystem::absolute(p.val).generic_string();
   }
 
   // logTrace("set_url ", url);
@@ -66,10 +65,10 @@ void set_url(char, std::string, std::string val)
     title = url;
 }
 
-void ins_html(char, std::string, std::string val)
+void ins_html(s_opt_params &p)
 {
   url = "html://";
-  url += val;
+  url += p.val;
   html_string = true;
   if (title.empty())
     title = "HTML string";
@@ -101,7 +100,7 @@ std::string get_index()
   return "";
 }
 
-void set_debug_mode(char, std::string, std::string val)
+void set_debug_mode(s_opt_params &p)
 {
   devmode = true;
   std::string ll = my_getenv("LOG");
@@ -112,16 +111,16 @@ void set_debug_mode(char, std::string, std::string val)
   }
 }
 
-void set_log_level(char, std::string, std::string val)
+void set_log_level(s_opt_params &p)
 {
-  my_setenv("LOG", val);
+  my_setenv("LOG", p.val);
   // Will check and eventually correct the log level env var if it is not correctly set
   check_log_level();
 }
 
-void chg_ini_geom(char val, std::string name, std::string param)
+void chg_ini_geom(s_opt_params &p)
 {
-  auto scoo = split(param, ',');
+  auto scoo = split(p.val, ',');
   if (scoo.size() > 0)
     ix = std::stoi(scoo[0]);
   if (scoo.size() > 1)
@@ -134,57 +133,9 @@ void chg_ini_geom(char val, std::string name, std::string param)
     hint = std::stoi(scoo[4]);
 }
 
-// sed -n "/{/s/.*, \('.'\).*/\1/p" src/webapp.cpp src/opts.cpp | sort
-void set_path(char, std::string, std::string spath);
-std::vector<run_opt> r_opts = {
-#ifdef _WIN32
-    {"browser-args", 'b', opt_only, required_argument, "Provide additional browser arguments to the webview2 component.", set_browser_args},
-#endif
-    {"html", 'c', opt_only, required_argument, "Provide an html string that will be directly set to the webview.", ins_html},
-    {"url", 'f', opt_only, required_argument, "Provide a url, a remote one must prepended with 'http://', a local one must have one of the following extensions .html, .htm, .webapp or .wa.", set_url},
-    {"path", 'p', opt_only, required_argument, "Provide the path where could be found a file with a name within the following ones: " + idxs + ".", set_path},
-    {"", '\0', 0, 0, "\tThe use of these 3 previous options is mutually exclusive.", nullptr},
-    {"", '\0', 0, 0, "\tIt is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with \"html://\", for -c.", nullptr},
-    {"title", 't', opt_only, required_argument,
-     "Set the title of the webview windows, default is to display the url as "
-     "title if it is provided or nothing if just an html string is provided.",
-     [](char, std::string, std::string val) -> void { title = val; }},
-    //    {"interp", 'i', opt_only, no_argument, "In console mode allow to enter commands.", interp},
-    {"js", 'j', opt_only, required_argument, "Inject a javascript command before loading html page.", [](char, std::string, std::string val) -> void { init_js = val; }},
-    {"runjs", 'r', opt_only, required_argument, "Run the provided javascript command and exits.",
-     [](char, std::string, std::string val) -> void {
-       init_js = val;
-       runjs_and_exit = true;
-     }},
-    {"debug", 'd', opt_only, no_argument, "Activate the developper mode in the webview.", set_debug_mode},
-    {"log-level", 'l', opt_only, required_argument, "Set the log level. Their precedence is: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF.", set_log_level},
-    {"log-file", 'g', opt_only, required_argument, "Set the log file name.", [](char, std::string, std::string val) -> void { my_setenv("LOGFILE", val); }},
-    {"quiet", 'q', opt_only, no_argument, "Alias for -l OFF.", [](char, std::string, std::string val) -> void { my_setenv("LOG", "OFF"); }},
-    {"", '\0', 0, 0, "\tThese three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment.", nullptr},
-    {"", '\0', 0, 0, "\tIf neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'.", nullptr},
-    // May only be called after the webview creation
-    {"help-js", 'u', opt_only, no_argument /*optional_argument*/, "List and briefly explain all the javascript objects extending the webview.", [](char, std::string, std::string val) -> void { call_func_help = true; }},
-    {"icon", 'n', opt_only, required_argument, "Set windows icon with the provided .ico file.", [](char, std::string, std::string val) -> void { icon_file = val; }},
-    {"geometry", 'G', opt_only, required_argument, "Attempt to modify geometry when starting the webapp with the one to four parameter passed, separated by commas (x, y, width, height).", chg_ini_geom},
-#ifdef _WIN32
-    {"minimized", 'm', opt_only, no_argument, "The webview window will be minimized at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::minimized; }},
-
-    {"maximized", 'M', opt_only, no_argument, "The webview window will be maximized at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::maximized; }},
-
-    {"hidden", 's', opt_only, no_argument, "The webview window will not be shown at startup.", [](char, std::string, std::string) -> void { init_win_state = win_state::hidden; }},
-
-#endif
-    {"hints", 'k', opt_only, required_argument,
-     "Set webview hints => 0: width and height are default size, 1 set them as "
-     "minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other "
-     "value is ignored.",
-     [](char, std::string, std::string val) -> void { hints = std::stoi(val); }},
-    {"no-js-class", 'a', opt_only, no_argument, "Do not generate javascript class instanciation for the webview extension functions.", [](char, std::string, std::string val) -> void { js_instance = false; }},
-};
-
-void set_path(char, std::string, std::string spath)
+void set_path(s_opt_params &p)
 {
-  std::filesystem::path path(spath), parent_path;
+  std::filesystem::path path(p.val), parent_path;
   std::error_code ec;
 
   if (std::filesystem::is_regular_file(path))
@@ -220,11 +171,6 @@ void set_path(char, std::string, std::string spath)
   }
 }
 
-void set_path(std::string spath)
-{
-  set_path(0, "", spath);
-}
-
 HWND *wnd = nullptr;
 
 void webview_bind()
@@ -240,7 +186,7 @@ void webview_bind()
 }
 
 bool run_and_exit = false;
-extern bool help_or_version;
+// extern bool help_or_version;
 void webview_set(win_state init_win_state, bool devmode = false, bool _run_and_exit = false)
 {
   // logTrace("Enter webview_set");
@@ -267,7 +213,7 @@ void webview_set(win_state init_win_state, bool devmode = false, bool _run_and_e
   // if (w) w.conf.debug = devmode;
   logDebug("title: ", title);
   w.conf = {init_win_state, devmode, true, true, true, true, true, ix, iy, iw, ih, hint};
-  if (call_func_help || help_or_version || title == "Missing parameter")
+  if (call_func_help /*|| help_or_version */ || title == "Missing parameter")
     w.conf.init_win_state = hidden;
   w.create((void *)wnd);
   logDebug("bef webview_bind");
@@ -405,6 +351,7 @@ int main(int argc, char **argv, char **)
   std::cout << type_hierarchy(false, true);
   return 0;
 #endif
+
 #ifdef _WIN32
   // FreeConsole();
 
@@ -432,8 +379,62 @@ int main(int argc, char **argv, char **)
   }
 #endif
 
+  myopt.set(argc, argv,
+            {
+#ifdef _WIN32
+                option_info('b', "browser-args", set_browser_args, "Provide additional browser arguments to the webview2 component.", required, option),
+#endif
+                option_info('c', "html", ins_html, "Provide an html string that will be directly set to the webview.", required, option),
+                option_info('f', "url", set_url, "Provide a url, a remote one must prepended with 'http://', a local one must have one of the following extensions .html, .htm, .webapp or .wa.", required, option),
+                option_info('p', "path", set_path, "Provide the path where could be found a file with a name within the following ones: " + idxs + ".", required, option),
+                option_info("\tThe use of these 3 previous options is mutually exclusive."),
+                option_info("\tIt is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with \"html://\", for -c."),
+                option_info(
+                    't', "title", [](s_opt_params &p) -> void { title = p.val; }, "Set the title of the webview windows, default is to display the url as title if it is provided or nothing if just an html string is provided.", required, option),
+                //    option_info('i', "interp", interp, "In console mode allow to enter commands.", no_arg, option),
+                option_info(
+                    'j', "js", [](s_opt_params &p) -> void { init_js = p.val; }, "Inject a javascript command before loading html page.", required, option),
+                option_info(
+                    'r', "runjs",
+                    [](s_opt_params &p) -> void {
+                      init_js = p.val;
+                      runjs_and_exit = true;
+                    },
+                    "Run the provided javascript command and exits.", required, option),
+                option_info('d', "debug", set_debug_mode, "Activate the developper mode in the webview.", no_arg, option),
+                option_info('l', "log-level", set_log_level, "Set the log level. Their precedence is: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF.", required, option),
+                option_info(
+                    'g', "log-file", [](s_opt_params &p) -> void { my_setenv("LOGFILE", p.val); }, "Set the log file name.", required, option),
+                option_info(
+                    'q', "quiet", [](s_opt_params &) -> void { my_setenv("LOG", "OFF"); }, "Alias for -l OFF."),
+                option_info("\tThese three previous option may also be set by the environment variables 'LOG' and 'LOGFILE' but the options have precedence on the environment."),
+                option_info("\tIf neither the environment nor the options are set then relies on the debug option if it is used to set the log level to 'DEBUG'."),
+                // May only be called after the webview creation
+                option_info(
+                    'u', "help-js", [](s_opt_params &) -> void { call_func_help = true; }, "List and briefly explain all the javascript objects extending the webview.", no_arg /*optional_argument*/, option),
+                option_info(
+                    'n', "icon", [](s_opt_params &p) -> void { icon_file = p.val; }, "Set windows icon with the provided .ico file.", required, option),
+                option_info('G', "geometry", chg_ini_geom, "Attempt to modify geometry when starting the webapp with the one to four parameter passed, separated by commas (x, y, width, height).", required, option),
+#ifdef _WIN32
+                option_info(
+                    'm', "minimized", [](s_opt_params &) -> void { init_win_state = win_state::minimized; }, "The webview window will be minimized at startup.", no_arg, option),
+
+                option_info(
+                    'M', "maximized", [](s_opt_params &) -> void { init_win_state = win_state::maximized; }, "The webview window will be maximized at startup.", no_arg, option),
+
+                option_info(
+                    's', "hidden", [](s_opt_params &) -> void { init_win_state = win_state::hidden; }, "The webview window will not be shown at startup.", no_arg, option),
+
+#endif
+                option_info(
+                    'k', "hints", [](s_opt_params &p) -> void { hints = std::stoi(p.val); },
+                    "Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.", required, option),
+                option_info(
+                    'a', "no-js-class", [](s_opt_params &) -> void { js_instance = false; }, "Do not generate javascript class instanciation for the webview extension functions.", no_arg, option),
+            });
+
   // Calls to logFunctions before getopt_init will not work correctly ...
-  getopt_init(argc, argv, r_opts, appInfo(), "", "(c) Denis Lalanne. Provided as is. NO WARRANTY of any kind.");
+  myopt.parse();
 
 #ifdef TEST_LOG
   logTrace("Test logTrace");
@@ -449,30 +450,33 @@ int main(int argc, char **argv, char **)
 
   if (url.empty())
   {
-    if (optind < argc)
+    if (myopt.args.size() > 0)
     {
-      url = argv[optind];
+      url = myopt.args[0];
       // logDebug("URL: ", url);
 
       if (starts_with(url, "file://"))
         url = std::filesystem::absolute(url.substr(7)).generic_string();
       else if (!starts_with(url, "html://") && !starts_with(url, "http://") && !starts_with(url, "https://"))
-        set_path(std::filesystem::absolute(url).generic_string());
+      {
+        s_opt_params p = {0, "", std::filesystem::absolute(url).generic_string()};
+        set_path(p);
+      }
 
-      w.set_js_args(argc, optind, argv);
+      w.set_js_args(myopt.args);
     }
     else
     {
       // Search for index.html or index.js in current directory
       url = get_index();
 
-      if (url.empty() && !call_func_help && !help_or_version)
+      if (url.empty() && !call_func_help) // && !help_or_version)
       {
         if (title.empty())
           title = "Missing parameter";
         logDebug("title: ", title);
 
-        std::string hm = usage();
+        std::string hm = myopt.default_usage();
         replace_all(hm, "\r", "<br>");
         replace_all(hm, "\n", "<br>");
         if (!hm.empty())
@@ -548,7 +552,7 @@ int main(int argc, char **argv, char **)
     std::string s = help_func_text;
     std::cout << help_func_tit << std::endl << s << std::flush;
   }
-  else if (!help_or_version)
+  else // if (!help_or_version)
   {
     webview_run(url, title, init_js);
   }

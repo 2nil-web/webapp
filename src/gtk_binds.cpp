@@ -14,7 +14,7 @@
 // clang-format off
 #include "util.h"
 #include "log.h"
-#include "opts.h"
+#include "options.h"
 #include "wrap.h"
 #include "path_entity.h"
 // clang-format on

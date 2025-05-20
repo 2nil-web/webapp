@@ -2,6 +2,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include <deque>
 #include <functional>
 
 struct s_opt_params
@@ -36,7 +37,7 @@ enum e_option_mode
 class option_info
 {
 public:
-  option_info(std::string help);
+  option_info(const std::string help);
   option_info(char short_name, std::string long_name, t_opt_func func = {}, std::string help = {}, e_option_mode mode = {}, e_option_env env = {});
 
   char short_name = 0;
@@ -62,10 +63,15 @@ public:
 
   options(std::string progname = {}, arg_dq args = {}, opti_dq opt_inf = {});
   options(int argc, char **argv, opti_dq opt_inf = {});
+  void set(int argc, char **argv, opti_dq p_opt_inf);
+  void set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf);
   void add(option_info){};
   void parse();
+  std::string default_usage();
   std::ostream &default_usage(std::ostream &);
+  std::string default_version();
   std::ostream &default_version(std::ostream &);
+  std::string get_build();
 
 private:
   arg_iter run_opt(arg_iter arg_it, char short_name);

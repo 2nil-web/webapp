@@ -19,7 +19,7 @@
 #endif
 #include "util.h"
 #include "log.h"
-#include "opts.h"
+#include "options.h"
 #include "wrap.h"
 #include "io_binds.h"
 // clang-format on

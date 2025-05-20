@@ -18,7 +18,7 @@
 #ifdef _WIN32
 #include "winapi.h"
 #endif
-#include "opts.h"
+#include "options.h"
 #include "wrap.h"
 // clang-format on
 
@@ -438,7 +438,8 @@ void create_app_binds(webview_wrapper &w)
 
   w.decvar("app", "title", "title of the webapp window, usually displayed one its title bar.", std::filesystem::path(w.get_title()));
   w.decvar("app", "icon", "file name of the icon used by the webapp.", std::filesystem::path(w.icon_file));
-  w.decvar("app", "info", "informations about the webapp.", appInfo());
+  extern options myopt;
+  w.decvar("app", "info", "informations about the webapp.", myopt.default_version() + "\nBased on webview " + webview_wrapper::version() + ".\n (c) Serge Zaitsev and Steffen André Langnes (MIT License).\nBuild for " + myopt.get_build());
   w.decvar("app", "args_line", "A comma separated string containing the args passed to the webapp", w.js_args);
 
   w.decvar("app", "x", "horizontal position of the upper left corner of the webapp window.", appx);

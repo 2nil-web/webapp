@@ -6,6 +6,7 @@
 #include <windows.h>
 #endif
 
+#include <deque>
 #include <functional>
 #include <map>
 #include <string>
@@ -134,7 +135,7 @@ public:
   void resolve(const std::string &seq, int status, const std::string &result);
 
   void navigate(const std::string &url);
-  void set_js_args(int argc, int optind, char **argv);
+  void set_js_args(std::deque<std::string> args);
   void run();
   void unbind(const std::string &name);
   void *window();

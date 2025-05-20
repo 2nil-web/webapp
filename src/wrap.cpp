@@ -1,5 +1,6 @@
 ﻿
 #include <algorithm>
+#include <deque>
 #include <filesystem>
 #include <fstream>
 #include <functional>
@@ -964,14 +965,14 @@ void webview_wrapper::resolve(const std::string &seq, int status, const std::str
   WP->resolve(seq, status, result);
 }
 
-void webview_wrapper::set_js_args(int argc, int optind, char **argv)
+void webview_wrapper::set_js_args(std::deque<std::string> args)
 {
   js_args = "";
 
-  for (int i = optind + 1; i < argc; i++)
+  for (size_t i = 0; i < args.size(); i++)
   {
-    js_args += argv[i];
-    if (i < argc - 1)
+    js_args += args[i];
+    if (i < args.size() - 1)
       js_args += ',';
   }
 

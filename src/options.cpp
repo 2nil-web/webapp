@@ -22,7 +22,7 @@ option_info::option_info(char p_short_name, std::string p_long_name, t_opt_func 
   env = p_env;
 }
 
-option_info::option_info(std::string p_help)
+option_info::option_info(const std::string p_help)
 {
   mode = only_help;
   help = p_help;
@@ -57,7 +57,7 @@ std::ostream &operator<<(std::ostream &os, option_info &opt)
   return os;
 }
 
-options::options(int argc, char **argv, opti_dq p_opt_inf)
+void options::set(int argc, char **argv, opti_dq p_opt_inf)
 {
   progname = std::filesystem::path(argv[0]).stem().string();
   args.insert(args.begin(), argv + 1, argv + argc);
@@ -66,7 +66,12 @@ options::options(int argc, char **argv, opti_dq p_opt_inf)
   add_default();
 }
 
-options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
+options::options(int argc, char **argv, opti_dq p_opt_inf)
+{
+  set(argc, argv, p_opt_inf);
+}
+
+void options::set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
 {
   if (!progname.empty())
     progname = p_progname;
@@ -77,25 +82,37 @@ options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
   add_default();
 }
 
+options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
+{
+  set(p_progname, p_args, p_opt_inf);
+}
+
+std::string options::default_version()
+{
+  std::string vers = progname + " version " + app_info.version;
+  if (!app_info.commit.empty())
+    vers += ' ' + app_info.commit;
+  if (!app_info.decoration.empty())
+    vers += ' ' + app_info.decoration;
+  if (!app_info.created_at.empty())
+    vers += ' ' + app_info.created_at;
+  vers += " - " + app_info.copyright;
+  return vers;
+}
+
 std::ostream &options::default_version(std::ostream &os)
 {
-  os << progname << " version " << app_info.version;
-  if (!app_info.commit.empty())
-    os << ' ' << app_info.commit;
-  if (!app_info.decoration.empty())
-    os << ' ' << app_info.decoration;
-  if (!app_info.created_at.empty())
-    os << ' ' << app_info.created_at;
-  os << " - " << app_info.copyright << std::endl;
+  os << default_version() << std::endl;
+  ;
   return os;
 }
 
-std::ostream &options::default_usage(std::ostream &os)
+std::string options::default_usage()
 {
-  default_version(os);
+  std::string usage = default_version();
 
-  os << "Usage: " << progname << " [OPTIONS] ARGUMENTS" << std::endl;
-  os << "Available options" << std::endl;
+  usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
+  usage += "Available options\n";
 
   for (auto opt : opt_inf)
   {
@@ -103,19 +120,25 @@ std::ostream &options::default_usage(std::ostream &os)
     {
       if (opt.short_name != 0)
       {
-        os << " -" << opt.short_name;
+        usage += " -" + std::string(1, opt.short_name);
         if (!opt.long_name.empty())
-          os << ", --" << opt.long_name << ": ";
+          usage += ", --" + opt.long_name + ": ";
         else
-          os << ": ";
+          usage += ": ";
       }
       else if (!opt.long_name.empty())
-        os << "      " << opt.long_name << ": ";
+        usage += "      " + opt.long_name + ": ";
 
-      os << opt.help << std::endl;
+      usage += opt.help + '\n';
     }
   }
 
+  return usage;
+}
+
+std::ostream &options::default_usage(std::ostream &os)
+{
+  os << default_usage() << std::endl;
   return os;
 }
 
@@ -231,6 +254,55 @@ void options::parse()
       args.push_back(*it);
     }
   }
+}
+
+// From Freak, see :
+// https://stackoverflow.com/questions/152016/detecting-cpu-architecture-compile-time
+std::string options::get_build()
+{
+#if defined(__x86_64__) || defined(_M_X64)
+  return "x86_64";
+#elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86)
+  return "x86_32";
+#elif defined(__ARM_ARCH_2__)
+  return "ARM2";
+#elif defined(__ARM_ARCH_3__) || defined(__ARM_ARCH_3M__)
+  return "ARM3";
+#elif defined(__ARM_ARCH_4T__) || defined(__TARGET_ARM_4T)
+  return "ARM4T";
+#elif defined(__ARM_ARCH_5_) || defined(__ARM_ARCH_5E_)
+  return "ARM5"
+#elif defined(__ARM_ARCH_6T2_) || defined(__ARM_ARCH_6T2_)
+  return "ARM6T2";
+#elif defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_6J__) || defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6Z__) || defined(__ARM_ARCH_6ZK__)
+  return "ARM6";
+#elif defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__)
+  return "ARM7";
+#elif defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__)
+  return "ARM7A";
+#elif defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__)
+  return "ARM7R";
+#elif defined(__ARM_ARCH_7M__)
+  return "ARM7M";
+#elif defined(__ARM_ARCH_7S__)
+  return "ARM7S";
+#elif defined(__aarch64__) || defined(_M_ARM64)
+  return "ARM64";
+#elif defined(mips) || defined(__mips__) || defined(__mips)
+  return "MIPS";
+#elif defined(__sh__)
+  return "SUPERH";
+#elif defined(__powerpc) || defined(__powerpc__) || defined(__powerpc64__) || defined(__POWERPC__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC)
+  return "POWERPC";
+#elif defined(__PPC64__) || defined(__ppc64__) || defined(_ARCH_PPC64)
+  return "POWERPC64";
+#elif defined(__sparc__) || defined(__sparc)
+  return "SPARC";
+#elif defined(__m68k__)
+  return "M68K";
+#else
+  return "UNKNOWN";
+#endif
 }
 
 std::ostream &operator<<(std::ostream &os, options &opts)
