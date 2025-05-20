@@ -2,11 +2,26 @@
 #ifndef MYTAIL_H
 #define MYTAIL_H
 
-size_t linecount(std::ifstream &file);
-size_t linecount(const std::string filename);
-size_t tail_from_pos(std::ifstream &file, size_t pos, size_t total_line, size_t start_line = 0, bool forward = true);
-size_t tail_from_pos(std::string filename, size_t pos, size_t total_line = 0, size_t start_line = 0, bool forward = true);
-size_t tail_once(std::string filename, size_t &total_line, bool num, const size_t start_line, size_t seek_step);
-size_t tail(std::string filename, bool poll = false, bool num = false, const size_t start_line = 10, size_t seek_step = 0);
+class tail
+{
+public:
+  tail(std::vector<std::filesystem::path> filepaths = {});
+  void run(std::vector<std::filesystem::path> filepaths = {});
+
+  std::vector<std::filesystem::path> filepaths = {};
+  bool poll = false, num = false;
+  size_t start_line = 10, seek_step = 0;
+
+private:
+  size_t once(std::filesystem::path, size_t &);
+  size_t from_pos(std::ifstream &file, size_t, size_t, bool forward = true);
+  size_t from_pos(std::filesystem::path, size_t, size_t, bool forward = true);
+  std::uintmax_t stable_file_size(std::filesystem::path filepath, const int nloop = 10, const int dur = 200);
+  size_t linecount(std::ifstream &);
+  size_t linecount(std::filesystem::path);
+  size_t clinecount(std::filesystem::path);
+
+  friend std::ostream &operator<<(std::ostream &, const tail &);
+};
 
 #endif /* MYTAIL_H */
