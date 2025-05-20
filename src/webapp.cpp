@@ -19,7 +19,11 @@
 
 // clang-format off
 #include "log.h"
+#ifdef NEW_OPTIONS
+#include "options.h"
+#else
 #include "opts.h"
+#endif
 #include "util.h"
 #include "wrap.h"
 #include "app_binds.h"

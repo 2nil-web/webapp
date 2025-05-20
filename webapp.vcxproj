@@ -204,6 +204,7 @@
     <ClInclude Include="src\io_binds.h" />
     <ClInclude Include="src\getopt.h" />
     <ClInclude Include="src\opts.h" />
+    <ClInclude Include="src\options.h" />
     <ClInclude Include="src\reg.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\path_entity.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="src\io_binds.cpp" />
     <ClCompile Include="src\getopt.cpp" />
     <ClCompile Include="src\opts.cpp" />
+    <ClCompile Include="src\options.cpp" />
     <ClCompile Include="src\reg.cpp" />
     <ClCompile Include="src\util.cpp" />
     <ClCompile Include="src\sizeof.cpp" />

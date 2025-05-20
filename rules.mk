@@ -8,7 +8,8 @@ endif
 # Génération du version.h intégré dans l'appli
 src/version.h : version_check.txt
 	@${ECHO} "Building C++ header $@"
-	${ECHO} "#ifndef VERSION_H\n#define VERSION_H\nstruct s_app_info\n{\n  std::string name = \"${PREFIX}\", version = \"${VERSION}\", copyright = \"${COPYRIGHT}\", decoration = \"${DECORATION}\", commit = \"${COMMIT}\", created_at = \"${ISO8601}\";\n};\nstatic s_app_info app_info;\n#endif" >$@
+#	${ECHO} "#ifndef VERSION_H\n#define VERSION_H\nstruct s_app_info\n{\n  std::string name = \"${PREFIX}\", version = \"${VERSION}\", copyright = \"${COPYRIGHT}\", decoration = \"${DECORATION}\", commit = \"${COMMIT}\", created_at = \"${ISO8601}\";\n};\nstatic s_app_info app_info;\n#endif" >$@
+	${ECHO} "#ifndef VERSION_H\n#define VERSION_H\nstruct\n{\n  std::string name, version, copyright, decoration, commit, created_at;\n} app_info = {\"${PREFIX}\", \"${VERSION}\", \"${COPYRIGHT}\", \"${DECORATION}\", \"${COMMIT}\", \"${ISO8601}\"};\n#endif" >$@
 	dos2unix $@
 
 # Génération du version.json intégré dans le paquetage
