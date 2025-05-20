@@ -176,8 +176,7 @@ size_t tail::from_pos(std::ifstream &file, size_t total_line, size_t pos, bool f
       else
         line_number = (1 + total_line - start_line); // positioned_lines.back().s.size();
 
-      // std::cout << "total_line: " << total_line << ", start_line: " << start_line << std::endl;
-      //  Display the numbered positioned_lines
+      // Display the numbered positioned_lines
       for (auto positioned_line : positioned_lines)
         std::cout << std::setfill('0') << std::setw(ln_width) << (size_t)line_number++ << ':' << positioned_line.s << std::endl;
     }
