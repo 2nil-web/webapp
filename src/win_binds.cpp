@@ -27,7 +27,7 @@
 
 #include "util.h"
 #include "log.h"
-#include "opts.h"
+//#include "opts.h"
 #include "wrap.h"
 #include "path_entity.h"
 // clang-format on

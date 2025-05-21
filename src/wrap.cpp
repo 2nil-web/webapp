@@ -1679,7 +1679,6 @@ std::string webview_wrapper::version()
 // Class name is name with first character in uppercase
 // Instance name is name with first character in lowercase
 
-extern bool js_instance;
 void mk_arg_list(int n, std::string &al, std::string &ali)
 {
   // On limite les fonctions variadic à 20 parametres ...
@@ -1715,9 +1714,6 @@ bool sort_class_def(const tupple_class &a, const tupple_class &b)
 // Return "class_instance_name.func_name"
 std::string webview_wrapper::store_classes(std::string bind_name, int narg)
 {
-  if (!js_instance)
-    return bind_name;
-
   std::string bname = bind_name;
   auto pos = bname.find_first_of('_');
   narg = abs(narg);
@@ -1780,13 +1776,6 @@ std::string assign_jsvar(std::string &cname, std::string vname, std::filesystem:
     iname = cname;
     iname[0] = tolower(iname[0]);
     cname[0] = toupper(cname[0]);
-
-    if (!js_instance)
-    {
-      vname = iname + '_' + vname;
-      iname = "window";
-      cname = "";
-    }
   }
 
   std::string assign = "";
@@ -1983,8 +1972,7 @@ void webview_wrapper::bind_classes()
       // Instantiate previous class
       if (!cci.empty())
       {
-        if (js_instance)
-          def += "}\nvar " + cci + " = new " + ccl + "();\n";
+        def += "}\nvar " + cci + " = new " + ccl + "();\n";
         def += class_declvars(ccl, vars_init) + '\n';
       }
 
@@ -1992,23 +1980,20 @@ void webview_wrapper::bind_classes()
       cci = std::get<0>(cd);
       ccl = std::toupper(cci.front());
       ccl += cci.substr(1);
-      if (js_instance)
-        def += "class " + ccl + " {\n";
+      def += "class " + ccl + " {\n";
     }
 
     std::string al, ali;
     mk_arg_list(std::get<2>(cd), al, ali);
 
     // Define method with its eventual arguments
-    if (js_instance)
-      def += std::get<1>(cd) + "(" + ali + ") { return " + std::get<3>(cd) + "(" + al + "); }\n";
+    def += std::get<1>(cd) + "(" + ali + ") { return " + std::get<3>(cd) + "(" + al + "); }\n";
   }
 
   // Instantiate last class
   if (std::get<0>(classes_def.back()) == cci)
   {
-    if (js_instance)
-      def += "}\nvar " + cci + " = new " + ccl + "();\n";
+    def += "}\nvar " + cci + " = new " + ccl + "();\n";
     def += class_declvars(ccl, vars_init) + '\n';
   }
 

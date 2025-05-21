@@ -37,7 +37,7 @@ typedef void *HWND;
 
 options myopt;
 
-bool devmode = false, runjs_and_exit = false, html_string = false, js_instance = true, call_func_help = false;
+bool devmode = false, runjs_and_exit = false, html_string = false, call_func_help = false;
 std::string url, title = "", init_js = "";
 webview_wrapper w;
 int ix = 200, iy = 200, iw = 600, ih = 400, hint = 0;
@@ -429,8 +429,6 @@ int main(int argc, char **argv, char **)
                 option_info(
                     'k', "hints", [](s_opt_params &p) -> void { hints = std::stoi(p.val); },
                     "Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.", required, option),
-                option_info(
-                    'a', "no-js-class", [](s_opt_params &) -> void { js_instance = false; }, "Do not generate javascript class instanciation for the webview extension functions.", no_arg, option),
             });
 
   // Calls to logFunctions before getopt_init will not work correctly ...
@@ -476,7 +474,7 @@ int main(int argc, char **argv, char **)
           title = "Missing parameter";
         logDebug("title: ", title);
 
-        std::string hm = myopt.default_usage();
+        std::string hm = myopt.usage();
         replace_all(hm, "\r", "<br>");
         replace_all(hm, "\n", "<br>");
         if (!hm.empty())

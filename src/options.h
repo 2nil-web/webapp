@@ -59,7 +59,6 @@ public:
   std::string progname = {};
   arg_dq args = {};
   opti_dq opt_inf = {};
-  std::string intro = {}, version = {}, copyright = {};
 
   options(std::string progname = {}, arg_dq args = {}, opti_dq opt_inf = {});
   options(int argc, char **argv, opti_dq opt_inf = {});
@@ -67,10 +66,10 @@ public:
   void set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf);
   void add(option_info){};
   void parse();
-  std::string default_usage();
-  std::ostream &default_usage(std::ostream &);
-  std::string default_version();
-  std::ostream &default_version(std::ostream &);
+  std::string usage();
+  std::ostream &usage(std::ostream &);
+  std::string version();
+  std::ostream &version(std::ostream &);
   std::string get_build();
 
 private:

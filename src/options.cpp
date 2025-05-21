@@ -87,7 +87,7 @@ options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
   set(p_progname, p_args, p_opt_inf);
 }
 
-std::string options::default_version()
+std::string options::version()
 {
   std::string vers = progname + " version " + app_info.version;
   if (!app_info.commit.empty())
@@ -100,16 +100,16 @@ std::string options::default_version()
   return vers;
 }
 
-std::ostream &options::default_version(std::ostream &os)
+std::ostream &options::version(std::ostream &os)
 {
-  os << default_version() << std::endl;
+  os << version() << std::endl;
   ;
   return os;
 }
 
-std::string options::default_usage()
+std::string options::usage()
 {
-  std::string usage = default_version();
+  std::string usage = version() + '\n';
 
   usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
   usage += "Available options\n";
@@ -136,9 +136,9 @@ std::string options::default_usage()
   return usage;
 }
 
-std::ostream &options::default_usage(std::ostream &os)
+std::ostream &options::usage(std::ostream &os)
 {
-  os << default_usage() << std::endl;
+  os << usage() << std::endl;
   return os;
 }
 
@@ -158,7 +158,7 @@ void options::add_default()
     opt_inf.push_front(option_info(
         'h', "help",
         [this](s_opt_params &) -> void {
-          default_usage(std::cout);
+          usage(std::cout);
           exit(0);
         },
         "display this message and exit."));
@@ -166,7 +166,7 @@ void options::add_default()
     opt_inf.push_front(option_info(
         'v', "version",
         [this](s_opt_params &) -> void {
-          default_version(std::cout);
+          version(std::cout);
           exit(0);
         },
         "output version information and exit."));
@@ -307,7 +307,7 @@ std::string options::get_build()
 
 std::ostream &operator<<(std::ostream &os, options &opts)
 {
-  opts.default_version(os);
+  opts.version(os);
 
   for (auto opt : opts.opt_inf)
   {

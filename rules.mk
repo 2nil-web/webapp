@@ -5,6 +5,13 @@ CPUS ?= $(shell nproc)
 MAKEFLAGS += -j $(CPUS) # -l $(CPUS) # --no-builtin-rules -s
 endif
 
+VERSION=$(shell git describe --abbrev=0 --tags 2>/dev/null || echo 'Unknown_version')
+COPYRIGHT=(C) D. LALANNE - MIT License.
+DECORATION=
+COMMIT=$(shell git rev-parse --short HEAD 2>/dev/null || echo 'Unknown_commit')
+ISO8601 := $(shell date +%Y-%m-%dT%H:%M:%SZ)
+TMSTAMP := $(shell date +%Y%m%d%H%M%S)
+
 # Génération du version.h intégré dans l'appli
 src/version.h : version_check.txt
 	@${ECHO} "Building C++ header $@"
