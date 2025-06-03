@@ -225,19 +225,33 @@ void options::parse()
   {
     if ((*it)[0] == '-')
     {
-      // simple dash: one short option
-      if (it->size() == 2 && (*it)[1] != '-')
+      // Simple dash alone
+      if (it->size() == 1)
       {
-        it = run_opt(it, (*it)[1]);
+        args.push_back(*it); // Not option, remaining arg
+      }
+      // Simple dash not alone
+      else if (it->size() == 2)
+      {
+        // Double dash alone
+        if ((*it)[1] == '-')
+        {
+          args.push_back(*it); // Not option, remaining arg
+        }
+        // Simple dash with a short option
+        else
+        {
+          it = run_opt(it, (*it)[1]);
+        }
       }
       else if (it->size() > 2)
       {
-        // double dash: one long option
+        // double dash with a long option
         if ((*it)[1] == '-')
         {
           it = run_opt(it, (*it).substr(2));
         }
-        // simple dash: one long option OR multiple short options
+        // simple dash with a long option OR multiple short options
         else
         {
           // it = run_opt(it, (*it).substr(1));
@@ -250,8 +264,7 @@ void options::parse()
     }
     else
     {
-      // Not option, remaining arg
-      args.push_back(*it);
+      args.push_back(*it); // Not option, remaining arg
     }
   }
 }
