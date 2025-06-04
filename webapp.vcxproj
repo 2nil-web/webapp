@@ -86,7 +86,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3296.44\build\native\include</AdditionalIncludeDirectories>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
@@ -103,7 +103,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3296.44\build\native\include</AdditionalIncludeDirectories>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>_DEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3296.44\build\native\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
       <ObjectFileName>$(OutDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -164,7 +164,7 @@
       <PreprocessorDefinitions>NDEBUG;STATIC_GETOPT;MY_WEBVIEW_EXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3240.44\build\native\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;src;webview\core\include\webview;webview\build\external\libs\Microsoft.Web.WebView2.1.0.3296.44\build\native\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 /FS %(AdditionalOptions)</AdditionalOptions>
       <ObjectFileName>$(OutDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
