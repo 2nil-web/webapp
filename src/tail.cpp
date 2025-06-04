@@ -11,9 +11,14 @@
 #include <thread>
 #include <vector>
 
-#ifdef _MSVC_LANG
-#else
 #include <fcntl.h>
+#ifdef _MSVC_LANG
+#include <io.h>
+#include <share.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define read _read
+#else
 #include <sys/stat.h>
 #include <sys/types.h>
 #endif
@@ -161,7 +166,6 @@ inline size_t tail::clinecount(std::filesystem::path filepath, size_t &fsize)
   return count;
 }
 
-#ifndef _MSVC_LANG
 // Returns 1 on success, 0 when not done, and -1 on failure (check errno)
 // str is resetted by this function.
 // Taken from https://stackoverflow.com/questions/41558908/how-can-i-use-getline-without-blocking-for-input
@@ -173,7 +177,9 @@ bool getline_async_thread_safe(const int &fd, std::string &str, char delim = '\n
   do
   {
     char buf[2] = {0};
+
     chars_read = (int)read(fd, buf, 1);
+
     if (chars_read == 1)
     {
       if (*buf == delim)
@@ -214,14 +220,6 @@ bool my_getline(std::istream &is, std::string &str, char delim = '\n')
 
   return false;
 }
-#else
-bool my_getline(std::istream &is, std::string &str, char delim = '\n')
-{
-  if (std::getline(is, str, delim))
-    return true;
-  return false;
-}
-#endif
 
 #define trc std::cout << __LINE__ << std::endl
 // Tail an istream from a specific position
