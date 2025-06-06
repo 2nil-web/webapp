@@ -90,20 +90,21 @@ options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
 std::string options::version()
 {
   std::string vers = progname + " version " + app_info.version;
-  if (!app_info.commit.empty())
-    vers += ' ' + app_info.commit;
   if (!app_info.decoration.empty())
     vers += ' ' + app_info.decoration;
+
+  if (!app_info.commit.empty())
+    vers += "\nCommit " + app_info.commit;
   if (!app_info.created_at.empty())
-    vers += ' ' + app_info.created_at;
-  vers += " - " + app_info.copyright;
+    vers += ". Creation time " + app_info.created_at;
+  vers += '\n' + app_info.copyright;
   return vers;
 }
 
 std::ostream &options::version(std::ostream &os)
 {
   os << version() << std::endl;
-  ;
+
   return os;
 }
 
@@ -114,20 +115,41 @@ std::string options::usage()
   usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
   usage += "Available options\n";
 
+  size_t longest = 0;
   for (auto opt : opt_inf)
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
       if (opt.short_name != 0)
       {
-        usage += " -" + std::string(1, opt.short_name);
-        if (!opt.long_name.empty())
-          usage += ", --" + opt.long_name + ": ";
-        else
-          usage += ": ";
+        size_t curr_l = opt.long_name.size() + 9;
+        if (opt.mode == optional)
+          curr_l += 6;
+        if (opt.mode == required)
+          curr_l += 4;
+        if (curr_l > longest)
+          longest = curr_l;
       }
-      else if (!opt.long_name.empty())
-        usage += "      " + opt.long_name + ": ";
+    }
+  }
+
+  for (auto opt : opt_inf)
+  {
+    if (!opt.help.starts_with("SECRET_OPTION"))
+    {
+      std::string opt_s = {};
+      if (opt.short_name != 0)
+      {
+        opt_s += " -" + std::string(1, opt.short_name);
+        if (!opt.long_name.empty())
+          opt_s += ", --" + opt.long_name;
+
+        if (opt.mode == optional)
+          opt_s += " [ARG]";
+        if (opt.mode == required)
+          opt_s += " ARG";
+        usage += opt_s + std::string(longest - opt_s.size(), ' ');
+      }
 
       usage += opt.help + '\n';
     }
@@ -161,7 +183,7 @@ void options::add_default()
           usage(std::cout);
           exit(0);
         },
-        "display this message and exit."));
+        "Display this message and exit."));
   if (no_v)
     opt_inf.push_front(option_info(
         'v', "version",
@@ -169,7 +191,7 @@ void options::add_default()
           version(std::cout);
           exit(0);
         },
-        "output version information and exit."));
+        "Output version information and exit."));
 }
 
 arg_iter options::run_opt(arg_iter arg_it, option_info opt)

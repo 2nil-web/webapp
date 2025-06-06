@@ -25,12 +25,6 @@
 
 #include "tail.h"
 
-#ifdef __OSX__
-const char newline = '\r';
-#else
-const char newline = '\n';
-#endif
-
 // clear to eol in pure C/C++
 inline void clear_line(size_t width = 80)
 {
@@ -86,8 +80,8 @@ std::uintmax_t stable_file_size(std::filesystem::path filepath, const int nloop 
 // Get an istream lines count from the current position
 inline size_t tail::linecount_from_current_pos(std::istream &is)
 {
-  return std::count_if(std::istreambuf_iterator<char>{is}, {}, [](char c) { return c == newline; });
-  // return std::count(std::istreambuf_iterator<char>(is), std::istreambuf_iterator<char>(), newline);
+  return std::count_if(std::istreambuf_iterator<char>{is}, {}, [this](char c) { return c == delimiter; });
+  // return std::count(std::istreambuf_iterator<char>(is), std::istreambuf_iterator<char>(), delimiter);
 }
 
 // Get a file path lines count
@@ -129,7 +123,7 @@ inline size_t tail::clinecount(FILE *file, size_t &fsize)
   do
   {
     p = pl;
-    while ((p = strchr(p, newline)))
+    while ((p = strchr(p, delimiter)))
     {
       count++;
       p++;
@@ -248,7 +242,7 @@ size_t tail::from_pos(std::istream &is, size_t total_line, size_t pos, bool forw
   std::string line = {};
   size_t /*prev_tell = 1,*/ tell = 0;
 
-  while (my_getline(is, line))
+  while (my_getline(is, line, delimiter))
   {
     tell = is.tellg();
     positioned_lines.push_back({tell, line});
@@ -402,7 +396,8 @@ void tail::run(std::vector<std::filesystem::path> p_filepaths)
         filetitle = "STDIN";
       }
 
-      std::cout << "==> " << filetitle << " <==" << std::endl;
+      if (!quiet)
+        std::cout << "==> " << filetitle << " <==" << std::endl;
     }
 
     file_sizes[i] = once(filepaths[i], total_lines[i]);
@@ -433,7 +428,8 @@ void tail::run(std::vector<std::filesystem::path> p_filepaths)
               std::string filetitle = last_filename = filepaths[i].string();
               if (filetitle == "-")
                 filetitle = "STDIN";
-              std::cout << "==> " << filetitle << " <==" << std::endl;
+              if (!quiet)
+                std::cout << "==> " << filetitle << " <==" << std::endl;
             }
 
             file_sizes[i] = from_pos(filepaths[i], total_lines[i], file_sizes[i]);

@@ -2,12 +2,19 @@
 #ifndef MYTAIL_H
 #define MYTAIL_H
 
+#ifdef __OSX__
+const char newline = '\r';
+#else
+const char newline = '\n';
+#endif
+
 class tail
 {
 public:
   std::vector<std::filesystem::path> filepaths = {};
-  bool follow = false, line_numbers = false;
+  bool follow = false, line_numbers = false, quiet = false;
   size_t start_line = 0, seek_step = 0;
+  char delimiter = newline;
 
   tail() {};
   tail(std::vector<std::filesystem::path> filepaths);
