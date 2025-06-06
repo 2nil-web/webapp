@@ -73,9 +73,11 @@ public:
   std::string get_build();
 
 private:
-  arg_iter run_opt(arg_iter arg_it, char short_name);
-  arg_iter run_opt(arg_iter arg_it, std::string long_name);
-  arg_iter run_opt(arg_iter arg_it, option_info opt);
+  arg_dq p_args = {};
+  arg_iter p_arg_it;
+  arg_iter run_opt(char short_name);
+  arg_iter run_opt(std::string long_name);
+  arg_iter run_opt(option_info opt);
   void add_default();
   friend std::ostream &operator<<(std::ostream &, options &);
 };

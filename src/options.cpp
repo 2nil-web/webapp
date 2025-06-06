@@ -115,20 +115,17 @@ std::string options::usage()
   usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
   usage += "Available options\n";
 
-  size_t longest = 0;
+  size_t longest=0;
   for (auto opt : opt_inf)
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
       if (opt.short_name != 0)
       {
-        size_t curr_l = opt.long_name.size() + 9;
-        if (opt.mode == optional)
-          curr_l += 6;
-        if (opt.mode == required)
-          curr_l += 4;
-        if (curr_l > longest)
-          longest = curr_l;
+        size_t curr_l=opt.long_name.size()+9;
+        if (opt.mode == optional) curr_l+=6;
+        if (opt.mode == required) curr_l+=4;
+        if (curr_l > longest) longest=curr_l;
       }
     }
   }
@@ -137,18 +134,16 @@ std::string options::usage()
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
-      std::string opt_s = {};
+      std::string opt_s={};
       if (opt.short_name != 0)
       {
         opt_s += " -" + std::string(1, opt.short_name);
         if (!opt.long_name.empty())
           opt_s += ", --" + opt.long_name;
 
-        if (opt.mode == optional)
-          opt_s += " [ARG]";
-        if (opt.mode == required)
-          opt_s += " ARG";
-        usage += opt_s + std::string(longest - opt_s.size(), ' ');
+        if (opt.mode == optional) opt_s+=" [ARG]";
+        if (opt.mode == required) opt_s+=" ARG";
+        usage += opt_s+std::string(longest-opt_s.size(), ' ');
       }
 
       usage += opt.help + '\n';
@@ -194,18 +189,18 @@ void options::add_default()
         "Output version information and exit."));
 }
 
-arg_iter options::run_opt(arg_iter arg_it, option_info opt)
+arg_iter options::run_opt(option_info opt)
 {
   s_opt_params p({opt.short_name, opt.long_name, {}, 0});
 
   if (opt.mode == optional || opt.mode == required)
   {
-    if (arg_it != args.end())
+    if (p_arg_it != p_args.end()-1)
     {
-      p.val = *(arg_it + 1);
+      p.val = *(p_arg_it + 1);
       opt.func(p);
       if (p.ret)
-        arg_it++;
+        p_arg_it++;
     }
     else if (opt.mode == e_option_mode::required)
     {
@@ -216,77 +211,78 @@ arg_iter options::run_opt(arg_iter arg_it, option_info opt)
   {
     opt.func(p);
   }
-  return arg_it;
+  return p_arg_it;
 }
 
-arg_iter options::run_opt(arg_iter arg_it, char short_name)
+arg_iter options::run_opt(char short_name)
 {
-  for (auto opt : opt_inf)
-    if (opt.short_name == short_name)
-      return run_opt(arg_it, opt);
+  for (auto opt : opt_inf) {
+    if (opt.short_name == short_name) {
+      return run_opt(opt);
+    }
+  }
 
-  std::cerr << "Uknown short option '" << short_name << "', ignoring it." << std::endl;
-  return arg_it;
+  std::cerr << "Uknown short option '-" << short_name << "', ignoring it." << std::endl;
+  return p_arg_it;
 }
 
-arg_iter options::run_opt(arg_iter arg_it, std::string long_name)
+arg_iter options::run_opt(std::string long_name)
 {
   for (auto opt : opt_inf)
     if (opt.long_name == long_name)
-      return run_opt(arg_it, opt);
-  std::cerr << "Uknown long option '" << long_name << "', ignoring it." << std::endl;
-  return arg_it;
+      return run_opt(opt);
+  std::cerr << "Uknown long option '--" << long_name << "', ignoring it." << std::endl;
+  return p_arg_it;
 }
-
 void options::parse()
 {
-  auto l_args = args;
+  p_args = args;
   args.clear();
 
-  for (auto it = l_args.begin(); it != l_args.end(); ++it)
+  for (p_arg_it = p_args.begin(); p_arg_it != p_args.end(); p_arg_it++)
   {
-    if ((*it)[0] == '-')
+    if ((*p_arg_it)[0] == '-')
     {
       // Simple dash alone
-      if (it->size() == 1)
+      if (p_arg_it->size() == 1)
       {
-        args.push_back(*it); // Not option, remaining arg
+        args.push_back(*p_arg_it); // Not option, remaining arg
       }
       // Simple dash not alone
-      else if (it->size() == 2)
+      else if (p_arg_it->size() == 2)
       {
         // Double dash alone
-        if ((*it)[1] == '-')
+        if ((*p_arg_it)[1] == '-')
         {
-          args.push_back(*it); // Not option, remaining arg
+          args.push_back(*p_arg_it); // Not option, remaining arg
         }
-        // Simple dash with a short option
+        // Or simple dash with a short option
         else
         {
-          it = run_opt(it, (*it)[1]);
+          p_arg_it = run_opt((*p_arg_it)[1]);
         }
       }
-      else if (it->size() > 2)
+      else if (p_arg_it->size() > 2)
       {
         // double dash with a long option
-        if ((*it)[1] == '-')
+        if ((*p_arg_it)[1] == '-')
         {
-          it = run_opt(it, (*it).substr(2));
+          p_arg_it = run_opt((*p_arg_it).substr(2));
         }
-        // simple dash with a long option OR multiple short options
+        // Or simple dash with a long option OR multiple short options
         else
         {
-          // it = run_opt(it, (*it).substr(1));
-          for (size_t i = 1; (*it)[i] && !std::isspace((*it)[i]); i++)
+          // p_arg_it = run_opt((*p_arg_it).substr(1));
+          for (size_t i = 1; (*p_arg_it)[i] && !std::isspace((*p_arg_it)[i]); i++)
           {
-            it = run_opt(it, (*it)[i]);
+            p_arg_it = run_opt((*p_arg_it)[i]);
           }
         }
       }
     }
     else
     {
-      args.push_back(*it); // Not option, remaining arg
+      args.push_back(*p_arg_it); // Not option, remaining arg
     }
   }
 }
