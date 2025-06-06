@@ -431,7 +431,7 @@ int main(int argc, char **argv, char **)
                 option_info(
                     'k', "hints", [](s_opt_params &p) -> void { hints = std::stoi(p.val); },
                     "Set webview hints => 0: width and height are default size, 1 set them as minimum bound, 2 set them as maximum bound. 3 they are fixed. Any other value is ignored.", required, option),
-                option_info("Adding an arguments will act as a shortcut to -p option."),
+                option_info("A simple arguments will act as -p option."),
             });
 
   // Calls to logFunctions before getopt_init will not work correctly ...

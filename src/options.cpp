@@ -199,7 +199,7 @@ arg_iter options::run_opt(option_info opt)
     {
       p.val = *(p_arg_it + 1);
       opt.func(p);
-      if (p.ret)
+      //if (p.ret)
         p_arg_it++;
     }
     else if (opt.mode == e_option_mode::required)
