@@ -64,7 +64,7 @@ void set_url(s_opt_params &p)
   if (title.empty())
     title = url;
 
-  p.ret=true;
+  p.ret = true;
 }
 
 void ins_html(s_opt_params &p)

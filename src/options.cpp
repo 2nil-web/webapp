@@ -115,17 +115,20 @@ std::string options::usage()
   usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
   usage += "Available options\n";
 
-  size_t longest=0;
+  size_t longest = 0;
   for (auto opt : opt_inf)
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
       if (opt.short_name != 0)
       {
-        size_t curr_l=opt.long_name.size()+9;
-        if (opt.mode == optional) curr_l+=6;
-        if (opt.mode == required) curr_l+=4;
-        if (curr_l > longest) longest=curr_l;
+        size_t curr_l = opt.long_name.size() + 9;
+        if (opt.mode == optional)
+          curr_l += 6;
+        if (opt.mode == required)
+          curr_l += 4;
+        if (curr_l > longest)
+          longest = curr_l;
       }
     }
   }
@@ -134,16 +137,18 @@ std::string options::usage()
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
-      std::string opt_s={};
+      std::string opt_s = {};
       if (opt.short_name != 0)
       {
         opt_s += " -" + std::string(1, opt.short_name);
         if (!opt.long_name.empty())
           opt_s += ", --" + opt.long_name;
 
-        if (opt.mode == optional) opt_s+=" [ARG]";
-        if (opt.mode == required) opt_s+=" ARG";
-        usage += opt_s+std::string(longest-opt_s.size(), ' ');
+        if (opt.mode == optional)
+          opt_s += " [ARG]";
+        if (opt.mode == required)
+          opt_s += " ARG";
+        usage += opt_s + std::string(longest - opt_s.size(), ' ');
       }
 
       usage += opt.help + '\n';
@@ -195,12 +200,12 @@ arg_iter options::run_opt(option_info opt)
 
   if (opt.mode == optional || opt.mode == required)
   {
-    if (p_arg_it != p_args.end()-1)
+    if (p_arg_it != p_args.end() - 1)
     {
       p.val = *(p_arg_it + 1);
       opt.func(p);
-      //if (p.ret)
-        p_arg_it++;
+      // if (p.ret)
+      p_arg_it++;
     }
     else if (opt.mode == e_option_mode::required)
     {
@@ -216,8 +221,10 @@ arg_iter options::run_opt(option_info opt)
 
 arg_iter options::run_opt(char short_name)
 {
-  for (auto opt : opt_inf) {
-    if (opt.short_name == short_name) {
+  for (auto opt : opt_inf)
+  {
+    if (opt.short_name == short_name)
+    {
       return run_opt(opt);
     }
   }
