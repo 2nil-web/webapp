@@ -534,7 +534,8 @@ int main(int argc, char **argv, char **)
     url += "<pre style=\"white-space: pre-wrap;\"><u>" + help_func_tit + "</u><br/>" + hf + "</pre>";
 
     if (!help_func_html.empty())
-      std::cout << help_func_tit << std::endl << help_func_text << std::flush;
+      // std::cout << help_func_tit << std::endl << help_func_text << std::flush;
+      std::cout << help_func_text << std::flush;
   }
 
   if (starts_with(url, "html://"))

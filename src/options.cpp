@@ -71,20 +71,20 @@ options::options(int argc, char **argv, opti_dq p_opt_inf)
   set(argc, argv, p_opt_inf);
 }
 
-void options::set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
+void options::set(std::string p_progname, arg_dq l_args, opti_dq p_opt_inf)
 {
   if (!progname.empty())
     progname = p_progname;
   if (!args.empty())
-    args = p_args;
+    args = l_args;
   if (!p_opt_inf.empty())
     opt_inf = p_opt_inf;
   add_default();
 }
 
-options::options(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf)
+options::options(std::string p_progname, arg_dq l_args, opti_dq p_opt_inf)
 {
-  set(p_progname, p_args, p_opt_inf);
+  set(p_progname, l_args, p_opt_inf);
 }
 
 std::string options::version()
@@ -108,27 +108,48 @@ std::ostream &options::version(std::ostream &os)
   return os;
 }
 
-std::string options::usage()
+// Insert a substring in a string at every space before 'l' position ...
+std::string in_frame(std::string s, std::string ss, size_t l = 80)
+{
+  std::string res = {};
+  size_t last_space_pos = 0;
+  for (size_t i = 0; i < s.size(); i++)
+  {
+    if (i > 0 && (i % l) == 0)
+    {
+      // Insert substring at last space position
+      res.insert(last_space_pos, ss);
+    }
+
+    res += s[i];
+    if (res[i] == ' ')
+      last_space_pos = i;
+  }
+
+  return res;
+}
+
+std::string options::usage(size_t max_width)
 {
   std::string usage = version() + '\n';
 
   usage += "Usage: " + progname + " [OPTIONS] ARGUMENTS\n";
   usage += "Available options\n";
 
-  size_t longest = 0;
+  size_t longest_opt = 0;
   for (auto opt : opt_inf)
   {
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
-      if (opt.short_name != 0)
+      if (opt.short_name != 0 || !opt.long_name.empty())
       {
         size_t curr_l = opt.long_name.size() + 9;
         if (opt.mode == optional)
           curr_l += 6;
         if (opt.mode == required)
           curr_l += 4;
-        if (curr_l > longest)
-          longest = curr_l;
+        if (curr_l > longest_opt)
+          longest_opt = curr_l;
       }
     }
   }
@@ -138,29 +159,43 @@ std::string options::usage()
     if (!opt.help.starts_with("SECRET_OPTION"))
     {
       std::string opt_s = {};
-      if (opt.short_name != 0)
+      if (opt.short_name != 0 || !opt.long_name.empty())
       {
-        opt_s += " -" + std::string(1, opt.short_name);
+        if (opt.short_name != 0)
+          opt_s += " -" + std::string(1, opt.short_name);
+        else
+          opt_s += "  ";
+
         if (!opt.long_name.empty())
-          opt_s += ", --" + opt.long_name;
+        {
+          if (opt.short_name != 0)
+            opt_s += ',';
+          else
+            opt_s += ' ';
+          opt_s += " --" + opt.long_name;
+        }
 
         if (opt.mode == optional)
           opt_s += " [ARG]";
         if (opt.mode == required)
           opt_s += " ARG";
-        usage += opt_s + std::string(longest - opt_s.size(), ' ');
+        usage += opt_s + std::string(longest_opt - opt_s.size(), ' ');
       }
 
-      usage += opt.help + '\n';
+      if (max_width > 0)
+        usage += in_frame(opt.help, '\n' + std::string(longest_opt + 1, ' '), max_width - longest_opt);
+      else
+        usage += opt.help;
+      usage += '\n';
     }
   }
 
   return usage;
 }
 
-std::ostream &options::usage(std::ostream &os)
+std::ostream &options::usage(std::ostream &os, size_t max_width)
 {
-  os << usage() << std::endl;
+  os << usage(max_width) << std::endl;
   return os;
 }
 
@@ -180,7 +215,8 @@ void options::add_default()
     opt_inf.push_front(option_info(
         'h', "help",
         [this](s_opt_params &) -> void {
-          usage(std::cout);
+          // Could use ncurse (pdcurses.org) to define max_width as the console window width ... Defaulting to 100
+          usage(std::cout, 100);
           exit(0);
         },
         "Display this message and exit."));
@@ -263,7 +299,7 @@ void options::parse()
         {
           args.push_back(*p_arg_it); // Not option, remaining arg
         }
-        // Or simple dash with a short option
+        // Simple dash with a short option
         else
         {
           p_arg_it = run_opt((*p_arg_it)[1]);
@@ -276,7 +312,7 @@ void options::parse()
         {
           p_arg_it = run_opt((*p_arg_it).substr(2));
         }
-        // Or simple dash with a long option OR multiple short options
+        // Simple dash with a long option OR multiple short options
         else
         {
           // p_arg_it = run_opt((*p_arg_it).substr(1));

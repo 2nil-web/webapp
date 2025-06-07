@@ -66,8 +66,8 @@ public:
   void set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf);
   void add(option_info){};
   void parse();
-  std::string usage();
-  std::ostream &usage(std::ostream &);
+  std::string usage(size_t max_width = 0);
+  std::ostream &usage(std::ostream &, size_t max_width = 0);
   std::string version();
   std::ostream &version(std::ostream &);
   std::string get_build();
