@@ -87,23 +87,27 @@ options::options(std::string p_progname, arg_dq l_args, opti_dq p_opt_inf)
   set(p_progname, l_args, p_opt_inf);
 }
 
-std::string options::version()
+std::string options::version(bool traceability)
 {
   std::string vers = progname + " version " + app_info.version;
   if (!app_info.decoration.empty())
     vers += ' ' + app_info.decoration;
 
-  if (!app_info.commit.empty())
-    vers += "\nCommit " + app_info.commit;
-  if (!app_info.created_at.empty())
-    vers += ". Creation time " + app_info.created_at;
+  if (traceability) {
+    if (!app_info.commit.empty())
+      vers += "\nCommit " + app_info.commit;
+    if (!app_info.created_at.empty())
+      vers += ". Creation time " + app_info.created_at;
+
+    vers += ". Built for " + get_build();
+  }
   vers += '\n' + app_info.copyright;
   return vers;
 }
 
-std::ostream &options::version(std::ostream &os)
+std::ostream &options::version(std::ostream &os, bool traceability)
 {
-  os << version() << std::endl;
+  os << version(traceability) << std::endl;
 
   return os;
 }
@@ -220,7 +224,7 @@ void options::add_default()
           exit(0);
         },
         "Display this message and exit."));
-  if (no_v)
+  if (no_v) {
     opt_inf.push_front(option_info(
         'v', "version",
         [this](s_opt_params &) -> void {
@@ -228,6 +232,15 @@ void options::add_default()
           exit(0);
         },
         "Output version information and exit."));
+
+    opt_inf.push_front(option_info(
+        0, "traceability",
+        [this](s_opt_params &) -> void {
+          version(std::cout, true);
+          exit(0);
+        },
+        "SECRET_OPTION provided for traceability when needed (debug)."));
+  }
 }
 
 arg_iter options::run_opt(option_info opt)

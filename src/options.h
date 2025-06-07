@@ -68,8 +68,8 @@ public:
   void parse();
   std::string usage(size_t max_width = 0);
   std::ostream &usage(std::ostream &, size_t max_width = 0);
-  std::string version();
-  std::ostream &version(std::ostream &);
+  std::string version(bool traceability=false);
+  std::ostream &version(std::ostream &, bool traceability=false);
   std::string get_build();
 
 private:
