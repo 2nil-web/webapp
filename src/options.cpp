@@ -9,7 +9,12 @@
 #include <thread>
 #include <vector>
 
+#ifdef _WIN32
+#include <conio.h>
+#endif
+
 #include "options.h"
+#include "util.h"
 #include "version.h"
 
 option_info::option_info(char p_short_name, std::string p_long_name, t_opt_func p_func, std::string p_help, e_option_mode p_mode, e_option_env p_env)
@@ -93,7 +98,8 @@ std::string options::version(bool traceability)
   if (!app_info.decoration.empty())
     vers += ' ' + app_info.decoration;
 
-  if (traceability) {
+  if (traceability)
+  {
     if (!app_info.commit.empty())
       vers += "\nCommit " + app_info.commit;
     if (!app_info.created_at.empty())
@@ -133,7 +139,7 @@ std::string in_frame(std::string s, std::string ss, size_t l = 80)
   return res;
 }
 
-std::string options::usage(size_t max_width)
+std::string options::usage_opt(size_t max_width)
 {
   std::string usage = version() + '\n';
 
@@ -197,6 +203,78 @@ std::string options::usage(size_t max_width)
   return usage;
 }
 
+std::string options::usage_int(size_t max_width)
+{
+  std::string usage = {};
+
+  usage += "Available commands/and their shortcut\n";
+
+  size_t longest_opt = 0;
+  for (auto opt : opt_inf)
+  {
+    if (!opt.help.starts_with("SECRET_OPTION"))
+    {
+      if (opt.short_name != 0 || !opt.long_name.empty())
+      {
+        size_t curr_l = opt.long_name.size() + 3;
+        if (opt.mode == optional)
+          curr_l += 6;
+        if (opt.mode == required)
+          curr_l += 4;
+        if (curr_l > longest_opt)
+          longest_opt = curr_l;
+      }
+    }
+  }
+
+  bool first = true;
+  for (auto opt : opt_inf)
+  {
+    if (!opt.help.starts_with("SECRET_OPTION"))
+    {
+      if (!first)
+        usage += '\n';
+      else
+        first = false;
+
+      std::string opt_s = {};
+      if (opt.short_name != 0 || !opt.long_name.empty())
+      {
+        if (!opt.long_name.empty())
+        {
+          opt_s += opt.long_name;
+        }
+
+        if (opt.short_name != 0)
+        {
+          opt_s += "/" + std::string(1, opt.short_name);
+        }
+
+        if (opt.mode == optional)
+          opt_s += " [ARG]";
+        if (opt.mode == required)
+          opt_s += " ARG";
+        usage += opt_s + std::string(longest_opt - opt_s.size(), ' ');
+      }
+
+      if (max_width > 0)
+        usage += in_frame(opt.help, '\n' + std::string(longest_opt + 1, ' '), max_width - longest_opt);
+      else
+        usage += opt.help;
+    }
+  }
+
+  return usage;
+}
+
+std::string options::usage(size_t max_width)
+{
+  if (imode)
+    return usage_int(max_width);
+  else
+    return usage_opt(max_width);
+}
+
 std::ostream &options::usage(std::ostream &os, size_t max_width)
 {
   os << usage(max_width) << std::endl;
@@ -221,29 +299,41 @@ void options::add_default()
         [this](s_opt_params &) -> void {
           // Could use ncurse (pdcurses.org) to define max_width as the console window width ... Defaulting to 100
           usage(std::cout, 100);
-          exit(0);
+          if (!imode)
+            exit(0);
         },
-        "Display this message and exit."));
-  if (no_v) {
+        "Display this message (And exit if not in interpreted mode)."));
+  if (no_v)
+  {
     opt_inf.push_front(option_info(
         'v', "version",
         [this](s_opt_params &) -> void {
           version(std::cout);
-          exit(0);
+          if (!imode)
+            exit(0);
         },
-        "Output version information and exit."));
+        "Output version information (And exit if not in interpreted mode)."));
 
     opt_inf.push_front(option_info(
         0, "traceability",
         [this](s_opt_params &) -> void {
           version(std::cout, true);
-          exit(0);
+          if (!imode)
+            exit(0);
         },
         "SECRET_OPTION provided for traceability when needed (debug)."));
   }
+
+  opt_inf.push_front(option_info(
+      'p', "prompt",
+      [this](s_opt_params &p) -> void {
+        trim(p.val, "\"");
+        prompt = p.val;
+      },
+      "Change the interpreted mode prompt (default is '>')."));
 }
 
-arg_iter options::run_opt(option_info opt)
+void options::run_opt(option_info opt)
 {
   s_opt_params p({opt.short_name, opt.long_name, {}, 0});
 
@@ -265,31 +355,34 @@ arg_iter options::run_opt(option_info opt)
   {
     opt.func(p);
   }
-  return p_arg_it;
 }
 
-arg_iter options::run_opt(char short_name)
+void options::run_opt(char short_name)
 {
   for (auto opt : opt_inf)
   {
     if (opt.short_name == short_name)
     {
-      return run_opt(opt);
+      run_opt(opt);
+      return;
     }
   }
 
   std::cerr << "Uknown short option '-" << short_name << "', ignoring it." << std::endl;
-  return p_arg_it;
 }
 
-arg_iter options::run_opt(std::string long_name)
+void options::run_opt(std::string long_name)
 {
   for (auto opt : opt_inf)
     if (opt.long_name == long_name)
-      return run_opt(opt);
+    {
+      run_opt(opt);
+      return;
+    }
+
   std::cerr << "Uknown long option '--" << long_name << "', ignoring it." << std::endl;
-  return p_arg_it;
 }
+
 void options::parse()
 {
   p_args = args;
@@ -315,7 +408,7 @@ void options::parse()
         // Simple dash with a short option
         else
         {
-          p_arg_it = run_opt((*p_arg_it)[1]);
+          run_opt((*p_arg_it)[1]);
         }
       }
       else if (p_arg_it->size() > 2)
@@ -323,15 +416,15 @@ void options::parse()
         // double dash with a long option
         if ((*p_arg_it)[1] == '-')
         {
-          p_arg_it = run_opt((*p_arg_it).substr(2));
+          run_opt((*p_arg_it).substr(2));
         }
         // Simple dash with a long option OR multiple short options
         else
         {
-          // p_arg_it = run_opt((*p_arg_it).substr(1));
+          // run_opt((*p_arg_it).substr(1));
           for (size_t i = 1; (*p_arg_it)[i] && !std::isspace((*p_arg_it)[i]); i++)
           {
-            p_arg_it = run_opt((*p_arg_it)[i]);
+            run_opt((*p_arg_it)[i]);
           }
         }
       }
@@ -341,6 +434,100 @@ void options::parse()
       args.push_back(*p_arg_it); // Not option, remaining arg
     }
   }
+}
+
+// Make Windows behave as Linux with Control-D in stdin
+bool ctld_getline(std::istream &is, std::string &s, char delim='\n')
+{
+#ifdef _WIN32
+  if (&is == &std::cin)
+  {
+    int ch;
+
+    s = {};
+    for (;;)
+    {
+      ch = _getch();
+      if (ch == '\r' && s.back() == '\n') continue; // Ignore \r under Windows if it is preceded by \n ...
+      if (s.empty() && ch == 4)
+        return false; // Control-D detected
+      if ((char)ch == delim)
+      {
+        std::cout << std::endl;
+        return true;
+      }
+      if (ch >= ' ')
+        s += ch;
+      std::cout << (char)ch << std::flush;
+    }
+  }
+  else
+#endif
+  if (std::getline(is, s, delim))
+    return true;
+
+  return false;
+}
+
+void options::parse(std::istream &is)
+{
+  imode = true;
+
+  std::string s, r1, r2;
+  s_opt_params op;
+  bool unknown_cmd;
+
+  for (;;)
+  {
+    if (&is == &std::cin) std::cout << prompt;
+
+    if (!ctld_getline(is, s))
+      break;
+
+    trim(s);
+
+    if (!s.empty() && s[0] > ' ')
+    {
+      split_1st(r1, r2, s);
+
+      unknown_cmd = true;
+      for (auto opt : opt_inf)
+      {
+        if (r1[0] == opt.short_name || r1 == opt.long_name)
+        {
+          op = {opt.short_name, opt.long_name, r2, 0};
+          if (r2.empty() && opt.mode == e_option_mode::required)
+          {
+            std::cerr << "Missing argument to '" << opt.short_name << '/' << opt.long_name << "', ignoring this command." << std::endl;
+          }
+          else
+          {
+            opt.func(op);
+          }
+
+          unknown_cmd = false;
+          break;
+        }
+      }
+
+      if (unknown_cmd)
+      {
+        std::cerr << "Unknown command '" << s << "', ignoring it." << std::endl;
+      }
+    }
+  }
+
+  imode = false;
+}
+
+void options::parse(std::filesystem::path path)
+{
+  std::ifstream file(path, std::ios::binary);
+  if (file) {
+//    std::cout << "Parsing file " << path << std::endl;
+    parse(file);
+  }
+  file.close();
 }
 
 // From Freak, see :

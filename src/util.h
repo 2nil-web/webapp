@@ -52,6 +52,8 @@ std::string from_htent_a(const std::string);
 std::vector<std::string> split(const std::string &str, const char delim);
 // Split to a vector of strings the string 's' which contains substrings separated by the delimiter 'delim' itself not preceded by the escape character 'esc'.
 std::vector<std::string> split_esc(const std::string &s, const char delim = ';', const char esc = '\\');
+std::vector<std::string> split(std::string str, std::string delimiters = " ");
+void split_1st(std::string &r1, std::string &r2, std::string s, char c = ' ');
 
 bool str2bool(std::string s);
 
@@ -86,7 +88,6 @@ std::string pipe2s(const std::string command);
 std::string wpipe2s(const std::wstring command);
 
 std::string join(const std::vector<std::string> &, const std::string = ",");
-std::vector<std::string> split(std::string str, std::string delimiters = " ");
 
 void replace_all(std::string &s, const std::string srch, const std::string repl);
 void replace_all(std::wstring &s, const std::wstring srch, const std::wstring repl);

@@ -294,6 +294,23 @@ std::vector<std::string> split_esc(const std::string &s, const char delim, const
   return vs;
 }
 
+void split_1st(std::string &r1, std::string &r2, std::string s, char c)
+{
+  size_t pos = s.find_first_of(c);
+  if (pos == std::string::npos)
+  {
+    r1 = s;
+    r2 = {};
+  }
+  else
+  {
+    r1 = s.substr(0, pos);
+    trim(r1);
+    r2 = s.substr(pos + 1);
+    trim(r2);
+  }
+}
+
 std::string ltrim(std::string &s, const std::string ws)
 {
   s.erase(0, s.find_first_not_of(ws));

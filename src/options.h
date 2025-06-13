@@ -66,18 +66,24 @@ public:
   void set(std::string p_progname, arg_dq p_args, opti_dq p_opt_inf);
   void add(option_info){};
   void parse();
+  void parse(std::istream &is);
+  void parse(std::filesystem::path);
   std::string usage(size_t max_width = 0);
   std::ostream &usage(std::ostream &, size_t max_width = 0);
-  std::string version(bool traceability=false);
-  std::ostream &version(std::ostream &, bool traceability=false);
+  std::string version(bool traceability = false);
+  std::ostream &version(std::ostream &, bool traceability = false);
   std::string get_build();
 
 private:
+  std::string prompt = "> ";
+  bool imode = false;
   arg_dq p_args = {};
   arg_iter p_arg_it;
-  arg_iter run_opt(char short_name);
-  arg_iter run_opt(std::string long_name);
-  arg_iter run_opt(option_info opt);
+  void run_opt(char short_name);
+  void run_opt(std::string long_name);
+  void run_opt(option_info opt);
+  std::string usage_opt(size_t max_width = 0);
+  std::string usage_int(size_t max_width = 0);
   void add_default();
   friend std::ostream &operator<<(std::ostream &, options &);
 };

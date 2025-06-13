@@ -196,7 +196,7 @@ bool getline_async_thread_safe(const int &fd, std::string &str, char delim = '\n
 }
 
 // Special case for std::cin, non blocking getline (only tested and working with gcc compiler, does not with msvc).
-bool my_getline(std::istream &is, std::string &str, char delim = '\n')
+bool noblock_getline(std::istream &is, std::string &str, char delim = '\n')
 {
   if (&is == &std::cin)
   {
@@ -242,7 +242,7 @@ size_t tail::from_pos(std::istream &is, size_t total_line, size_t pos, bool forw
   std::string line = {};
   size_t /*prev_tell = 1,*/ tell = 0;
 
-  while (my_getline(is, line, delimiter))
+  while (noblock_getline(is, line, delimiter))
   {
     tell = is.tellg();
     positioned_lines.push_back({tell, line});
