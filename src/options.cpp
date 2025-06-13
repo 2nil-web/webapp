@@ -437,7 +437,7 @@ void options::parse()
 }
 
 // Make Windows behave as Linux with Control-D in stdin
-bool ctld_getline(std::istream &is, std::string &s, char delim='\n')
+bool ctld_getline(std::istream &is, std::string &s, char delim = '\n')
 {
 #ifdef _WIN32
   if (&is == &std::cin)
@@ -448,7 +448,8 @@ bool ctld_getline(std::istream &is, std::string &s, char delim='\n')
     for (;;)
     {
       ch = _getch();
-      if (ch == '\r' && s.back() == '\n') continue; // Ignore \r under Windows if it is preceded by \n ...
+      if (ch == '\r' && s.back() == '\n')
+        continue; // Ignore \r under Windows if it is preceded by \n ...
       if (s.empty() && ch == 4)
         return false; // Control-D detected
       if ((char)ch == delim)
@@ -463,7 +464,7 @@ bool ctld_getline(std::istream &is, std::string &s, char delim='\n')
   }
   else
 #endif
-  if (std::getline(is, s, delim))
+      if (std::getline(is, s, delim))
     return true;
 
   return false;
@@ -479,7 +480,8 @@ void options::parse(std::istream &is)
 
   for (;;)
   {
-    if (&is == &std::cin) std::cout << prompt;
+    if (&is == &std::cin)
+      std::cout << prompt;
 
     if (!ctld_getline(is, s))
       break;
@@ -523,8 +525,9 @@ void options::parse(std::istream &is)
 void options::parse(std::filesystem::path path)
 {
   std::ifstream file(path, std::ios::binary);
-  if (file) {
-//    std::cout << "Parsing file " << path << std::endl;
+  if (file)
+  {
+    //    std::cout << "Parsing file " << path << std::endl;
     parse(file);
   }
   file.close();
