@@ -239,7 +239,7 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
     case WM_DESTROY:
       if (me->on_exit_func != "")
       {
-        // logTrace("bye bye ", me->on_exit_func);
+        logTrace("bye bye ", me->on_exit_func);
         // me->init(me->on_exit_func);
         me->eval(me->on_exit_func);
       }
@@ -1650,7 +1650,7 @@ void webview_wrapper::set_on_geometry(const std::string js)
 void webview_wrapper::set_on_exit(const std::string js)
 {
   on_exit_func = js;
-  // logTrace("set_on_exit ", on_exit_func);
+  logTrace("set_on_exit ", on_exit_func);
 }
 
 void webview_wrapper::set_html(const std::string &html)

@@ -315,6 +315,7 @@ void create_app_binds(webview_wrapper &w)
       {
         auto js = json_parse(req, "", 0);
         w.set_on_exit(js);
+        logTrace("app_on_exit: ", js);
         return "";
       },
       "set callback to detect when webapp is exiting.", //
@@ -440,7 +441,10 @@ void create_app_binds(webview_wrapper &w)
   w.decvar("app", "icon", "file name of the icon used by the webapp.", std::filesystem::path(w.icon_file));
   extern options myopt;
   w.decvar("app", "info", "informations about the webapp.", myopt.version() + "\nBased on webview " + webview_wrapper::version() + ".\n (c) Serge Zaitsev and Steffen André Langnes (MIT License).\nBuild for " + myopt.get_build());
+
+  std::string argsl = to_htent(w.js_args);
   w.decvar("app", "args_line", "A comma separated string containing the args passed to the webapp", w.js_args);
+  w.decvar("app", "args_line_he", "A comma separated string containing the args passed to the webapp converted in html entities", argsl);
 
   w.decvar("app", "x", "horizontal position of the upper left corner of the webapp window.", appx);
   w.decvar("app", "y", "vertical position of the upper left corner of the webapp window.", appy);
