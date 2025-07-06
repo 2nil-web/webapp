@@ -310,15 +310,15 @@ void create_app_binds(webview_wrapper &w)
 
   // Set an exit callback
   w.bind_doc(
-      "app_on_exit",                             //
+      "app_on_exit_msg",                             //
       [&](const std::string &req) -> std::string //
       {
         auto js = json_parse(req, "", 0);
         w.set_on_exit(js);
-        logTrace("app_on_exit: ", js);
+        logTrace("app_on_exit_msg: ", js);
         return "";
       },
-      "set callback to detect when webapp is exiting.", //
+      "Ask for confirmation with the provided message when closing the app window.", //
       -1);
 
   // Exit

@@ -15,7 +15,7 @@ function not_app_func() {
   app_get_title_bg
   app_hide
   app_minimize
-  app_on_exit
+  app_on_exit_msg
 */
 var webapp = {
   title: function(s) {

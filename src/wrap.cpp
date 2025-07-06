@@ -234,29 +234,39 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
     switch (uMsg)
     {
     case WM_CLOSE:
-    case WM_QUIT:
-    case WM_SYSCOMMAND:
-    case WM_DESTROY:
+      logDebug("WM_CLOSE");
+
       if (me->on_exit_func != "")
       {
-        logTrace("bye bye ", me->on_exit_func);
-        // me->init(me->on_exit_func);
-        me->eval(me->on_exit_func);
-      }
+        if (MessageBox(nullptr, me->on_exit_func, me->get_title().c_str(), MB_YESNO) == IDYES) {
+          DestroyWindow(hWnd);
+        } else {
+          return 0;
+        }
+      } else DestroyWindow(hWnd);
+      break;
+    case WM_DESTROY:
+      logDebug("WM_DESTROY");
+      PostQuitMessage(0);
       break;
 
-      //    case WM_SHOWWINDOW:
-      //      logTrace("WM_SHOWWINDOW ");
-      //      break;
-
-      //    case WM_SIZE:
-      //      logTrace("WM_SIZE");
-      //      break;
-
-      //    case WM_MOVE:
-      //      logTrace("WM_MOVE");
-      //      break;
-
+/*
+    case WM_QUIT:
+        logTrace("WM_SHOWWINDOW ");
+        break;
+    case WM_SYSCOMMAND:
+        logTrace("WM_SHOWWINDOW ");
+        break;
+    case WM_SHOWWINDOW:
+      logTrace("WM_SHOWWINDOW ");
+      break;
+    case WM_SIZE:
+      logTrace("WM_SIZE");
+      break;
+    case WM_MOVE:
+      logTrace("WM_MOVE");
+      break;
+*/
     default:
       break;
     }
@@ -916,8 +926,9 @@ void webview_wrapper::terminate()
   {
     logDebug("terminate");
 
-    if (on_exit_func != "")
+    if (me->on_exit_func != "")
     {
+      logDebug(me->on_exit_func);
       eval(me->on_exit_func);
     }
 
@@ -956,7 +967,7 @@ void webview_wrapper::bind(const std::string &name, binding_t fn, void *arg)
 
 void webview_wrapper::unbind(const std::string &name)
 {
-  // logTrace("wrap_unbind");
+  logTrace("wrap_unbind");
   WP->unbind(name);
 }
 
