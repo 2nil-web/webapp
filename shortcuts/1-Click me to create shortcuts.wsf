@@ -43,6 +43,10 @@ if (false) {
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"RSync backup", tgt, args, app_pth,  app_pth+ico_sfx, "RSync backup");
 
+  app="07-egyptian";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Egyptian", tgt, args, app_pth,  app_pth+ico_sfx, "Egyptian");
+
   app="Wallpaper_selector";
   app_pth="C:\\Users\\Denis\\Documents\\home\\32-Wallpaper-selector";
   msg+=mysc.recreate(sDesk+"wp_sel", tgt, args, app_pth,  app_pth+ico_sfx, "Wallpaper_selector");

@@ -310,7 +310,7 @@ void create_app_binds(webview_wrapper &w)
 
   // Set an exit callback
   w.bind_doc(
-      "app_on_exit_msg",                             //
+      "app_on_exit_msg",                         //
       [&](const std::string &req) -> std::string //
       {
         auto js = json_parse(req, "", 0);

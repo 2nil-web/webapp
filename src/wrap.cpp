@@ -238,35 +238,40 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
       if (me->on_exit_func != "")
       {
-        if (MessageBox(nullptr, me->on_exit_func, me->get_title().c_str(), MB_YESNO) == IDYES) {
+        if (MessageBox(nullptr, me->on_exit_func, me->get_title().c_str(), MB_YESNO) == IDYES)
+        {
           DestroyWindow(hWnd);
-        } else {
+        }
+        else
+        {
           return 0;
         }
-      } else DestroyWindow(hWnd);
+      }
+      else
+        DestroyWindow(hWnd);
       break;
     case WM_DESTROY:
       logDebug("WM_DESTROY");
       PostQuitMessage(0);
       break;
 
-/*
-    case WM_QUIT:
-        logTrace("WM_SHOWWINDOW ");
-        break;
-    case WM_SYSCOMMAND:
-        logTrace("WM_SHOWWINDOW ");
-        break;
-    case WM_SHOWWINDOW:
-      logTrace("WM_SHOWWINDOW ");
-      break;
-    case WM_SIZE:
-      logTrace("WM_SIZE");
-      break;
-    case WM_MOVE:
-      logTrace("WM_MOVE");
-      break;
-*/
+      /*
+          case WM_QUIT:
+              logTrace("WM_SHOWWINDOW ");
+              break;
+          case WM_SYSCOMMAND:
+              logTrace("WM_SHOWWINDOW ");
+              break;
+          case WM_SHOWWINDOW:
+            logTrace("WM_SHOWWINDOW ");
+            break;
+          case WM_SIZE:
+            logTrace("WM_SIZE");
+            break;
+          case WM_MOVE:
+            logTrace("WM_MOVE");
+            break;
+      */
     default:
       break;
     }
