@@ -24,6 +24,7 @@
 #include "winapi.h"
 #include "wm_map.h"
 #include <commctrl.h>
+#include <windows.h>
 #endif
 #include "path_entity.h"
 #include "wrap.h"
@@ -227,14 +228,17 @@ bool getwinrect(HWND hw, rectangle &rc)
   return false;
 }
 
+#define WM_CONFIRM_CLOSE (WM_USER + 1)
 LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
   if (me && (HWND)webview_get_window(me->w) == hWnd && wm_map.count(uMsg))
   {
     switch (uMsg)
     {
+#ifndef PASCOMP
     case WM_CLOSE:
       logDebug("WM_CLOSE");
+      logDebug("on_exit_func: " + me->on_exit_func);
 
       if (me->on_exit_func != "")
       {
@@ -250,6 +254,36 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
       else
         DestroyWindow(hWnd);
       break;
+#else
+    case WM_CLOSE:
+      logDebug("WM_CLOSE");
+      logDebug("on_exit_func: " + me->on_exit_func);
+
+      if (me->on_exit_func != "")
+      {
+        me->eval(me->on_exit_func);
+        // SendMessage(hWnd, WM_CONFIRM_CLOSE, wParam, lParam);
+        return 0;
+      }
+      break;
+
+    case WM_CONFIRM_CLOSE:
+      logDebug("WM_CONFIRM_CLOSE");
+      if (me->on_exit_func != "")
+      {
+        logDebug(" do_exit: " + me->do_exit);
+        if (me->do_exit)
+        {
+          DestroyWindow(hWnd);
+        }
+        else
+        {
+          return 0;
+        }
+      }
+      break;
+#endif
+
     case WM_DESTROY:
       logDebug("WM_DESTROY");
       PostQuitMessage(0);

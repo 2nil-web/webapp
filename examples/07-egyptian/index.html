@@ -10,13 +10,19 @@
 <body>
 </body>
 <script>
-  if (typeof app != "undefined" && typeof app.set_title === "function") {
+  if (typeof app != "undefined" && typeof app.sysname !== "undefined") {
+    //if (typeof app != "undefined" && typeof app.set_title === "function") {
+    app.set_icon("app.ico");
     app.set_title(document.title);
 
     function exit_on_esc() {
       if (event.keyCode === 27) app.exit();
     }
     document.addEventListener("keyup", exit_on_esc);
+
+    //app.on_exit_msg("console.log(`${confirm('Bye bye ?')}`);");
+    app.on_exit_msg("var res=confirm('Bye bye ?');if (res === true) allow_exit() else app.forbid_exit();");
+    //app.on_exit_msg("if (alert('Bye bye ?')) app.allow_exit() else app.forbid_exit();");
   }
 
   var body = document.body,

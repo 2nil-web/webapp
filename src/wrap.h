@@ -116,6 +116,7 @@ private:
 public:
   static webview_conf conf;
   std::string js_args = "[]";
+  bool do_exit = true;
 
   void out_conf(std::string s = {});
   webview_wrapper();

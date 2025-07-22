@@ -308,6 +308,29 @@ void create_app_binds(webview_wrapper &w)
       "set callback to detect when webapp has moved.", //
       -1);
 
+  // Forbid exit
+  w.bind_doc(
+      "app_forbid_exit",                         //
+      [&](const std::string &req) -> std::string //
+      {
+        w.do_exit = false;
+        ;
+        return "";
+      },
+      "Do not allow exitting when clicking on window close button.", //
+      0);
+
+  // Forbid exit
+  w.bind_doc(
+      "app_allow_exit",                          //
+      [&](const std::string &req) -> std::string //
+      {
+        w.do_exit = true;
+        return "";
+      },
+      "Allow exitting when clicking on window close button.", //
+      0);
+
   // Set an exit callback
   w.bind_doc(
       "app_on_exit_msg",                         //
