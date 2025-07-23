@@ -102,7 +102,7 @@ class webview_wrapper
 private:
   static webview_wrapper *me;
 
-  std::string on_geometry_func = {}, on_exit_func = {};
+  std::string on_geometry_func = {};
   void *w = nullptr;
   std::vector<tupple_doc> func_help = {};
   std::string app_title;
@@ -116,7 +116,7 @@ private:
 public:
   static webview_conf conf;
   std::string js_args = "[]";
-  bool do_exit = true;
+  std::string close_cmds = {}, exit_msg = {};
 
   void out_conf(std::string s = {});
   webview_wrapper();
@@ -204,7 +204,6 @@ public:
 //  GtkWindow* m_window();
 #endif
 
-  void set_on_exit(const std::string);
   void set_on_geometry(const std::string);
   void set_html(const std::string &);
   void init(const std::string &);

@@ -20,9 +20,8 @@
     }
     document.addEventListener("keyup", exit_on_esc);
 
-    //app.on_exit_msg("console.log(`${confirm('Bye bye ?')}`);");
-    app.on_exit_msg("var res=confirm('Bye bye ?');if (res === true) allow_exit() else app.forbid_exit();");
-    //app.on_exit_msg("if (alert('Bye bye ?')) app.allow_exit() else app.forbid_exit();");
+    //app.exit_msg("Sure to quit ?");
+    app.on_close("if (confirm('Bye bye ?')) app.exit();");
   }
 
   var body = document.body,

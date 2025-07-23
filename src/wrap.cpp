@@ -228,84 +228,49 @@ bool getwinrect(HWND hw, rectangle &rc)
   return false;
 }
 
-#define WM_CONFIRM_CLOSE (WM_USER + 1)
 LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
   if (me && (HWND)webview_get_window(me->w) == hWnd && wm_map.count(uMsg))
   {
     switch (uMsg)
     {
-#ifndef PASCOMP
     case WM_CLOSE:
       logDebug("WM_CLOSE");
-      logDebug("on_exit_func: " + me->on_exit_func);
-
-      if (me->on_exit_func != "")
+      if (!me->close_cmds.empty())
       {
-        if (MessageBox(nullptr, me->on_exit_func, me->get_title().c_str(), MB_YESNO) == IDYES)
-        {
-          DestroyWindow(hWnd);
-        }
-        else
-        {
-          return 0;
-        }
-      }
-      else
-        DestroyWindow(hWnd);
-      break;
-#else
-    case WM_CLOSE:
-      logDebug("WM_CLOSE");
-      logDebug("on_exit_func: " + me->on_exit_func);
-
-      if (me->on_exit_func != "")
-      {
-        me->eval(me->on_exit_func);
-        // SendMessage(hWnd, WM_CONFIRM_CLOSE, wParam, lParam);
+        logDebug("close_cmds: "+me->close_cmds);
+        me->eval(me->close_cmds);
         return 0;
       }
-      break;
-
-    case WM_CONFIRM_CLOSE:
-      logDebug("WM_CONFIRM_CLOSE");
-      if (me->on_exit_func != "")
+      else if (!me->exit_msg.empty())
       {
-        logDebug(" do_exit: " + me->do_exit);
-        if (me->do_exit)
-        {
-          DestroyWindow(hWnd);
-        }
-        else
-        {
-          return 0;
-        }
-      }
+        logDebug("exit_msg: " + me->exit_msg);
+        if (MessageBox((HWND)(me->window()), htent_to_path(me->exit_msg).wstring(), me->get_title_w(), MB_YESNO) == IDNO) return 0;
+      } else DestroyWindow(hWnd);
       break;
-#endif
 
     case WM_DESTROY:
       logDebug("WM_DESTROY");
       PostQuitMessage(0);
       break;
 
-      /*
-          case WM_QUIT:
-              logTrace("WM_SHOWWINDOW ");
-              break;
-          case WM_SYSCOMMAND:
-              logTrace("WM_SHOWWINDOW ");
-              break;
-          case WM_SHOWWINDOW:
-            logTrace("WM_SHOWWINDOW ");
-            break;
-          case WM_SIZE:
-            logTrace("WM_SIZE");
-            break;
-          case WM_MOVE:
-            logTrace("WM_MOVE");
-            break;
-      */
+/*
+    case WM_QUIT:
+        logTrace("WM_SHOWWINDOW ");
+        break;
+    case WM_SYSCOMMAND:
+        logTrace("WM_SHOWWINDOW ");
+        break;
+    case WM_SHOWWINDOW:
+      logTrace("WM_SHOWWINDOW ");
+      break;
+    case WM_SIZE:
+      logTrace("WM_SIZE");
+      break;
+    case WM_MOVE:
+      logTrace("WM_MOVE");
+      break;
+*/
     default:
       break;
     }
@@ -965,10 +930,10 @@ void webview_wrapper::terminate()
   {
     logDebug("terminate");
 
-    if (me->on_exit_func != "")
+    if (me->close_cmds != "")
     {
-      logDebug(me->on_exit_func);
-      eval(me->on_exit_func);
+      logDebug(me->close_cmds);
+      eval(me->close_cmds);
     }
 
     WP->terminate();
@@ -1695,12 +1660,6 @@ void webview_wrapper::set_on_geometry(const std::string js)
 {
   on_geometry_func = js;
   //  logTrace("set_on_geometry ", on_geometry_func );
-}
-
-void webview_wrapper::set_on_exit(const std::string js)
-{
-  on_exit_func = js;
-  logTrace("set_on_exit ", on_exit_func);
 }
 
 void webview_wrapper::set_html(const std::string &html)

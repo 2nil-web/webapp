@@ -308,40 +308,28 @@ void create_app_binds(webview_wrapper &w)
       "set callback to detect when webapp has moved.", //
       -1);
 
-  // Forbid exit
+  // Set an exit callback
   w.bind_doc(
-      "app_forbid_exit",                         //
+      "app_on_close",                         //
       [&](const std::string &req) -> std::string //
       {
-        w.do_exit = false;
-        ;
+        w.close_cmds = json_parse(req, "", 0);
+        logTrace("app_on_exit: ", w.close_cmds);
         return "";
       },
-      "Do not allow exitting when clicking on window close button.", //
-      0);
-
-  // Forbid exit
-  w.bind_doc(
-      "app_allow_exit",                          //
-      [&](const std::string &req) -> std::string //
-      {
-        w.do_exit = true;
-        return "";
-      },
-      "Allow exitting when clicking on window close button.", //
-      0);
+      "Bypass the close button functionnality with the provided javascript commands, it is up to the programmer to decide to call the exit function or not.", //
+      -1);
 
   // Set an exit callback
   w.bind_doc(
-      "app_on_exit_msg",                         //
+      "app_exit_msg",                         //
       [&](const std::string &req) -> std::string //
       {
-        auto js = json_parse(req, "", 0);
-        w.set_on_exit(js);
-        logTrace("app_on_exit_msg: ", js);
+        w.exit_msg = json_parse(req, "", 0);
+        logTrace("app_exit_msg: ", w.exit_msg);
         return "";
       },
-      "Ask for confirmation with the provided message when closing the app window.", //
+      "Ask for confirmation with the provided message when closing the app window, does not take into account allow_exit and forbid_exit functions.", //
       -1);
 
   // Exit
