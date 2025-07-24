@@ -1,4 +1,6 @@
 
+// ==> Intégrer gtk_winclose.cpp.txt pour intercépter le clic sur bouton close.
+
 #include <algorithm>
 #include <deque>
 #include <filesystem>
