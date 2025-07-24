@@ -319,6 +319,8 @@ void pathdlg_thread(webview_wrapper &w, const std::string &seq, const std::strin
   std::thread([&w, seq, req, ptyp] { w.resolve(seq, 0, pathdlg(w, req, ptyp)); }).detach();
 }
 
+// Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2, MB_YESNOCANCEL=3
+// According to which dialog button is clicked, return one of the following string: "yes", "no", "ok", "cancel"
 std::string gui_msgbox(webview_wrapper &w, const std::string &req)
 {
   std::string msg, sbut;
@@ -335,6 +337,9 @@ std::string gui_msgbox(webview_wrapper &w, const std::string &req)
   case 2:
     wbut = MB_YESNO | MB_ICONQUESTION;
     break;
+  case 3:
+    wbut = MB_YESNOCANCEL | MB_ICONQUESTION;
+    break;
   default:
     wbut = MB_OK | MB_ICONINFORMATION;
     break;
@@ -345,11 +350,15 @@ std::string gui_msgbox(webview_wrapper &w, const std::string &req)
   switch (ret)
   {
   case IDOK:
+    return "ok";
+  case IDCANCEL:
+    return "cancel";
   case IDYES:
-    return "true";
-    break;
+    return "yes";
+  case IDNO:
+    return "no";
   default:
-    return "false";
+    return "ok";
     break;
   }
 }
@@ -602,7 +611,7 @@ void create_win_binds(webview_wrapper &w)
 #ifdef _WIN32
   w.bind_doc(       //
       "gui_msgbox", //
-      [&](const std::string &req) -> std::string { return gui_msgbox(w, req); },
+      [&](const std::string &req) -> std::string { return w.json_escape(gui_msgbox(w, req)); },
       "display a message dialog in a 'close to Windows MessageBox style', First parameter is the message and second one indicate whether we need only an 'OK' button (0), or an 'OK' and a 'Cancel' button (1) or a 'Yes' and a 'No' button (2).", //
       -2);
 

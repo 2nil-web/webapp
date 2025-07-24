@@ -259,8 +259,8 @@ void on_msgbox_click(GObject *source_object, GAsyncResult *res, msg_res *ret)
   ret->done = true;
 }
 
-// Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2
-// Return is true if Yes/OK/Accept, clicked else false;
+// Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2, MB_YESNOCANCEL=3
+// Return is "yes", "no", "ok", "cancel"
 std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
 {
   GtkWindow *parent = GTK_WINDOW(w.window());
@@ -272,6 +272,7 @@ std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
 
   const char *labels_ok_cancel[] = {g_dgettext("gtk30", "_OK"), g_dgettext("gtk30", "_Cancel"), nullptr};
   const char *labels_yes_no[] = {g_dgettext("gtk30", "_Yes"), g_dgettext("gtk30", "_No"), nullptr};
+  const char *labels_yes_no_cancel[] = {g_dgettext("gtk30", "_Yes"), g_dgettext("gtk30", "_No"), g_dgettext("gtk30", "_Cancel"), nullptr};
   const char *label_ok[] = {g_dgettext("gtk30", "_OK"), nullptr};
 
   switch (type)
@@ -281,6 +282,9 @@ std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
     break;
   case 2:
     gtk_alert_dialog_set_buttons(dialog, labels_yes_no);
+    break;
+  case 3:
+    gtk_alert_dialog_set_buttons(dialog, labels_yes_no_cancel);
     break;
   default:
     gtk_alert_dialog_set_buttons(dialog, label_ok);
@@ -304,58 +308,98 @@ std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
 }
 
 #else
-void true_button_callback(GtkWidget *button, gpointer dialog)
+void OK_callback(GtkWidget *button, gpointer dialog)
 {
   gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 }
 
-void false_button_callback(GtkWidget *button, gpointer dialog)
+void Cancel_callback(GtkWidget *button, gpointer dialog)
 {
   gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
 }
 
-// Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2
-// Return value is true if Yes/OK/Accept, clicked else false;
+void Yes_callback(GtkWidget *button, gpointer dialog)
+{
+  gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_YES);
+}
+
+void No_callback(GtkWidget *button, gpointer dialog)
+{
+  gtk_dialog_response(GTK_DIALOG(dialog), GTK_RESPONSE_NO);
+}
+
+// Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2, MB_YESNOCANCEL=3
+// Return is "yes", "no", "ok", "cancel"
 std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
 {
-  // logTrace("Type: ", type);
+  logTrace("Type: ", type);
   GtkWindow *parent = GTK_WINDOW(w.window());
   GtkWidget *dialog = gtk_dialog_new();
   gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
   gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
   gtk_window_set_title(GTK_WINDOW(dialog), w.get_title().c_str());
-  // logInfo("GTK < 4.10, TITLE: "+w.get_title());
+  logInfo("GTK < 4.10, TITLE: " + w.get_title());
   GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
   GtkWidget *label = gtk_label_new(msg.c_str());
   gtk_container_add(GTK_CONTAINER(content_area), label);
   gtk_widget_show(label);
 
   GtkWidget *button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
-  GtkWidget *true_button;
-  if (type == 2)
-    true_button = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Yes"));
-  else
-    true_button = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_OK"));
+  GtkWidget *button1; // Button 1 might be Yes, OK, Accept
+  GtkWidget *button2; // Button2 might be No, Cancel
+  GtkWidget *button3; // Button2 might only be Cancel
 
-  gtk_container_add(GTK_CONTAINER(button_box), true_button);
-  g_signal_connect(true_button, "clicked", G_CALLBACK(true_button_callback), dialog);
-
-  if (type > 0)
+  switch (type)
   {
-    GtkWidget *false_button;
-    if (type == 1)
-      false_button = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Cancel"));
-    else
-      false_button = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_No"));
-    gtk_container_add(GTK_CONTAINER(button_box), false_button);
-    gtk_widget_show(false_button);
-    g_signal_connect(false_button, "clicked", G_CALLBACK(false_button_callback), dialog);
+  case 1: // OKCancel
+    button1 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_OK"));
+    gtk_container_add(GTK_CONTAINER(button_box), button1);
+    g_signal_connect(button1, "clicked", G_CALLBACK(OK_callback), dialog);
+    gtk_widget_show(button1);
+
+    button2 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Cancel"));
+    gtk_container_add(GTK_CONTAINER(button_box), button2);
+    gtk_widget_show(button2);
+    g_signal_connect(button2, "clicked", G_CALLBACK(Cancel_callback), dialog);
+    break;
+  case 2: // YesNo
+    button1 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Yes"));
+    gtk_container_add(GTK_CONTAINER(button_box), button1);
+    g_signal_connect(button1, "clicked", G_CALLBACK(Yes_callback), dialog);
+    gtk_widget_show(button1);
+
+    button2 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_No"));
+    gtk_container_add(GTK_CONTAINER(button_box), button2);
+    gtk_widget_show(button2);
+    g_signal_connect(button2, "clicked", G_CALLBACK(No_callback), dialog);
+    break;
+  case 3: // YesNoCancel
+    button1 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Yes"));
+    gtk_container_add(GTK_CONTAINER(button_box), button1);
+    g_signal_connect(button1, "clicked", G_CALLBACK(Yes_callback), dialog);
+    gtk_widget_show(button1);
+
+    button2 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_No"));
+    gtk_container_add(GTK_CONTAINER(button_box), button2);
+    gtk_widget_show(button2);
+    g_signal_connect(button2, "clicked", G_CALLBACK(No_callback), dialog);
+
+    button3 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_Cancel"));
+    gtk_container_add(GTK_CONTAINER(button_box), button3);
+    gtk_widget_show(button3);
+    g_signal_connect(button3, "clicked", G_CALLBACK(Cancel_callback), dialog);
+    break;
+  default: // OK
+    button1 = gtk_button_new_with_mnemonic(g_dgettext("gtk30", "_OK"));
+    gtk_container_add(GTK_CONTAINER(button_box), button1);
+    g_signal_connect(button1, "clicked", G_CALLBACK(OK_callback), dialog);
+    gtk_widget_show(button1);
+    break;
   }
 
   gtk_widget_set_hexpand(button_box, GTK_ALIGN_CENTER);
   gtk_widget_set_halign(button_box, GTK_ALIGN_CENTER);
   gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), button_box, TRUE, FALSE, 0);
-  gtk_widget_show(true_button);
 
   gtk_widget_show(content_area);
   gtk_widget_show(button_box);
@@ -366,15 +410,22 @@ std::string gtk_msgbox(webview_wrapper &w, std::string msg, int type = 0)
   switch (result)
   {
   case GTK_RESPONSE_OK:
+    ret = "ok";
+    break;
   case GTK_RESPONSE_YES:
+    ret = "yes";
+    break;
   case GTK_RESPONSE_ACCEPT:
-    ret = "true";
+    ret = "accept";
+    break;
+  case GTK_RESPONSE_CANCEL:
+    ret = "cancel";
+    break;
+  case GTK_RESPONSE_NO:
+    ret = "no";
     break;
   default:
-    if (type == 0)
-      ret = "true";
-    else
-      ret = "false";
+    ret = "ok";
     break;
   }
 

@@ -1,4 +1,4 @@
-﻿
+
 #include <algorithm>
 #include <deque>
 #include <filesystem>
@@ -238,15 +238,18 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
       logDebug("WM_CLOSE");
       if (!me->close_cmds.empty())
       {
-        logDebug("close_cmds: "+me->close_cmds);
+        logDebug("close_cmds: " + me->close_cmds);
         me->eval(me->close_cmds);
         return 0;
       }
       else if (!me->exit_msg.empty())
       {
         logDebug("exit_msg: " + me->exit_msg);
-        if (MessageBox((HWND)(me->window()), htent_to_path(me->exit_msg).wstring(), me->get_title_w(), MB_YESNO) == IDNO) return 0;
-      } else DestroyWindow(hWnd);
+        if (MessageBox((HWND)(me->window()), htent_to_path(me->exit_msg).wstring(), me->get_title_w(), MB_YESNO) == IDNO)
+          return 0;
+      }
+      else
+        DestroyWindow(hWnd);
       break;
 
     case WM_DESTROY:
@@ -254,23 +257,23 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
       PostQuitMessage(0);
       break;
 
-/*
-    case WM_QUIT:
-        logTrace("WM_SHOWWINDOW ");
-        break;
-    case WM_SYSCOMMAND:
-        logTrace("WM_SHOWWINDOW ");
-        break;
-    case WM_SHOWWINDOW:
-      logTrace("WM_SHOWWINDOW ");
-      break;
-    case WM_SIZE:
-      logTrace("WM_SIZE");
-      break;
-    case WM_MOVE:
-      logTrace("WM_MOVE");
-      break;
-*/
+      /*
+          case WM_QUIT:
+              logTrace("WM_SHOWWINDOW ");
+              break;
+          case WM_SYSCOMMAND:
+              logTrace("WM_SHOWWINDOW ");
+              break;
+          case WM_SHOWWINDOW:
+            logTrace("WM_SHOWWINDOW ");
+            break;
+          case WM_SIZE:
+            logTrace("WM_SIZE");
+            break;
+          case WM_MOVE:
+            logTrace("WM_MOVE");
+            break;
+      */
     default:
       break;
     }

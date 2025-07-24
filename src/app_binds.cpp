@@ -310,7 +310,7 @@ void create_app_binds(webview_wrapper &w)
 
   // Set an exit callback
   w.bind_doc(
-      "app_on_close",                         //
+      "app_on_close",                            //
       [&](const std::string &req) -> std::string //
       {
         w.close_cmds = json_parse(req, "", 0);
@@ -322,7 +322,7 @@ void create_app_binds(webview_wrapper &w)
 
   // Set an exit callback
   w.bind_doc(
-      "app_exit_msg",                         //
+      "app_exit_msg",                            //
       [&](const std::string &req) -> std::string //
       {
         w.exit_msg = json_parse(req, "", 0);
