@@ -313,13 +313,15 @@ void create_app_binds(webview_wrapper &w)
       "app_on_close",                            //
       [&](const std::string &req) -> std::string //
       {
-        w.close_cmds = json_parse(req, "", 0);
-        logTrace("app_on_exit: ", w.close_cmds);
+        std::string close_cmds = json_parse(req, "", 0);
+        w.set_on_close(close_cmds);
+        logTrace("app_on_exit: ", close_cmds);
         return "";
       },
-      "Bypass the close button functionnality with the provided javascript commands, it is up to the programmer to decide to call the exit function or not.", //
-      -1);
+      "Bypass the window close button functionnality with the provided javascript commands, it is up to the programmer to decide to call the exit function afterwards.", //
+      1);
 
+#ifdef DO_COMPILE
   // Set an exit callback
   w.bind_doc(
       "app_exit_msg",                            //
@@ -331,6 +333,7 @@ void create_app_binds(webview_wrapper &w)
       },
       "Ask for confirmation with the provided message when closing the app window, does not take into account allow_exit and forbid_exit functions.", //
       -1);
+#endif
 
   // Exit
   w.bind_doc(

@@ -112,11 +112,12 @@ private:
   std::multimap<std::string, std::string> vars_desc_json = {};
   std::multimap<std::string, std::string> vars_desc_text = {};
   std::string class_descvars(std::string fname, bool json);
+  std::string close_cmds = {};
 
 public:
   static webview_conf conf;
   std::string js_args = "[]";
-  std::string close_cmds = {}, exit_msg = {};
+//  std::string exit_msg = {};
 
   void out_conf(std::string s = {});
   webview_wrapper();
@@ -187,12 +188,14 @@ public:
   //  template <typename... TypeStr> void setvars(const std::string cname, TypeStr &...arg) { ([&] { setvar(cname, arg); }(), ...); }
 
   static void on_geom();
+  static bool self_quit(webview_wrapper* me);
 #ifdef _WIN32
   static LRESULT windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
   void set_dark_bar(bool set = true);
 #endif
 
 #ifdef WEBVIEW_PLATFORM_LINUX_WEBKITGTK_COMPAT_HH
+  static gboolean on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
 #if GTK_MAJOR_VERSION == 3
   static bool gtk_on_configure_event(GtkWidget *widget, GdkEvent *event, gpointer user_data);
   static bool gtk_on_window_state_event(GtkWidget *widget, GdkEventWindowState *event, gpointer user_data);
@@ -205,6 +208,7 @@ public:
 #endif
 
   void set_on_geometry(const std::string);
+  void set_on_close(const std::string);
   void set_html(const std::string &);
   void init(const std::string &);
   void eval(const std::string &);

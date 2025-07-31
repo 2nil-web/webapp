@@ -208,6 +208,15 @@ void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
 #endif
 #endif
 
+bool webview_wrapper::self_quit(webview_wrapper* me)
+{
+  logDebug("self_quit, close_cmds: " + me->close_cmds);
+  if (me->close_cmds.empty()) return true;
+
+  me->eval(me->close_cmds);
+  return false;
+}
+
 #ifdef _WIN32
 #include <oleacc.h>
 #pragma comment(lib, "Oleacc.lib")
@@ -238,20 +247,8 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
     {
     case WM_CLOSE:
       logDebug("WM_CLOSE");
-      if (!me->close_cmds.empty())
-      {
-        logDebug("close_cmds: " + me->close_cmds);
-        me->eval(me->close_cmds);
-        return 0;
-      }
-      else if (!me->exit_msg.empty())
-      {
-        logDebug("exit_msg: " + me->exit_msg);
-        if (MessageBox((HWND)(me->window()), htent_to_path(me->exit_msg).wstring(), me->get_title_w(), MB_YESNO) == IDNO)
-          return 0;
-      }
-      else
-        DestroyWindow(hWnd);
+      if (!self_quit(me)) return 0;
+      DestroyWindow(hWnd);
       break;
 
     case WM_DESTROY:
@@ -934,13 +931,13 @@ void webview_wrapper::terminate()
   if (me)
   {
     logDebug("terminate");
-
+/*
     if (me->close_cmds != "")
     {
       logDebug(me->close_cmds);
       eval(me->close_cmds);
     }
-
+*/
     WP->terminate();
 #if defined _WIN32 && !defined(_MSC_VER)
     delete me;
@@ -1547,7 +1544,7 @@ bool webview_wrapper::restore_conf(webview_conf &p_cnf, std::string fname)
   {
     // logDebug("restore_conf aft read_ini");
     int x_offset = 0, y_offset = 0;
-#ifndef WIN32
+#ifndef _WIN32
     // Trying to compensate the offset I noticed between 2 gtk_move_window
     x_offset = -5;
     y_offset = -29;
@@ -1665,6 +1662,28 @@ void webview_wrapper::set_on_geometry(const std::string js)
 {
   on_geometry_func = js;
   //  logTrace("set_on_geometry ", on_geometry_func );
+}
+
+#ifdef WEBVIEW_PLATFORM_LINUX_WEBKITGTK_COMPAT_HH
+gboolean webview_wrapper::on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+  logDebug("On delete");
+  if (me && !self_quit(me)) return TRUE;
+  me->terminate();
+  return FALSE;
+}
+#endif
+
+void webview_wrapper::set_on_close(const std::string js)
+{
+  close_cmds=js;
+  logTrace("set_on_close ", close_cmds);
+
+#ifdef WEBVIEW_PLATFORM_LINUX_WEBKITGTK_COMPAT_HH
+  if (!close_cmds.empty()) {
+    g_signal_connect(G_OBJECT(window()), "delete-event", G_CALLBACK(on_delete_event), nullptr);
+  }
+#endif
 }
 
 void webview_wrapper::set_html(const std::string &html)
