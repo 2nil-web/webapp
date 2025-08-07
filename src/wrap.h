@@ -117,7 +117,7 @@ private:
 public:
   static webview_conf conf;
   std::string js_args = "[]";
-//  std::string exit_msg = {};
+  //  std::string exit_msg = {};
 
   void out_conf(std::string s = {});
   webview_wrapper();
@@ -188,7 +188,7 @@ public:
   //  template <typename... TypeStr> void setvars(const std::string cname, TypeStr &...arg) { ([&] { setvar(cname, arg); }(), ...); }
 
   static void on_geom();
-  static bool self_quit(webview_wrapper* me);
+  static bool self_quit(webview_wrapper *me);
 #ifdef _WIN32
   static LRESULT windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
   void set_dark_bar(bool set = true);

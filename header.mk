@@ -182,8 +182,8 @@ ifeq ($(OS_ID),debian)
 GTK_WEBKIT="gtk+-3.0 webkit2gtk-4.1"
 else
 GTK_WEBKIT="gtk4 webkitgtk-6.0"
-LDLIBS += -lX11
 endif
+LDLIBS += -lX11
 CXXFLAGS += $(shell pkg-config --cflags ${GTK_WEBKIT})
 #LDFLAGS +=-L/usr/lib/x86_64-linux-gnu -L/usr/lib/x86_64-linux-gnu/webkit2gtk-${WK2GV} -L/usr/lib/x86_64-linux-gnu/cmake/harfbuzz -L/usr/lib/python3/dist-packages/cairo -L/usr/lib/x86_64-linux-gnu/glib-2.0 -L/usr/lib/x86_64-linux-gnu/glib-2.0
 LDLIBS += $(shell pkg-config --libs ${GTK_WEBKIT})

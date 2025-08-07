@@ -135,6 +135,11 @@ void chg_ini_geom(s_opt_params &p)
     hint = std::stoi(scoo[4]);
 }
 
+void force_x11(s_opt_params &p)
+{
+  my_setenv("GDK_BACKEND", "x11");
+}
+
 void set_path(s_opt_params &p)
 {
   std::filesystem::path path(p.val), parent_path;
@@ -417,7 +422,9 @@ int main(int argc, char **argv, char **)
                 option_info(
                     'n', "icon", [](s_opt_params &p) -> void { icon_file = p.val; }, "Set windows icon with the provided .ico file.", required, option),
                 option_info('G', "geometry", chg_ini_geom, "Attempt to modify geometry when starting the webapp with the one to four parameter passed, separated by commas (x, y, width, height).", required, option),
-#ifdef _WIN32
+#ifndef _WIN32
+                option_info('X', "x11", force_x11, "Force the use of X11, this might be useful to position window's app, as gtk on wayland does not allow this.", no_arg, option),
+#else
                 option_info(
                     'm', "minimized", [](s_opt_params &) -> void { init_win_state = win_state::minimized; }, "The webview window will be minimized at startup.", no_arg, option),
 
@@ -434,7 +441,7 @@ int main(int argc, char **argv, char **)
                 option_info("A simple arguments will act as -p option."),
             });
 
-  // Calls to logFunctions before getopt_init will not work correctly ...
+  // Calls to logFunctions before opt.parse will not work correctly ...
   myopt.parse();
 
 #ifdef TEST_LOG

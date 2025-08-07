@@ -151,7 +151,13 @@ bool webview_wrapper::gtk_on_configure_event(GtkWidget *widget, GdkEvent *event,
 
       new_geom.x = dx, new_geom.y = dy;
       logDebug("window_state_event SAVING geom");
-      on_geom();
+#ifdef GTK_MAJOR_VERSION
+      // Although harmless under WIN32, the use of of the variable dont_geom is only useful under gtk, to avoid the following message: "undefined:1:11: CONSOLE JS ERROR ReferenceError: Can't find variable: app"
+      static int dont_geom = 0;
+      dont_geom++;
+      if (dont_geom > 4)
+#endif
+        on_geom();
     }
   }
 
@@ -181,22 +187,7 @@ namespace detail
 void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
 {
   logDebug("WindowInitialState: ", my_conf.xpos, ',', my_conf.ypos, ',', my_conf.width, ',', my_conf.height);
-
-#ifdef GTK_410_OR_MORE
-  // logTrace("Missing gtk_window_move in gtk4");
-#ifdef NE_FONCTIONNE_PAS
-  // GtkWidget *m_window = gtk_application_window_new (app);
-  // GdkSurface* native = gtk_native_get_surface(GTK_NATIVE (m_window));
-  // printf("%p\n",native); //print (nil)
-  Window xw = gdk_x11_surface_get_xid(GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_window))));
-  Display *xd = gdk_x11_display_get_xdisplay(gtk_widget_get_display(m_window));
-  XMoveWindow(xd, xw, 100, 100);
-  // gtk_window_present (GTK_WINDOW (m_window));
-#endif
-#else
-  logTrace("GTK410_LESS, Initial move of window");
   gtk_window_move(GTK_WINDOW(m_window), my_conf.xpos, my_conf.ypos);
-#endif
   logDebug("gtk_widget_set_size_request: ", my_conf.width, ',', my_conf.height);
   gtk_widget_set_size_request(GTK_WIDGET(m_window), my_conf.width, my_conf.height);
   gtk_widget_grab_focus(GTK_WIDGET(m_webview));
@@ -208,10 +199,11 @@ void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
 #endif
 #endif
 
-bool webview_wrapper::self_quit(webview_wrapper* me)
+bool webview_wrapper::self_quit(webview_wrapper *me)
 {
   logDebug("self_quit, close_cmds: " + me->close_cmds);
-  if (me->close_cmds.empty()) return true;
+  if (me->close_cmds.empty())
+    return true;
 
   me->eval(me->close_cmds);
   return false;
@@ -247,7 +239,8 @@ LRESULT webview_wrapper::windows_on_event(HWND hWnd, UINT uMsg, WPARAM wParam, L
     {
     case WM_CLOSE:
       logDebug("WM_CLOSE");
-      if (!self_quit(me)) return 0;
+      if (!self_quit(me))
+        return 0;
       DestroyWindow(hWnd);
       break;
 
@@ -931,13 +924,13 @@ void webview_wrapper::terminate()
   if (me)
   {
     logDebug("terminate");
-/*
-    if (me->close_cmds != "")
-    {
-      logDebug(me->close_cmds);
-      eval(me->close_cmds);
-    }
-*/
+    /*
+        if (me->close_cmds != "")
+        {
+          logDebug(me->close_cmds);
+          eval(me->close_cmds);
+        }
+    */
     WP->terminate();
 #if defined _WIN32 && !defined(_MSC_VER)
     delete me;
@@ -1668,7 +1661,8 @@ void webview_wrapper::set_on_geometry(const std::string js)
 gboolean webview_wrapper::on_delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
   logDebug("On delete");
-  if (me && !self_quit(me)) return TRUE;
+  if (me && !self_quit(me))
+    return TRUE;
   me->terminate();
   return FALSE;
 }
@@ -1676,11 +1670,12 @@ gboolean webview_wrapper::on_delete_event(GtkWidget *widget, GdkEvent *event, gp
 
 void webview_wrapper::set_on_close(const std::string js)
 {
-  close_cmds=js;
+  close_cmds = js;
   logTrace("set_on_close ", close_cmds);
 
 #ifdef WEBVIEW_PLATFORM_LINUX_WEBKITGTK_COMPAT_HH
-  if (!close_cmds.empty()) {
+  if (!close_cmds.empty())
+  {
     g_signal_connect(G_OBJECT(window()), "delete-event", G_CALLBACK(on_delete_event), nullptr);
   }
 #endif
