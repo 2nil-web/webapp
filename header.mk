@@ -173,16 +173,18 @@ LD=${CXX}
 # Even if it seems to be considered as a feature and not a bug (🐞🤕) but GTK 4 is also missing gtk_window_move
 # And finally debian 12 has a very buggy >GTK 4 version (not a GTK 4 issue though)
 #GTK_WEBKIT="gtk4 webkitgtk-6.0 webkit2gtk-web-extension-6.0 gtkmm-4.0"
-# I personnally considere the GTK 3 has the only stable and almost ok for production, version (as of 2025/01).
-# Also I only have a Windows 10 and Debian 12 machine to make my tests, for the rest I only test on VM, from time to time ...
+# I personnally considere the GTK 3 has the only stable and almost ok for production, version (as of 2025/08).
+# Also I only have a Windows 10/11 and Debian 12 machine to make my tests, for the rest I only test on VM, from time to time ...
 # And finally I don't have any MacOS machine to make my test and compiling, so Cocoa is actually not taken into account.
 #GTK_WEBKIT="gtk+-3.0 webkit2gtk-4.1 webkit2gtk-web-extension-4.1 gtkmm-3.0"
+
 ifeq (${TARGET_API},linux)
 ifeq ($(OS_ID),debian)
 GTK_WEBKIT="gtk+-3.0 webkit2gtk-4.1"
 else
 GTK_WEBKIT="gtk4 webkitgtk-6.0"
 endif
+
 LDLIBS += -lX11
 CXXFLAGS += $(shell pkg-config --cflags ${GTK_WEBKIT})
 #LDFLAGS +=-L/usr/lib/x86_64-linux-gnu -L/usr/lib/x86_64-linux-gnu/webkit2gtk-${WK2GV} -L/usr/lib/x86_64-linux-gnu/cmake/harfbuzz -L/usr/lib/python3/dist-packages/cairo -L/usr/lib/x86_64-linux-gnu/glib-2.0 -L/usr/lib/x86_64-linux-gnu/glib-2.0
