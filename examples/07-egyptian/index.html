@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 
+<script>
+</script>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
@@ -12,15 +15,19 @@
 <script>
   if (typeof app != "undefined" && typeof app.sysname !== "undefined") {
     //if (typeof app != "undefined" && typeof app.set_title === "function") {
+    //app.hide();
     app.set_icon("app.ico");
     app.set_title(document.title);
+    app.set_size(740, 1070);
+    app.center();
+    app.show();
 
     function exit_on_esc() {
       if (event.keyCode === 27) app.exit();
     }
     document.addEventListener("keyup", exit_on_esc);
 
-    app.on_close("if (confirm('Bye bye ?')) app.exit();");
+    //    app.on_close("if (confirm('Bye bye ?')) app.exit();");
   }
 
   var body = document.body,
