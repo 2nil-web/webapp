@@ -1,0 +1,75 @@
+body {
+  overflow: hidden;
+}
+
+.topnav {
+  overflow: hidden;
+  border-bottom: 1px solid black;
+  user-select: none;
+}
+
+.topnav div {
+  float: left;
+  color: 0;
+  text-align: center;
+  padding: 2px 12px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav div:hover {
+  /*cursor: pointer;*/
+  background-color: lightgrey;
+  color: cornflowerblue;
+}
+
+.topnav .align_right {
+  position: relative;
+  float: right;
+}
+
+tr:hover {
+  background-color: lightgrey;
+}
+
+table,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 10px;
+  white-space: nowrap;
+/*  text-align: end;*/
+  font-family: Roboto;
+}
+
+table tr > *:nth-child(1),
+table tr > *:nth-child(2),
+table tr > *:nth-child(3),
+table tr > *:nth-child(5)
+{
+    display: none;
+}
+
+td {
+  /* haut | droit | bas | gauche */
+  padding: 0px 0px 0px 0px;
+}
+
+/* 1ére ligne */
+table tr:first-child {
+  background-color: #fcba03;
+  color: #444444;
+}
+
+table tr:first-child {
+  font-weight: bold;
+}
+/*
+table tr:first-child td {
+  text-align: center;
+}
+
+table td:first-child {
+  width: 110px;
+  text-align: start;
+}*/
