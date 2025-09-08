@@ -23,65 +23,66 @@ async function renable_esc_exit(evt) {
 }
 
 function sel_row (n) {
-  console.log(n);
+  cb=backup_list.rows[n].cells[3].children[0];
+  cb.checked=!cb.checked;
 }
 async function load_backup_list() {
-  var tbl = "<table>";
+  var tbl = "<table>\n";
   var str = await fs.read("backup.list.csv");
   csv = str.split('\n');
-
   csv.forEach((row, ridx) => {
     if (row) {
-      tbl += '<tr onclick="sel_row('+ridx+')">\n';
+      tbl += '  <tr onclick="sel_row('+ridx+')">\n';
       cells = row.split(';');
       var docheck=false;
+      var uhd="";
+
       cells.forEach((cell, cidx) => {
-        tbl += '<td style="';
         if (cidx == 1) {
-          if (cell == "yes") docheck=true;
+          cell=cell.toLowerCase();
+          if (cell == "yes" || cell == "true" || cell == "ok" || cell == "1") docheck=true;
           else docheck=false;
         }
 
-        if (cidx == 3) tbl += 'border-right-style: none;';
-        else if (cidx == 6) tbl += 'border-left-style: none;';
-        else tbl += 'border-left-style: none; border-right-style: none;';
-
-        if (cidx == 5) {
-          tbl += 'text-align:end; padding-left:10px;';
-        } else {
-          if (ridx == 0 && cidx == 2) tbl += 'text-align:center;';
-          else tbl += 'text-align:start;';
-        }
-
-        if (cidx == 3) {
-          tbl += 'border-right-style: none;';
-          tbl += '">';
+        if (cidx < 3) {
+          tbl += '    <td>'+cell+"</td>\n";
+        } else if (cidx == 3) {
+          tbl += "    <td>";
 
           if (ridx > 0) {
             tbl += '<input type="checkbox"';
             if (docheck) tbl += "checked";
+//            tbl += ' disabled';
             tbl += '/>';
           }
-        } else tbl += '">';
 
-        if (cidx == 6) tbl += ':';
+          tbl +=cell+"</td>\n"
+        } else {
+          uhd+=cell;
 
-        if (cidx == 5 && !cell) cell = "localhost";
-        tbl += cell;
+          if (cidx == 4) {
+             tbl += '    <td>';
+            if (ridx > 0) {
+              tbl += '&#x1F449';
+              if (cell) uhd+='@';
+            }
 
-        if (cidx == 4) {
-          tbl += '<td style="border-left-style: none; border-right-style: none;">';
-          if (ridx > 0) tbl += '&#x1F449';
-          tbl += '</td>';
+            tbl += '</td>\n';
+          } else {
+            if (cidx == 5 && cell) uhd+=':';
+            else if (cidx == 6) {
+              tbl += "    <td>"+uhd+"</td>\n";
+              uhd+=cell;
+            }
+          }
         }
-
-        tbl += "</td>\n";
       });
-      tbl += "</tr>";
+      //console.log('uhd['+uhd+']');
+      tbl += "  </tr>\n";
     }
   });
 
-  tbl += "</table>";
+  tbl += "\n</table>";
   backup_list.innerHTML = tbl;
   console.log(tbl);
 }
