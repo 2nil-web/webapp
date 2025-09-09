@@ -10,7 +10,7 @@ body {
 
 .topnav div {
   float: left;
-  color: #0;
+  color: 0;
   text-align: center;
   padding: 2px 12px;
   text-decoration: none;
@@ -18,15 +18,9 @@ body {
 }
 
 .topnav div:hover {
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-color: lightgrey;
   color: cornflowerblue;
-}
-
-.topnavsel,
-.topnav div:active {
-  cursor: pointer;
-  background-color: lightgrey;
 }
 
 .topnav .align_right {
@@ -34,7 +28,62 @@ body {
   float: right;
 }
 
-#output {
-  width: 99%;
-  resize: none;
+tr:hover {
+  background-color: lightgrey;
 }
+
+table {
+   user-select: none;
+}
+
+table,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+//  border-spacing: 10px;
+  white-space: nowrap;
+/*  text-align: end;*/
+  font-family: Roboto;
+}
+
+
+table tr > *:nth-child(1),
+table tr > *:nth-child(3)
+{
+    display: none;
+}
+
+table tr > *:nth-child(1),
+table tr > *:nth-child(3),
+table tr > *:nth-child(4),
+table tr > *:nth-child(5)
+{
+  border-right-style: none;
+  border-left-style: none;
+}
+
+table tr > *:nth-child(2)
+{
+  border-right-style: none;
+}
+table tr > *:nth-child(6)
+{
+  border-left-style: none;
+}
+
+
+td {
+  /* haut | droit | bas | gauche */
+  padding: 0px 0px 0px 0px;
+}
+
+/* 1ére ligne */
+table tr:first-child {
+  background-color: #fcba03;
+  color: #444444;
+}
+
+table tr:first-child {
+  font-weight: bold;
+}
+
