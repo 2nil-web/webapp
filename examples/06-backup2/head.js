@@ -1,5 +1,64 @@
+
+/*    CSV   : Type => 0;ToDo => 1;Source host => 2;Source directory => 3;        Destination [user@] => 4;[host:] => 5;directory => 6
+      TABLE : Type => 0;ToDo => 1;Source host => 2;Source directory => 3;👉 => 4;Destination [user@][host:]directory => 5
+                                                                         ========
+*/
+var bak_fn="backup.list.csv";
+
+function save_backup_list() {
+  var bak_text="Type;ToDo;Source host;Source directory;Destination [user@];[host:];directory\n";
+  for (var r=1; r < backup_list.rows.length; r++) {
+    for (var c=0; c < backup_list.rows[r].cells.length; c++) {
+      cell=backup_list.rows[r].cells[c];
+
+      if (c == 1) {
+        var cb=cell.children[0];
+        if (cb.checked) bak_text += "yes";
+        else bak_text += "no";
+        bak_text+=';';
+      } else if (c > 4) {
+        var uhd=cell.innerText.split('@'), hd="";
+        if (uhd.length >= 2) {
+          bak_text+=uhd[0];
+          hd=uhd[1];
+        } else {
+          hd=uhd[0];
+        }
+
+        bak_text+=';';
+
+        var d=hd.split(':');
+        if (d.length >= 2) {
+          bak_text+=d[0]+';'+d[1];
+        } else {
+          bak_text+=';'+d[0];
+        }
+
+      } else if (c != 4) bak_text += cell.innerText+';';
+    }
+    bak_text += '\n';
+  }
+  console.log(bak_text);
+  fs.write(bak_fn, bak_text);
+}
+
+function clean_exit() {
+  save_backup_list();
+//  if (confirm("Exit"))
+    app.exit();
+}
+
+function select(all=true) {
+  for (var r=1; r < backup_list.rows.length; r++) {
+    cell=backup_list.rows[r].cells[1];
+    var cb=cell.children[0];
+    if (all) cb.checked=true;
+    else cb.checked=!cb.checked;
+  }
+}
+
 function esc_exit() {
-  if (event.keyCode === 27) app.exit();
+  if (event.keyCode === 27) clean_exit();
 }
 
 async function eventFunc(obj, evtStr, func) {
@@ -23,68 +82,67 @@ async function renable_esc_exit(evt) {
 }
 
 function sel_row (n) {
-  cb=backup_list.rows[n].cells[3].children[0];
-  cb.checked=!cb.checked;
+  var e = window.event;
+  if (document.elementFromPoint(e.clientX, e.clientY).tagName == "TD") {
+    var cb=backup_list.rows[n].cells[1].children[0];
+    cb.checked=!cb.checked;
+  }
 }
 async function load_backup_list() {
-  var tbl = "<table>\n";
-  var str = await fs.read("backup.list.csv");
+  var tbl = "<table>";
+  var str = await fs.read(bak_fn);
   csv = str.split('\n');
   csv.forEach((row, ridx) => {
     if (row) {
-      tbl += '  <tr onclick="sel_row('+ridx+')">\n';
+      tbl += '<tr onclick="sel_row('+ridx+')">';
       cells = row.split(';');
-      var docheck=false;
       var uhd="";
 
       cells.forEach((cell, cidx) => {
-        if (cidx == 1) {
-          cell=cell.toLowerCase();
-          if (cell == "yes" || cell == "true" || cell == "ok" || cell == "1") docheck=true;
-          else docheck=false;
-        }
-
-        if (cidx < 3) {
-          tbl += '    <td>'+cell+"</td>\n";
-        } else if (cidx == 3) {
-          tbl += "    <td>";
-
-          if (ridx > 0) {
-            tbl += '<input type="checkbox"';
-            if (docheck) tbl += "checked";
-//            tbl += ' disabled';
-            tbl += '/>';
-          }
-
-          tbl +=cell+"</td>\n"
+        if (cidx < 4) {
+          if (cidx == 1) {
+            if (ridx == 0) {
+              tbl += "<td></td>";
+            } else {
+              cell=cell.toLowerCase();
+              tbl += '<td><input type="checkbox"';
+              if (cell == "yes" || cell == "true" || cell == "ok" || cell == "1") tbl += "checked";
+              tbl += '/></td>';
+            }
+          } else
+            tbl += '<td>'+cell+"</td>";
         } else {
           uhd+=cell;
 
           if (cidx == 4) {
-             tbl += '    <td>';
+             tbl += '<td>';
             if (ridx > 0) {
               tbl += '&#x1F449';
               if (cell) uhd+='@';
             }
 
-            tbl += '</td>\n';
+            tbl += '</td>';
           } else {
-            if (cidx == 5 && cell) uhd+=':';
+            if (ridx > 0 && cidx == 5 && cell) uhd+=':';
             else if (cidx == 6) {
-              tbl += "    <td>"+uhd+"</td>\n";
+              tbl += "<td>"+uhd+"</td>";
               uhd+=cell;
             }
           }
         }
       });
-      //console.log('uhd['+uhd+']');
-      tbl += "  </tr>\n";
+      tbl += "</tr>";
     }
   });
 
-  tbl += "\n</table>";
+  tbl += "</table>";
   backup_list.innerHTML = tbl;
+/*
   console.log(tbl);
+  pretty_tbl=tbl.replace(/(<table>)/, "$1\n").replace(/(<td>)/g, "\n    $1").replace(/(<tr)/g, "  $1").replace(/(<\/tr>)/g, "\n  $1\n");
+  console.log(pretty_tbl);
+*/
+  app.on_close("clean_exit()");
 }
 
 if (typeof app.sysname !== "undefined") {
@@ -97,11 +155,11 @@ if (typeof app.sysname !== "undefined") {
     document.addEventListener("keyup", esc_exit);
 
     eventFunc(sel_all, "click", async (e) => {
-      await gui.msgbox("sel_all");
+      select();
     });
 
     eventFunc(sel_rev, "click", async (e) => {
-      await gui.msgbox("sel_rev");
+      select(false);
     });
 
     eventFunc(run, "click", async (e) => {
@@ -113,7 +171,7 @@ if (typeof app.sysname !== "undefined") {
     });
 
     quit.addEventListener("click", (e) => {
-      app.exit();
+      clean_exit();
     });
 
     eventFunc(about, "click", async () => {
