@@ -27,9 +27,9 @@ if (false) {
   app_pth=apps_pth+app;
   msg+=mysc.recreate(sDesk+"Tokei stats", tgt, args, app_pth,  app_pth+ico_sfx, "Tokei stats");
 
-//  app="03-webcrypto";
-//  app_pth=apps_pth+app;
-//  msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
+  app="03-webcrypto";
+  app_pth=apps_pth+app;
+  msg+=mysc.recreate(sDesk+"Web crypto API", tgt, args, app_pth,  app_pth+ico_sfx, "Web crypto API");
 
 //  app="04-curves";
 //  app_pth=apps_pth+app;
