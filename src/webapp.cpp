@@ -393,7 +393,7 @@ int main(int argc, char **argv, char **)
 #endif
                 option_info('c', "html", ins_html, "Provide an html string that will be directly set to the webview.", required, option),
                 option_info('f', "url", set_url, "Provide a url, a remote one must prepended with 'http://', a local one must have one of the following extensions .html, .htm, .webapp or .wa.", required, option),
-                option_info('p', "path", set_path, "Provide the path where could be found a file with a name within the following ones: " + idxs + ".", required, option),
+                option_info('w', "work-dir", set_path, "Provide the path where could be found a file with a name within the following ones: " + idxs + ".", required, option),
                 option_info("\tThe use of these 3 previous options is mutually exclusive."),
                 option_info("\tIt is also possible to directly provide their argument as the last one of the command (hence witout the option), but prepended with \"html://\", for -c."),
                 option_info(

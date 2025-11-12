@@ -18,7 +18,7 @@ repo_name=$(basename -s .git `git config --get remote.origin.url`)
 proj_id=$(curl -s --header "PRIVATE-TOKEN: ${gl_tok}" "${gl_api_endp}/projects?owned=true" | jq -r '.[] | .web_url,.id' | sed 'N;s/\n/;/' | sed -n "s/.*${repo_name};//p")
 
 VERSION=0.1.4
-PACK_FILE=webapp-0.1.4-Windows_NT_10.0.19045.zip
+PACK_FILE=webapp-0.5.0-Adri-Windows_NT_10.0.26200.zip
 # REST API command to upload a package to the registry of repository
 if false; then
 curl --header "PRIVATE-TOKEN: ${gl_tok}" --upload-file ${PACK_FILE} ${gl_api_endp}/projects/${proj_id}/packages/generic/${repo_name}/${VERSION}/${PACK_FILE}
