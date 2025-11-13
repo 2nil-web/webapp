@@ -84,8 +84,15 @@ void fwrite(webview_wrapper &w, const std::string &seq, const std::string &req, 
         s = json_parse(req, "", n++);
         if (s.empty())
           break;
-        f << s;
+          try
+          {
+            f << s;
+          } catch(std::ofstream::failure &e)
+          {
+            logE(e.what());
+          }
       }
+
       f.close();
       w.resolve(seq, 0, "true");
     }
