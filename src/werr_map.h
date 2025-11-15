@@ -204,14 +204,6 @@
 #define ERROR_FLT_NAME_CACHE_MISS 0x801f0018l
 #endif
 
-#ifndef ERROR_FLT_NOT_INITIALIZED
-#define ERROR_FLT_NOT_INITIALIZED 0x801f0007l
-#endif
-
-#ifndef ERROR_FLT_NOT_SAFE_TO_POST_OPERATION
-#define ERROR_FLT_NOT_SAFE_TO_POST_OPERATION 0x801f0006l
-#endif
-
 #ifndef ERROR_FLT_NO_DEVICE_OBJECT
 #define ERROR_FLT_NO_DEVICE_OBJECT 0x801f0019l
 #endif
@@ -222,6 +214,14 @@
 
 #ifndef ERROR_FLT_NO_WAITER_FOR_REPLY
 #define ERROR_FLT_NO_WAITER_FOR_REPLY 0x801f0020l
+#endif
+
+#ifndef ERROR_FLT_NOT_INITIALIZED
+#define ERROR_FLT_NOT_INITIALIZED 0x801f0007l
+#endif
+
+#ifndef ERROR_FLT_NOT_SAFE_TO_POST_OPERATION
+#define ERROR_FLT_NOT_SAFE_TO_POST_OPERATION 0x801f0006l
 #endif
 
 #ifndef ERROR_FLT_POST_OPERATION_CLEANUP
@@ -448,14 +448,6 @@
 #define ERROR_GRAPHICS_INVALID_MODE_PRUNING_ALGORITHM 0xc0262356l
 #endif
 
-#ifndef ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR
-#define ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR 0xc026232bl
-#endif
-
-#ifndef ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET
-#define ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET 0xc026232al
-#endif
-
 #ifndef ERROR_GRAPHICS_INVALID_MONITOR_CAPABILITY_ORIGIN
 #define ERROR_GRAPHICS_INVALID_MONITOR_CAPABILITY_ORIGIN 0xc0262357l
 #endif
@@ -464,20 +456,28 @@
 #define ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE 0xc026231cl
 #endif
 
+#ifndef ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT
+#define ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT 0xc0262358l
+#endif
+
 #ifndef ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGESET
 #define ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGESET 0xc026231bl
 #endif
 
-#ifndef ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT
-#define ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT 0xc0262358l
+#ifndef ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE
+#define ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE 0xc0262322l
 #endif
 
 #ifndef ERROR_GRAPHICS_INVALID_MONITOR_SOURCEMODESET
 #define ERROR_GRAPHICS_INVALID_MONITOR_SOURCEMODESET 0xc0262321l
 #endif
 
-#ifndef ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE
-#define ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE 0xc0262322l
+#ifndef ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR
+#define ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR 0xc026232bl
+#endif
+
+#ifndef ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET
+#define ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET 0xc026232al
 #endif
 
 #ifndef ERROR_GRAPHICS_INVALID_PATH_CONTENT_GEOMETRY_TRANSFORMATION
@@ -524,14 +524,6 @@
 #define ERROR_GRAPHICS_INVALID_TOTAL_REGION 0xc026230cl
 #endif
 
-#ifndef ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET
-#define ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET 0xc0262315l
-#endif
-
-#ifndef ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET
-#define ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET 0xc0262316l
-#endif
-
 #ifndef ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE
 #define ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE 0xc0262304l
 #endif
@@ -548,6 +540,14 @@
 #define ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_TARGET_MODE 0xc0262311l
 #endif
 
+#ifndef ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET
+#define ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET 0xc0262315l
+#endif
+
+#ifndef ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET
+#define ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET 0xc0262316l
+#endif
+
 #ifndef ERROR_GRAPHICS_INVALID_VIDPN
 #define ERROR_GRAPHICS_INVALID_VIDPN 0xc0262303l
 #endif
@@ -560,12 +560,12 @@
 #define ERROR_GRAPHICS_INVALID_VIDPN_SOURCEMODESET 0xc0262308l
 #endif
 
-#ifndef ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET
-#define ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET 0xc0262309l
-#endif
-
 #ifndef ERROR_GRAPHICS_INVALID_VIDPN_TARGET_SUBSET_TYPE
 #define ERROR_GRAPHICS_INVALID_VIDPN_TARGET_SUBSET_TYPE 0xc026232fl
+#endif
+
+#ifndef ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET
+#define ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET 0xc0262309l
 #endif
 
 #ifndef ERROR_GRAPHICS_INVALID_VIDPN_TOPOLOGY
@@ -648,6 +648,18 @@
 #define ERROR_GRAPHICS_MODE_NOT_PINNED 0x00262307l
 #endif
 
+#ifndef ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER
+#define ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER 0xc0262334l
+#endif
+
+#ifndef ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS
+#define ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS 0xc026258dl
+#endif
+
+#ifndef ERROR_GRAPHICS_MONITOR_NOT_CONNECTED
+#define ERROR_GRAPHICS_MONITOR_NOT_CONNECTED 0xc0262338l
+#endif
+
 #ifndef ERROR_GRAPHICS_MONITORDESCRIPTOR_ALREADY_IN_SET
 #define ERROR_GRAPHICS_MONITORDESCRIPTOR_ALREADY_IN_SET 0xc026232dl
 #endif
@@ -660,36 +672,12 @@
 #define ERROR_GRAPHICS_MONITORDESCRIPTOR_NOT_IN_SET 0xc026232cl
 #endif
 
-#ifndef ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER
-#define ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER 0xc0262334l
-#endif
-
-#ifndef ERROR_GRAPHICS_MONITOR_NOT_CONNECTED
-#define ERROR_GRAPHICS_MONITOR_NOT_CONNECTED 0xc0262338l
-#endif
-
-#ifndef ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS
-#define ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS 0xc026258dl
-#endif
-
 #ifndef ERROR_GRAPHICS_MPO_ALLOCATION_UNPINNED
 #define ERROR_GRAPHICS_MPO_ALLOCATION_UNPINNED 0xc0262018l
 #endif
 
 #ifndef ERROR_GRAPHICS_MULTISAMPLING_NOT_SUPPORTED
 #define ERROR_GRAPHICS_MULTISAMPLING_NOT_SUPPORTED 0xc0262349l
-#endif
-
-#ifndef ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER
-#define ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER 0xc0262430l
-#endif
-
-#ifndef ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER
-#define ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER 0xc0262000l
-#endif
-
-#ifndef ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER
-#define ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER 0xc0262438l
 #endif
 
 #ifndef ERROR_GRAPHICS_NO_ACTIVE_VIDPN
@@ -738,6 +726,18 @@
 
 #ifndef ERROR_GRAPHICS_NO_VIDPNMGR
 #define ERROR_GRAPHICS_NO_VIDPNMGR 0xc0262335l
+#endif
+
+#ifndef ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER
+#define ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER 0xc0262430l
+#endif
+
+#ifndef ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER
+#define ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER 0xc0262000l
+#endif
+
+#ifndef ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER
+#define ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER 0xc0262438l
 #endif
 
 #ifndef ERROR_GRAPHICS_ONLY_CONSOLE_SESSION_SUPPORTED
@@ -1188,6 +1188,14 @@
 #define ERROR_HV_NESTED_VM_EXIT 0xc0350077l
 #endif
 
+#ifndef ERROR_HV_NO_DATA
+#define ERROR_HV_NO_DATA 0xc035001bl
+#endif
+
+#ifndef ERROR_HV_NO_RESOURCES
+#define ERROR_HV_NO_RESOURCES 0xc035001dl
+#endif
+
 #ifndef ERROR_HV_NOT_ACKNOWLEDGED
 #define ERROR_HV_NOT_ACKNOWLEDGED 0xc0350014l
 #endif
@@ -1198,14 +1206,6 @@
 
 #ifndef ERROR_HV_NOT_PRESENT
 #define ERROR_HV_NOT_PRESENT 0xc0351000l
-#endif
-
-#ifndef ERROR_HV_NO_DATA
-#define ERROR_HV_NO_DATA 0xc035001bl
-#endif
-
-#ifndef ERROR_HV_NO_RESOURCES
-#define ERROR_HV_NO_RESOURCES 0xc035001dl
 #endif
 
 #ifndef ERROR_HV_NX_NOT_DETECTED
@@ -1432,12 +1432,12 @@
 #define ERROR_NDIS_MULTICAST_NOT_FOUND 0x8034000bl
 #endif
 
-#ifndef ERROR_NDIS_NOT_SUPPORTED
-#define ERROR_NDIS_NOT_SUPPORTED 0x803400bbl
-#endif
-
 #ifndef ERROR_NDIS_NO_QUEUES
 #define ERROR_NDIS_NO_QUEUES 0x80340031l
+#endif
+
+#ifndef ERROR_NDIS_NOT_SUPPORTED
+#define ERROR_NDIS_NOT_SUPPORTED 0x803400bbl
 #endif
 
 #ifndef ERROR_NDIS_OFFLOAD_CONNECTION_REJECTED
@@ -1492,16 +1492,20 @@
 #define ERROR_NDIS_UNSUPPORTED_REVISION 0x8034002cl
 #endif
 
-#ifndef ERROR_NOT_A_TIERED_VOLUME
-#define ERROR_NOT_A_TIERED_VOLUME 0x80830009l
-#endif
-
 #ifndef ERROR_NO_APPLICABLE_APP_LICENSES_FOUND
 #define ERROR_NO_APPLICABLE_APP_LICENSES_FOUND 0xc0ea0001l
 #endif
 
+#ifndef ERROR_NOT_A_TIERED_VOLUME
+#define ERROR_NOT_A_TIERED_VOLUME 0x80830009l
+#endif
+
 #ifndef ERROR_QUERY_STORAGE_ERROR
 #define ERROR_QUERY_STORAGE_ERROR 0x803a0001l
+#endif
+
+#ifndef ERROR_QUIC_ALPN_IN_USE
+#define ERROR_QUIC_ALPN_IN_USE 0x80410009l
 #endif
 
 #ifndef ERROR_QUIC_ALPN_NEG_FAILURE
@@ -1528,6 +1532,62 @@
 #define ERROR_QUIC_PROTOCOL_VIOLATION 0x80410004l
 #endif
 
+#ifndef ERROR_QUIC_STREAM_LIMIT_REACHED
+#define ERROR_QUIC_STREAM_LIMIT_REACHED 0x80410008l
+#endif
+
+#ifndef ERROR_QUIC_TLS_ACCESS_DENIED
+#define ERROR_QUIC_TLS_ACCESS_DENIED 0x80410131l
+#endif
+
+#ifndef ERROR_QUIC_TLS_BAD_CERTIFICATE
+#define ERROR_QUIC_TLS_BAD_CERTIFICATE 0x8041012al
+#endif
+
+#ifndef ERROR_QUIC_TLS_CERTIFICATE_EXPIRED
+#define ERROR_QUIC_TLS_CERTIFICATE_EXPIRED 0x8041012dl
+#endif
+
+#ifndef ERROR_QUIC_TLS_CERTIFICATE_REQUIRED
+#define ERROR_QUIC_TLS_CERTIFICATE_REQUIRED 0x80410174l
+#endif
+
+#ifndef ERROR_QUIC_TLS_CERTIFICATE_REVOKED
+#define ERROR_QUIC_TLS_CERTIFICATE_REVOKED 0x8041012cl
+#endif
+
+#ifndef ERROR_QUIC_TLS_CERTIFICATE_UNKNOWN
+#define ERROR_QUIC_TLS_CERTIFICATE_UNKNOWN 0x8041012el
+#endif
+
+#ifndef ERROR_QUIC_TLS_ILLEGAL_PARAMETER
+#define ERROR_QUIC_TLS_ILLEGAL_PARAMETER 0x8041012fl
+#endif
+
+#ifndef ERROR_QUIC_TLS_INSUFFICIENT_SECURITY
+#define ERROR_QUIC_TLS_INSUFFICIENT_SECURITY 0x80410147l
+#endif
+
+#ifndef ERROR_QUIC_TLS_INTERNAL_ERROR
+#define ERROR_QUIC_TLS_INTERNAL_ERROR 0x80410150l
+#endif
+
+#ifndef ERROR_QUIC_TLS_UNEXPECTED_MESSAGE
+#define ERROR_QUIC_TLS_UNEXPECTED_MESSAGE 0x8041010al
+#endif
+
+#ifndef ERROR_QUIC_TLS_UNKNOWN_CA
+#define ERROR_QUIC_TLS_UNKNOWN_CA 0x80410130l
+#endif
+
+#ifndef ERROR_QUIC_TLS_UNSUPPORTED_CERTIFICATE
+#define ERROR_QUIC_TLS_UNSUPPORTED_CERTIFICATE 0x8041012bl
+#endif
+
+#ifndef ERROR_QUIC_TLS_USER_CANCELED
+#define ERROR_QUIC_TLS_USER_CANCELED 0x8041015al
+#endif
+
 #ifndef ERROR_QUIC_USER_CANCELED
 #define ERROR_QUIC_USER_CANCELED 0x80410002l
 #endif
@@ -1544,12 +1604,20 @@
 #define ERROR_SMB_BAD_CLUSTER_DIALECT 0xc05d0001l
 #endif
 
+#ifndef ERROR_SMB_CERT_NO_PRIVATE_KEY
+#define ERROR_SMB_CERT_NO_PRIVATE_KEY 0xc05d0006l
+#endif
+
 #ifndef ERROR_SMB_NO_PREAUTH_INTEGRITY_HASH_OVERLAP
 #define ERROR_SMB_NO_PREAUTH_INTEGRITY_HASH_OVERLAP 0xc05d0000l
 #endif
 
 #ifndef ERROR_SMB_NO_SIGNING_ALGORITHM_OVERLAP
 #define ERROR_SMB_NO_SIGNING_ALGORITHM_OVERLAP 0xc05d0002l
+#endif
+
+#ifndef ERROR_SMB_TLS_ACCESS_DENIED
+#define ERROR_SMB_TLS_ACCESS_DENIED 0xc05d0007l
 #endif
 
 #ifndef ERROR_SPACES_ALLOCATION_SIZE_INVALID
@@ -1640,12 +1708,12 @@
 #define ERROR_SPACES_MARK_DIRTY 0x80e70020l
 #endif
 
-#ifndef ERROR_SPACES_NOT_ENOUGH_DRIVES
-#define ERROR_SPACES_NOT_ENOUGH_DRIVES 0x80e7000bl
-#endif
-
 #ifndef ERROR_SPACES_NO_REDUNDANCY
 #define ERROR_SPACES_NO_REDUNDANCY 0x80e7001cl
+#endif
+
+#ifndef ERROR_SPACES_NOT_ENOUGH_DRIVES
+#define ERROR_SPACES_NOT_ENOUGH_DRIVES 0x80e7000bl
 #endif
 
 #ifndef ERROR_SPACES_NUMBER_OF_COLUMNS_INVALID
@@ -1770,10 +1838,6 @@
 
 #ifndef ERROR_TIERING_WRONG_CLUSTER_NODE
 #define ERROR_TIERING_WRONG_CLUSTER_NODE 0x80830005l
-#endif
-
-#ifndef ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND
-#define ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND 0xc05cff0cl
 #endif
 
 #ifndef ERROR_VHD_ALREADY_AT_OR_BELOW_MINIMUM_VIRTUAL_SIZE
@@ -1912,6 +1976,10 @@
 #define ERROR_VHD_UNEXPECTED_ID 0xc03a0034l
 #endif
 
+#ifndef ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND
+#define ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND 0xc05cff0cl
+#endif
+
 #ifndef ERROR_VID_CHILD_GPA_PAGE_SET_CORRUPTED
 #define ERROR_VID_CHILD_GPA_PAGE_SET_CORRUPTED 0xc037000el
 #endif
@@ -1988,8 +2056,12 @@
 #define ERROR_VID_KM_INTERFACE_ALREADY_INITIALIZED 0xc037001fl
 #endif
 
-#ifndef ERROR_VID_MBPS_ARE_LOCKED
-#define ERROR_VID_MBPS_ARE_LOCKED 0xc0370019l
+#ifndef ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET
+#define ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET 0xc0370020l
+#endif
+
+#ifndef ERROR_VID_MB_STILL_REFERENCED
+#define ERROR_VID_MB_STILL_REFERENCED 0xc037000dl
 #endif
 
 #ifndef ERROR_VID_MBP_ALREADY_LOCKED_USING_RESERVED_PAGE
@@ -2000,12 +2072,8 @@
 #define ERROR_VID_MBP_COUNT_EXCEEDED_LIMIT 0xc0370026l
 #endif
 
-#ifndef ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET
-#define ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET 0xc0370020l
-#endif
-
-#ifndef ERROR_VID_MB_STILL_REFERENCED
-#define ERROR_VID_MB_STILL_REFERENCED 0xc037000dl
+#ifndef ERROR_VID_MBPS_ARE_LOCKED
+#define ERROR_VID_MBPS_ARE_LOCKED 0xc0370019l
 #endif
 
 #ifndef ERROR_VID_MEMORY_BLOCK_LOCK_COUNT_EXCEEDED
@@ -2032,12 +2100,12 @@
 #define ERROR_VID_MMIO_RANGE_DESTROYED 0xc0370021l
 #endif
 
-#ifndef ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED
-#define ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED 0xc0370011l
-#endif
-
 #ifndef ERROR_VID_NO_MEMORY_BLOCK_NOTIFICATION_QUEUE
 #define ERROR_VID_NO_MEMORY_BLOCK_NOTIFICATION_QUEUE 0xc0370016l
+#endif
+
+#ifndef ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED
+#define ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED 0xc0370011l
 #endif
 
 #ifndef ERROR_VID_PAGE_RANGE_OVERFLOW
@@ -2132,12 +2200,12 @@
 #define ERROR_VIRTUAL_DISK_LIMITATION 0xc03a001al
 #endif
 
-#ifndef ERROR_VMCOMPUTE_CONNECTION_CLOSED
-#define ERROR_VMCOMPUTE_CONNECTION_CLOSED 0xc037010al
-#endif
-
 #ifndef ERROR_VMCOMPUTE_CONNECT_FAILED
 #define ERROR_VMCOMPUTE_CONNECT_FAILED 0xc0370108l
+#endif
+
+#ifndef ERROR_VMCOMPUTE_CONNECTION_CLOSED
+#define ERROR_VMCOMPUTE_CONNECTION_CLOSED 0xc037010al
 #endif
 
 #ifndef ERROR_VMCOMPUTE_HYPERV_NOT_INSTALLED
@@ -2368,16 +2436,16 @@
 #define ERROR_VOLMGR_MAXIMUM_REGISTERED_USERS 0xc0380022l
 #endif
 
+#ifndef ERROR_VOLMGR_MEMBER_IN_SYNC
+#define ERROR_VOLMGR_MEMBER_IN_SYNC 0xc0380023l
+#endif
+
 #ifndef ERROR_VOLMGR_MEMBER_INDEX_DUPLICATE
 #define ERROR_VOLMGR_MEMBER_INDEX_DUPLICATE 0xc0380024l
 #endif
 
 #ifndef ERROR_VOLMGR_MEMBER_INDEX_INVALID
 #define ERROR_VOLMGR_MEMBER_INDEX_INVALID 0xc0380025l
-#endif
-
-#ifndef ERROR_VOLMGR_MEMBER_IN_SYNC
-#define ERROR_VOLMGR_MEMBER_IN_SYNC 0xc0380023l
 #endif
 
 #ifndef ERROR_VOLMGR_MEMBER_MISSING
@@ -2396,14 +2464,6 @@
 #define ERROR_VOLMGR_MIRROR_NOT_SUPPORTED 0xc038005bl
 #endif
 
-#ifndef ERROR_VOLMGR_NOTIFICATION_RESET
-#define ERROR_VOLMGR_NOTIFICATION_RESET 0xc038002cl
-#endif
-
-#ifndef ERROR_VOLMGR_NOT_PRIMARY_PACK
-#define ERROR_VOLMGR_NOT_PRIMARY_PACK 0xc0380052l
-#endif
-
 #ifndef ERROR_VOLMGR_NO_REGISTERED_USERS
 #define ERROR_VOLMGR_NO_REGISTERED_USERS 0xc038002al
 #endif
@@ -2416,8 +2476,12 @@
 #define ERROR_VOLMGR_NO_VALID_LOG_COPIES 0xc0380058l
 #endif
 
-#ifndef ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID
-#define ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID 0xc038005al
+#ifndef ERROR_VOLMGR_NOT_PRIMARY_PACK
+#define ERROR_VOLMGR_NOT_PRIMARY_PACK 0xc0380052l
+#endif
+
+#ifndef ERROR_VOLMGR_NOTIFICATION_RESET
+#define ERROR_VOLMGR_NOTIFICATION_RESET 0xc038002cl
 #endif
 
 #ifndef ERROR_VOLMGR_NUMBER_OF_DISKS_IN_MEMBER_INVALID
@@ -2426,6 +2490,10 @@
 
 #ifndef ERROR_VOLMGR_NUMBER_OF_DISKS_IN_PLEX_INVALID
 #define ERROR_VOLMGR_NUMBER_OF_DISKS_IN_PLEX_INVALID 0xc0380054l
+#endif
+
+#ifndef ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID
+#define ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID 0xc038005al
 #endif
 
 #ifndef ERROR_VOLMGR_NUMBER_OF_EXTENTS_INVALID
@@ -2492,16 +2560,16 @@
 #define ERROR_VOLMGR_PARTITION_UPDATE_FAILED 0xc0380037l
 #endif
 
+#ifndef ERROR_VOLMGR_PLEX_IN_SYNC
+#define ERROR_VOLMGR_PLEX_IN_SYNC 0xc0380038l
+#endif
+
 #ifndef ERROR_VOLMGR_PLEX_INDEX_DUPLICATE
 #define ERROR_VOLMGR_PLEX_INDEX_DUPLICATE 0xc0380039l
 #endif
 
 #ifndef ERROR_VOLMGR_PLEX_INDEX_INVALID
 #define ERROR_VOLMGR_PLEX_INDEX_INVALID 0xc038003al
-#endif
-
-#ifndef ERROR_VOLMGR_PLEX_IN_SYNC
-#define ERROR_VOLMGR_PLEX_IN_SYNC 0xc0380038l
 #endif
 
 #ifndef ERROR_VOLMGR_PLEX_LAST_ACTIVE
@@ -2613,657 +2681,675 @@
 #endif
 
 std::map<DWORD, std::string> werr_map = {
-    {ERROR_ALL_SIDS_FILTERED, "all sids filtered"},
-    {ERROR_ATTRIBUTE_NOT_PRESENT, "attribute not present"},
-    {ERROR_AUDITING_DISABLED, "auditing disabled"},
-    {ERROR_BCD_NOT_ALL_ENTRIES_IMPORTED, "bcd not all entries imported"},
-    {ERROR_BCD_NOT_ALL_ENTRIES_SYNCHRONIZED, "bcd not all entries synchronized"},
-    {ERROR_BCD_TOO_MANY_ELEMENTS, "bcd too many elements"},
-    {ERROR_BIZRULES_NOT_ENABLED, "bizrules not enabled"},
-    {ERROR_CLIP_DEVICE_LICENSE_MISSING, "clip device license missing"},
-    {ERROR_CLIP_KEYHOLDER_LICENSE_MISSING_OR_INVALID, "clip keyholder license missing or invalid"},
-    {ERROR_CLIP_LICENSE_DEVICE_ID_MISMATCH, "clip license device id mismatch"},
-    {ERROR_CLIP_LICENSE_EXPIRED, "clip license expired"},
-    {ERROR_CLIP_LICENSE_HARDWARE_ID_OUT_OF_TOLERANCE, "clip license hardware id out of tolerance"},
-    {ERROR_CLIP_LICENSE_INVALID_SIGNATURE, "clip license invalid signature"},
-    {ERROR_CLIP_LICENSE_NOT_FOUND, "clip license not found"},
-    {ERROR_CLIP_LICENSE_NOT_SIGNED, "clip license not signed"},
-    {ERROR_CLIP_LICENSE_SIGNED_BY_UNKNOWN_SOURCE, "clip license signed by unknown source"},
-    {ERROR_CRED_REQUIRES_CONFIRMATION, "cred requires confirmation"},
-    {ERROR_CTLOG_INCONSISTENT_TRACKING_FILE, "ctlog inconsistent tracking file"},
-    {ERROR_CTLOG_INVALID_TRACKING_STATE, "ctlog invalid tracking state"},
-    {ERROR_CTLOG_LOGFILE_SIZE_EXCEEDED_MAXSIZE, "ctlog logfile size exceeded maxsize"},
-    {ERROR_CTLOG_TRACKING_NOT_INITIALIZED, "ctlog tracking not initialized"},
-    {ERROR_CTLOG_VHD_CHANGED_OFFLINE, "ctlog vhd changed offline"},
-    {ERROR_DBG_ATTACH_PROCESS_FAILURE_LOCKDOWN, "dbg attach process failure lockdown"},
-    {ERROR_DBG_CONNECT_SERVER_FAILURE_LOCKDOWN, "dbg connect server failure lockdown"},
-    {ERROR_DBG_CREATE_PROCESS_FAILURE_LOCKDOWN, "dbg create process failure lockdown"},
-    {ERROR_DBG_START_SERVER_FAILURE_LOCKDOWN, "dbg start server failure lockdown"},
-    {ERROR_DM_OPERATION_LIMIT_EXCEEDED, "dm operation limit exceeded"},
-    {ERROR_FLT_ALREADY_ENLISTED, "flt already enlisted"},
-    {ERROR_FLT_CBDQ_DISABLED, "flt cbdq disabled"},
-    {ERROR_FLT_CONTEXT_ALLOCATION_NOT_FOUND, "flt context allocation not found"},
-    {ERROR_FLT_CONTEXT_ALREADY_DEFINED, "flt context already defined"},
-    {ERROR_FLT_CONTEXT_ALREADY_LINKED, "flt context already linked"},
-    {ERROR_FLT_DELETING_OBJECT, "flt deleting object"},
-    {ERROR_FLT_DISALLOW_FAST_IO, "flt disallow fast io"},
-    {ERROR_FLT_DO_NOT_ATTACH, "flt do not attach"},
-    {ERROR_FLT_DO_NOT_DETACH, "flt do not detach"},
-    {ERROR_FLT_DUPLICATE_ENTRY, "flt duplicate entry"},
-    {ERROR_FLT_FILTER_NOT_FOUND, "flt filter not found"},
-    {ERROR_FLT_FILTER_NOT_READY, "flt filter not ready"},
-    {ERROR_FLT_INSTANCE_ALTITUDE_COLLISION, "flt instance altitude collision"},
-    {ERROR_FLT_INSTANCE_NAME_COLLISION, "flt instance name collision"},
-    {ERROR_FLT_INSTANCE_NOT_FOUND, "flt instance not found"},
-    {ERROR_FLT_INTERNAL_ERROR, "flt internal error"},
-    {ERROR_FLT_INVALID_ASYNCHRONOUS_REQUEST, "flt invalid asynchronous request"},
-    {ERROR_FLT_INVALID_CONTEXT_REGISTRATION, "flt invalid context registration"},
-    {ERROR_FLT_INVALID_NAME_REQUEST, "flt invalid name request"},
-    {ERROR_FLT_IO_COMPLETE, "flt io complete"},
-    {ERROR_FLT_MUST_BE_NONPAGED_POOL, "flt must be nonpaged pool"},
-    {ERROR_FLT_NAME_CACHE_MISS, "flt name cache miss"},
-    {ERROR_FLT_NOT_INITIALIZED, "flt not initialized"},
-    {ERROR_FLT_NOT_SAFE_TO_POST_OPERATION, "flt not safe to post operation"},
-    {ERROR_FLT_NO_DEVICE_OBJECT, "flt no device object"},
-    {ERROR_FLT_NO_HANDLER_DEFINED, "flt no handler defined"},
-    {ERROR_FLT_NO_WAITER_FOR_REPLY, "flt no waiter for reply"},
-    {ERROR_FLT_POST_OPERATION_CLEANUP, "flt post operation cleanup"},
-    {ERROR_FLT_REGISTRATION_BUSY, "flt registration busy"},
-    {ERROR_FLT_VOLUME_ALREADY_MOUNTED, "flt volume already mounted"},
-    {ERROR_FLT_VOLUME_NOT_FOUND, "flt volume not found"},
-    {ERROR_FLT_WCOS_NOT_SUPPORTED, "flt wcos not supported"},
-    {ERROR_GRAPHICS_ADAPTER_ACCESS_NOT_EXCLUDED, "graphics adapter access not excluded"},
-    {ERROR_GRAPHICS_ADAPTER_CHAIN_NOT_READY, "graphics adapter chain not ready"},
-    {ERROR_GRAPHICS_ADAPTER_MUST_HAVE_AT_LEAST_ONE_SOURCE, "graphics adapter must have at least one source"},
-    {ERROR_GRAPHICS_ADAPTER_MUST_HAVE_AT_LEAST_ONE_TARGET, "graphics adapter must have at least one target"},
-    {ERROR_GRAPHICS_ADAPTER_WAS_RESET, "graphics adapter was reset"},
-    {ERROR_GRAPHICS_ALLOCATION_BUSY, "graphics allocation busy"},
-    {ERROR_GRAPHICS_ALLOCATION_CLOSED, "graphics allocation closed"},
-    {ERROR_GRAPHICS_ALLOCATION_CONTENT_LOST, "graphics allocation content lost"},
-    {ERROR_GRAPHICS_ALLOCATION_INVALID, "graphics allocation invalid"},
-    {ERROR_GRAPHICS_CANCEL_VIDPN_TOPOLOGY_AUGMENTATION, "graphics cancel vidpn topology augmentation"},
-    {ERROR_GRAPHICS_CANNOTCOLORCONVERT, "graphics cannotcolorconvert"},
-    {ERROR_GRAPHICS_CANT_ACCESS_ACTIVE_VIDPN, "graphics cant access active vidpn"},
-    {ERROR_GRAPHICS_CANT_EVICT_PINNED_ALLOCATION, "graphics cant evict pinned allocation"},
-    {ERROR_GRAPHICS_CANT_LOCK_MEMORY, "graphics cant lock memory"},
-    {ERROR_GRAPHICS_CANT_RENDER_LOCKED_ALLOCATION, "graphics cant render locked allocation"},
-    {ERROR_GRAPHICS_CHAINLINKS_NOT_ENUMERATED, "graphics chainlinks not enumerated"},
-    {ERROR_GRAPHICS_CHAINLINKS_NOT_POWERED_ON, "graphics chainlinks not powered on"},
-    {ERROR_GRAPHICS_CHAINLINKS_NOT_STARTED, "graphics chainlinks not started"},
-    {ERROR_GRAPHICS_CLIENTVIDPN_NOT_SET, "graphics clientvidpn not set"},
-    {ERROR_GRAPHICS_DATASET_IS_EMPTY, "graphics dataset is empty"},
-    {ERROR_GRAPHICS_DDCCI_CURRENT_CURRENT_VALUE_GREATER_THAN_MAXIMUM_VALUE, "graphics ddcci current current value greater than maximum value"},
-    {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_CHECKSUM, "graphics ddcci invalid message checksum"},
-    {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_COMMAND, "graphics ddcci invalid message command"},
-    {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_LENGTH, "graphics ddcci invalid message length"},
-    {ERROR_GRAPHICS_DDCCI_MONITOR_RETURNED_INVALID_TIMING_STATUS_BYTE, "graphics ddcci monitor returned invalid timing status byte"},
-    {ERROR_GRAPHICS_DEPENDABLE_CHILD_STATUS, "graphics dependable child status"},
-    {ERROR_GRAPHICS_DISPLAY_DEVICE_NOT_ATTACHED_TO_DESKTOP, "graphics display device not attached to desktop"},
-    {ERROR_GRAPHICS_DRIVER_MISMATCH, "graphics driver mismatch"},
-    {ERROR_GRAPHICS_EMPTY_ADAPTER_MONITOR_MODE_SUPPORT_INTERSECTION, "graphics empty adapter monitor mode support intersection"},
-    {ERROR_GRAPHICS_FREQUENCYRANGE_ALREADY_IN_SET, "graphics frequencyrange already in set"},
-    {ERROR_GRAPHICS_FREQUENCYRANGE_NOT_IN_SET, "graphics frequencyrange not in set"},
-    {ERROR_GRAPHICS_GAMMA_RAMP_NOT_SUPPORTED, "graphics gamma ramp not supported"},
-    {ERROR_GRAPHICS_GPU_EXCEPTION_ON_DEVICE, "graphics gpu exception on device"},
-    {ERROR_GRAPHICS_INCOMPATIBLE_PRIVATE_FORMAT, "graphics incompatible private format"},
-    {ERROR_GRAPHICS_INCONSISTENT_DEVICE_LINK_STATE, "graphics inconsistent device link state"},
-    {ERROR_GRAPHICS_INDIRECT_DISPLAY_ABANDON_SWAPCHAIN, "graphics indirect display abandon swapchain"},
-    {ERROR_GRAPHICS_INDIRECT_DISPLAY_DEVICE_STOPPED, "graphics indirect display device stopped"},
-    {ERROR_GRAPHICS_INSUFFICIENT_DMA_BUFFER, "graphics insufficient dma buffer"},
-    {ERROR_GRAPHICS_INTERNAL_ERROR, "graphics internal error"},
-    {ERROR_GRAPHICS_INVALID_ACTIVE_REGION, "graphics invalid active region"},
-    {ERROR_GRAPHICS_INVALID_ALLOCATION_HANDLE, "graphics invalid allocation handle"},
-    {ERROR_GRAPHICS_INVALID_ALLOCATION_INSTANCE, "graphics invalid allocation instance"},
-    {ERROR_GRAPHICS_INVALID_ALLOCATION_USAGE, "graphics invalid allocation usage"},
-    {ERROR_GRAPHICS_INVALID_CLIENT_TYPE, "graphics invalid client type"},
-    {ERROR_GRAPHICS_INVALID_COLORBASIS, "graphics invalid colorbasis"},
-    {ERROR_GRAPHICS_INVALID_COPYPROTECTION_TYPE, "graphics invalid copyprotection type"},
-    {ERROR_GRAPHICS_INVALID_DISPLAY_ADAPTER, "graphics invalid display adapter"},
-    {ERROR_GRAPHICS_INVALID_DRIVER_MODEL, "graphics invalid driver model"},
-    {ERROR_GRAPHICS_INVALID_FREQUENCY, "graphics invalid frequency"},
-    {ERROR_GRAPHICS_INVALID_GAMMA_RAMP, "graphics invalid gamma ramp"},
-    {ERROR_GRAPHICS_INVALID_MODE_PRUNING_ALGORITHM, "graphics invalid mode pruning algorithm"},
-    {ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR, "graphics invalid monitordescriptor"},
-    {ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET, "graphics invalid monitordescriptorset"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_CAPABILITY_ORIGIN, "graphics invalid monitor capability origin"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE, "graphics invalid monitor frequencyrange"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGESET, "graphics invalid monitor frequencyrangeset"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT, "graphics invalid monitor frequencyrange constraint"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_SOURCEMODESET, "graphics invalid monitor sourcemodeset"},
-    {ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE, "graphics invalid monitor source mode"},
-    {ERROR_GRAPHICS_INVALID_PATH_CONTENT_GEOMETRY_TRANSFORMATION, "graphics invalid path content geometry transformation"},
-    {ERROR_GRAPHICS_INVALID_PATH_CONTENT_TYPE, "graphics invalid path content type"},
-    {ERROR_GRAPHICS_INVALID_PATH_IMPORTANCE_ORDINAL, "graphics invalid path importance ordinal"},
-    {ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE, "graphics invalid physical monitor handle"},
-    {ERROR_GRAPHICS_INVALID_PIXELFORMAT, "graphics invalid pixelformat"},
-    {ERROR_GRAPHICS_INVALID_PIXELVALUEACCESSMODE, "graphics invalid pixelvalueaccessmode"},
-    {ERROR_GRAPHICS_INVALID_POINTER, "graphics invalid pointer"},
-    {ERROR_GRAPHICS_INVALID_PRIMARYSURFACE_SIZE, "graphics invalid primarysurface size"},
-    {ERROR_GRAPHICS_INVALID_SCANLINE_ORDERING, "graphics invalid scanline ordering"},
-    {ERROR_GRAPHICS_INVALID_STRIDE, "graphics invalid stride"},
-    {ERROR_GRAPHICS_INVALID_TOTAL_REGION, "graphics invalid total region"},
-    {ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET, "graphics invalid videopresentsourceset"},
-    {ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET, "graphics invalid videopresenttargetset"},
-    {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE, "graphics invalid video present source"},
-    {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE_MODE, "graphics invalid video present source mode"},
-    {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_TARGET, "graphics invalid video present target"},
-    {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_TARGET_MODE, "graphics invalid video present target mode"},
-    {ERROR_GRAPHICS_INVALID_VIDPN, "graphics invalid vidpn"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_PRESENT_PATH, "graphics invalid vidpn present path"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_SOURCEMODESET, "graphics invalid vidpn sourcemodeset"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET, "graphics invalid vidpn targetmodeset"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_TARGET_SUBSET_TYPE, "graphics invalid vidpn target subset type"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_TOPOLOGY, "graphics invalid vidpn topology"},
-    {ERROR_GRAPHICS_INVALID_VIDPN_TOPOLOGY_RECOMMENDATION_REASON, "graphics invalid vidpn topology recommendation reason"},
-    {ERROR_GRAPHICS_INVALID_VISIBLEREGION_SIZE, "graphics invalid visibleregion size"},
-    {ERROR_GRAPHICS_LEADLINK_NOT_ENUMERATED, "graphics leadlink not enumerated"},
-    {ERROR_GRAPHICS_LEADLINK_START_DEFERRED, "graphics leadlink start deferred"},
-    {ERROR_GRAPHICS_LINK_CONFIGURATION_IN_PROGRESS, "graphics link configuration in progress"},
-    {ERROR_GRAPHICS_MAX_NUM_PATHS_REACHED, "graphics max num paths reached"},
-    {ERROR_GRAPHICS_MCA_INTERNAL_ERROR, "graphics mca internal error"},
-    {ERROR_GRAPHICS_MCA_INVALID_CAPABILITIES_STRING, "graphics mca invalid capabilities string"},
-    {ERROR_GRAPHICS_MCA_INVALID_TECHNOLOGY_TYPE_RETURNED, "graphics mca invalid technology type returned"},
-    {ERROR_GRAPHICS_MCA_INVALID_VCP_VERSION, "graphics mca invalid vcp version"},
-    {ERROR_GRAPHICS_MCA_MCCS_VERSION_MISMATCH, "graphics mca mccs version mismatch"},
-    {ERROR_GRAPHICS_MCA_MONITOR_VIOLATES_MCCS_SPECIFICATION, "graphics mca monitor violates mccs specification"},
-    {ERROR_GRAPHICS_MCA_UNSUPPORTED_COLOR_TEMPERATURE, "graphics mca unsupported color temperature"},
-    {ERROR_GRAPHICS_MCA_UNSUPPORTED_MCCS_VERSION, "graphics mca unsupported mccs version"},
-    {ERROR_GRAPHICS_MIRRORING_DEVICES_NOT_SUPPORTED, "graphics mirroring devices not supported"},
-    {ERROR_GRAPHICS_MODE_ALREADY_IN_MODESET, "graphics mode already in modeset"},
-    {ERROR_GRAPHICS_MODE_ID_MUST_BE_UNIQUE, "graphics mode id must be unique"},
-    {ERROR_GRAPHICS_MODE_NOT_IN_MODESET, "graphics mode not in modeset"},
-    {ERROR_GRAPHICS_MODE_NOT_PINNED, "graphics mode not pinned"},
-    {ERROR_GRAPHICS_MONITORDESCRIPTOR_ALREADY_IN_SET, "graphics monitordescriptor already in set"},
-    {ERROR_GRAPHICS_MONITORDESCRIPTOR_ID_MUST_BE_UNIQUE, "graphics monitordescriptor id must be unique"},
-    {ERROR_GRAPHICS_MONITORDESCRIPTOR_NOT_IN_SET, "graphics monitordescriptor not in set"},
-    {ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER, "graphics monitor could not be associated with adapter"},
-    {ERROR_GRAPHICS_MONITOR_NOT_CONNECTED, "graphics monitor not connected"},
-    {ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS, "graphics monitor no longer exists"},
-    {ERROR_GRAPHICS_MPO_ALLOCATION_UNPINNED, "graphics mpo allocation unpinned"},
-    {ERROR_GRAPHICS_MULTISAMPLING_NOT_SUPPORTED, "graphics multisampling not supported"},
-    {ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER, "graphics not a linked adapter"},
-    {ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER, "graphics not exclusive mode owner"},
-    {ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER, "graphics not post device driver"},
-    {ERROR_GRAPHICS_NO_ACTIVE_VIDPN, "graphics no active vidpn"},
-    {ERROR_GRAPHICS_NO_AVAILABLE_IMPORTANCE_ORDINALS, "graphics no available importance ordinals"},
-    {ERROR_GRAPHICS_NO_AVAILABLE_VIDPN_TARGET, "graphics no available vidpn target"},
-    {ERROR_GRAPHICS_NO_DISPLAY_DEVICE_CORRESPONDS_TO_NAME, "graphics no display device corresponds to name"},
-    {ERROR_GRAPHICS_NO_DISPLAY_MODE_MANAGEMENT_SUPPORT, "graphics no display mode management support"},
-    {ERROR_GRAPHICS_NO_MONITORS_CORRESPOND_TO_DISPLAY_DEVICE, "graphics no monitors correspond to display device"},
-    {ERROR_GRAPHICS_NO_MORE_ELEMENTS_IN_DATASET, "graphics no more elements in dataset"},
-    {ERROR_GRAPHICS_NO_PREFERRED_MODE, "graphics no preferred mode"},
-    {ERROR_GRAPHICS_NO_RECOMMENDED_FUNCTIONAL_VIDPN, "graphics no recommended functional vidpn"},
-    {ERROR_GRAPHICS_NO_RECOMMENDED_VIDPN_TOPOLOGY, "graphics no recommended vidpn topology"},
-    {ERROR_GRAPHICS_NO_VIDEO_MEMORY, "graphics no video memory"},
-    {ERROR_GRAPHICS_NO_VIDPNMGR, "graphics no vidpnmgr"},
-    {ERROR_GRAPHICS_ONLY_CONSOLE_SESSION_SUPPORTED, "graphics only console session supported"},
-    {ERROR_GRAPHICS_OPM_ALL_HDCP_HARDWARE_ALREADY_IN_USE, "graphics opm all hdcp hardware already in use"},
-    {ERROR_GRAPHICS_OPM_DRIVER_INTERNAL_ERROR, "graphics opm driver internal error"},
-    {ERROR_GRAPHICS_OPM_HDCP_SRM_NEVER_SET, "graphics opm hdcp srm never set"},
-    {ERROR_GRAPHICS_OPM_INTERNAL_ERROR, "graphics opm internal error"},
-    {ERROR_GRAPHICS_OPM_INVALID_CONFIGURATION_REQUEST, "graphics opm invalid configuration request"},
-    {ERROR_GRAPHICS_OPM_INVALID_HANDLE, "graphics opm invalid handle"},
-    {ERROR_GRAPHICS_OPM_INVALID_INFORMATION_REQUEST, "graphics opm invalid information request"},
-    {ERROR_GRAPHICS_OPM_INVALID_SRM, "graphics opm invalid srm"},
-    {ERROR_GRAPHICS_OPM_NO_VIDEO_OUTPUTS_EXIST, "graphics opm no video outputs exist"},
-    {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_ACP, "graphics opm output does not support acp"},
-    {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_CGMSA, "graphics opm output does not support cgmsa"},
-    {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_HDCP, "graphics opm output does not support hdcp"},
-    {ERROR_GRAPHICS_OPM_RESOLUTION_TOO_HIGH, "graphics opm resolution too high"},
-    {ERROR_GRAPHICS_OPM_SESSION_TYPE_CHANGE_IN_PROGRESS, "graphics opm session type change in progress"},
-    {ERROR_GRAPHICS_OPM_SIGNALING_NOT_SUPPORTED, "graphics opm signaling not supported"},
-    {ERROR_GRAPHICS_OPM_SPANNING_MODE_ENABLED, "graphics opm spanning mode enabled"},
-    {ERROR_GRAPHICS_OPM_THEATER_MODE_ENABLED, "graphics opm theater mode enabled"},
-    {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_DOES_NOT_HAVE_COPP_SEMANTICS, "graphics opm video output does not have copp semantics"},
-    {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_DOES_NOT_HAVE_OPM_SEMANTICS, "graphics opm video output does not have opm semantics"},
-    {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_NO_LONGER_EXISTS, "graphics opm video output no longer exists"},
-    {ERROR_GRAPHICS_PARAMETER_ARRAY_TOO_SMALL, "graphics parameter array too small"},
-    {ERROR_GRAPHICS_PARTIAL_DATA_POPULATED, "graphics partial data populated"},
-    {ERROR_GRAPHICS_PATH_ALREADY_IN_TOPOLOGY, "graphics path already in topology"},
-    {ERROR_GRAPHICS_PATH_CONTENT_GEOMETRY_TRANSFORMATION_NOT_PINNED, "graphics path content geometry transformation not pinned"},
-    {ERROR_GRAPHICS_PATH_CONTENT_GEOMETRY_TRANSFORMATION_NOT_SUPPORTED, "graphics path content geometry transformation not supported"},
-    {ERROR_GRAPHICS_PATH_NOT_IN_TOPOLOGY, "graphics path not in topology"},
-    {ERROR_GRAPHICS_PINNED_MODE_MUST_REMAIN_IN_SET, "graphics pinned mode must remain in set"},
-    {ERROR_GRAPHICS_POLLING_TOO_FREQUENTLY, "graphics polling too frequently"},
-    {ERROR_GRAPHICS_PRESENT_BUFFER_NOT_BOUND, "graphics present buffer not bound"},
-    {ERROR_GRAPHICS_PRESENT_DENIED, "graphics present denied"},
-    {ERROR_GRAPHICS_PRESENT_INVALID_WINDOW, "graphics present invalid window"},
-    {ERROR_GRAPHICS_PRESENT_MODE_CHANGED, "graphics present mode changed"},
-    {ERROR_GRAPHICS_PRESENT_OCCLUDED, "graphics present occluded"},
-    {ERROR_GRAPHICS_PRESENT_REDIRECTION_DISABLED, "graphics present redirection disabled"},
-    {ERROR_GRAPHICS_PRESENT_UNOCCLUDED, "graphics present unoccluded"},
-    {ERROR_GRAPHICS_PVP_HFS_FAILED, "graphics pvp hfs failed"},
-    {ERROR_GRAPHICS_PVP_INVALID_CERTIFICATE_LENGTH, "graphics pvp invalid certificate length"},
-    {ERROR_GRAPHICS_RESOURCES_NOT_RELATED, "graphics resources not related"},
-    {ERROR_GRAPHICS_SESSION_TYPE_CHANGE_IN_PROGRESS, "graphics session type change in progress"},
-    {ERROR_GRAPHICS_SKIP_ALLOCATION_PREPARATION, "graphics skip allocation preparation"},
-    {ERROR_GRAPHICS_SOURCE_ALREADY_IN_SET, "graphics source already in set"},
-    {ERROR_GRAPHICS_SOURCE_ID_MUST_BE_UNIQUE, "graphics source id must be unique"},
-    {ERROR_GRAPHICS_SOURCE_NOT_IN_TOPOLOGY, "graphics source not in topology"},
-    {ERROR_GRAPHICS_STALE_MODESET, "graphics stale modeset"},
-    {ERROR_GRAPHICS_STALE_VIDPN_TOPOLOGY, "graphics stale vidpn topology"},
-    {ERROR_GRAPHICS_START_DEFERRED, "graphics start deferred"},
-    {ERROR_GRAPHICS_TARGET_ALREADY_IN_SET, "graphics target already in set"},
-    {ERROR_GRAPHICS_TARGET_ID_MUST_BE_UNIQUE, "graphics target id must be unique"},
-    {ERROR_GRAPHICS_TARGET_NOT_IN_TOPOLOGY, "graphics target not in topology"},
-    {ERROR_GRAPHICS_TOO_MANY_REFERENCES, "graphics too many references"},
-    {ERROR_GRAPHICS_TOPOLOGY_CHANGES_NOT_ALLOWED, "graphics topology changes not allowed"},
-    {ERROR_GRAPHICS_TRY_AGAIN_LATER, "graphics try again later"},
-    {ERROR_GRAPHICS_TRY_AGAIN_NOW, "graphics try again now"},
-    {ERROR_GRAPHICS_UNASSIGNED_MODESET_ALREADY_EXISTS, "graphics unassigned modeset already exists"},
-    {ERROR_GRAPHICS_UNKNOWN_CHILD_STATUS, "graphics unknown child status"},
-    {ERROR_GRAPHICS_UNSWIZZLING_APERTURE_UNAVAILABLE, "graphics unswizzling aperture unavailable"},
-    {ERROR_GRAPHICS_UNSWIZZLING_APERTURE_UNSUPPORTED, "graphics unswizzling aperture unsupported"},
-    {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_COMPOSITION_WINDOW_DPI_MESSAGE, "graphics vail failed to send composition window dpi message"},
-    {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_CREATE_SUPERWETINK_MESSAGE, "graphics vail failed to send create superwetink message"},
-    {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_DESTROY_SUPERWETINK_MESSAGE, "graphics vail failed to send destroy superwetink message"},
-    {ERROR_GRAPHICS_VAIL_STATE_CHANGED, "graphics vail state changed"},
-    {ERROR_GRAPHICS_VIDEO_PRESENT_TARGETS_LESS_THAN_SOURCES, "graphics video present targets less than sources"},
-    {ERROR_GRAPHICS_VIDPN_MODALITY_NOT_SUPPORTED, "graphics vidpn modality not supported"},
-    {ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE, "graphics vidpn source in use"},
-    {ERROR_GRAPHICS_VIDPN_TOPOLOGY_CURRENTLY_NOT_SUPPORTED, "graphics vidpn topology currently not supported"},
-    {ERROR_GRAPHICS_VIDPN_TOPOLOGY_NOT_SUPPORTED, "graphics vidpn topology not supported"},
-    {ERROR_GRAPHICS_WINDOWDC_NOT_AVAILABLE, "graphics windowdc not available"},
-    {ERROR_GRAPHICS_WINDOWLESS_PRESENT_DISABLED, "graphics windowless present disabled"},
-    {ERROR_GRAPHICS_WRONG_ALLOCATION_DEVICE, "graphics wrong allocation device"},
-    {ERROR_HUNG_DISPLAY_DRIVER_THREAD, "hung display driver thread"},
-    {ERROR_HV_ACCESS_DENIED, "hv access denied"},
-    {ERROR_HV_ACKNOWLEDGED, "hv acknowledged"},
-    {ERROR_HV_CPUID_FEATURE_VALIDATION, "hv cpuid feature validation"},
-    {ERROR_HV_CPUID_XSAVE_FEATURE_VALIDATION, "hv cpuid xsave feature validation"},
-    {ERROR_HV_DEVICE_NOT_IN_DOMAIN, "hv device not in domain"},
-    {ERROR_HV_EVENT_BUFFER_ALREADY_FREED, "hv event buffer already freed"},
-    {ERROR_HV_FEATURE_UNAVAILABLE, "hv feature unavailable"},
-    {ERROR_HV_INACTIVE, "hv inactive"},
-    {ERROR_HV_INSUFFICIENT_BUFFER, "hv insufficient buffer"},
-    {ERROR_HV_INSUFFICIENT_BUFFERS, "hv insufficient buffers"},
-    {ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY, "hv insufficient contiguous memory"},
-    {ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY_MIRRORING, "hv insufficient contiguous memory mirroring"},
-    {ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY, "hv insufficient contiguous root memory"},
-    {ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING, "hv insufficient contiguous root memory mirroring"},
-    {ERROR_HV_INSUFFICIENT_DEVICE_DOMAINS, "hv insufficient device domains"},
-    {ERROR_HV_INSUFFICIENT_MEMORY, "hv insufficient memory"},
-    {ERROR_HV_INSUFFICIENT_MEMORY_MIRRORING, "hv insufficient memory mirroring"},
-    {ERROR_HV_INSUFFICIENT_ROOT_MEMORY, "hv insufficient root memory"},
-    {ERROR_HV_INSUFFICIENT_ROOT_MEMORY_MIRRORING, "hv insufficient root memory mirroring"},
-    {ERROR_HV_INVALID_ALIGNMENT, "hv invalid alignment"},
-    {ERROR_HV_INVALID_CONNECTION_ID, "hv invalid connection id"},
-    {ERROR_HV_INVALID_CPU_GROUP_ID, "hv invalid cpu group id"},
-    {ERROR_HV_INVALID_CPU_GROUP_STATE, "hv invalid cpu group state"},
-    {ERROR_HV_INVALID_DEVICE_ID, "hv invalid device id"},
-    {ERROR_HV_INVALID_DEVICE_STATE, "hv invalid device state"},
-    {ERROR_HV_INVALID_HYPERCALL_CODE, "hv invalid hypercall code"},
-    {ERROR_HV_INVALID_HYPERCALL_INPUT, "hv invalid hypercall input"},
-    {ERROR_HV_INVALID_LP_INDEX, "hv invalid lp index"},
-    {ERROR_HV_INVALID_PARAMETER, "hv invalid parameter"},
-    {ERROR_HV_INVALID_PARTITION_ID, "hv invalid partition id"},
-    {ERROR_HV_INVALID_PARTITION_STATE, "hv invalid partition state"},
-    {ERROR_HV_INVALID_PORT_ID, "hv invalid port id"},
-    {ERROR_HV_INVALID_PROXIMITY_DOMAIN_INFO, "hv invalid proximity domain info"},
-    {ERROR_HV_INVALID_REGISTER_VALUE, "hv invalid register value"},
-    {ERROR_HV_INVALID_SAVE_RESTORE_STATE, "hv invalid save restore state"},
-    {ERROR_HV_INVALID_SYNIC_STATE, "hv invalid synic state"},
-    {ERROR_HV_INVALID_VP_INDEX, "hv invalid vp index"},
-    {ERROR_HV_INVALID_VP_STATE, "hv invalid vp state"},
-    {ERROR_HV_INVALID_VTL_STATE, "hv invalid vtl state"},
-    {ERROR_HV_MSR_ACCESS_FAILED, "hv msr access failed"},
-    {ERROR_HV_NESTED_VM_EXIT, "hv nested vm exit"},
-    {ERROR_HV_NOT_ACKNOWLEDGED, "hv not acknowledged"},
-    {ERROR_HV_NOT_ALLOWED_WITH_NESTED_VIRT_ACTIVE, "hv not allowed with nested virt active"},
-    {ERROR_HV_NOT_PRESENT, "hv not present"},
-    {ERROR_HV_NO_DATA, "hv no data"},
-    {ERROR_HV_NO_RESOURCES, "hv no resources"},
-    {ERROR_HV_NX_NOT_DETECTED, "hv nx not detected"},
-    {ERROR_HV_OBJECT_IN_USE, "hv object in use"},
-    {ERROR_HV_OPERATION_DENIED, "hv operation denied"},
-    {ERROR_HV_OPERATION_FAILED, "hv operation failed"},
-    {ERROR_HV_PAGE_REQUEST_INVALID, "hv page request invalid"},
-    {ERROR_HV_PARTITION_TOO_DEEP, "hv partition too deep"},
-    {ERROR_HV_PENDING_PAGE_REQUESTS, "hv pending page requests"},
-    {ERROR_HV_PROCESSOR_STARTUP_TIMEOUT, "hv processor startup timeout"},
-    {ERROR_HV_PROPERTY_VALUE_OUT_OF_RANGE, "hv property value out of range"},
-    {ERROR_HV_SMX_ENABLED, "hv smx enabled"},
-    {ERROR_HV_UNKNOWN_PROPERTY, "hv unknown property"},
-    {ERROR_IO_PREEMPTED, "io preempted"},
-    {ERROR_MONITOR_INVALID_DESCRIPTOR_CHECKSUM, "monitor invalid descriptor checksum"},
-    {ERROR_MONITOR_INVALID_DETAILED_TIMING_BLOCK, "monitor invalid detailed timing block"},
-    {ERROR_MONITOR_INVALID_MANUFACTURE_DATE, "monitor invalid manufacture date"},
-    {ERROR_MONITOR_INVALID_SERIAL_NUMBER_MONDSC_BLOCK, "monitor invalid serial number mondsc block"},
-    {ERROR_MONITOR_INVALID_STANDARD_TIMING_BLOCK, "monitor invalid standard timing block"},
-    {ERROR_MONITOR_INVALID_USER_FRIENDLY_MONDSC_BLOCK, "monitor invalid user friendly mondsc block"},
-    {ERROR_MONITOR_NO_DESCRIPTOR, "monitor no descriptor"},
-    {ERROR_MONITOR_NO_MORE_DESCRIPTOR_DATA, "monitor no more descriptor data"},
-    {ERROR_MONITOR_UNKNOWN_DESCRIPTOR_FORMAT, "monitor unknown descriptor format"},
-    {ERROR_MONITOR_WMI_DATABLOCK_REGISTRATION_FAILED, "monitor wmi datablock registration failed"},
-    {ERROR_NDIS_ADAPTER_NOT_FOUND, "ndis adapter not found"},
-    {ERROR_NDIS_ADAPTER_NOT_READY, "ndis adapter not ready"},
-    {ERROR_NDIS_ADAPTER_REMOVED, "ndis adapter removed"},
-    {ERROR_NDIS_ALREADY_MAPPED, "ndis already mapped"},
-    {ERROR_NDIS_BAD_CHARACTERISTICS, "ndis bad characteristics"},
-    {ERROR_NDIS_BAD_VERSION, "ndis bad version"},
-    {ERROR_NDIS_BUFFER_TOO_SHORT, "ndis buffer too short"},
-    {ERROR_NDIS_DEVICE_FAILED, "ndis device failed"},
-    {ERROR_NDIS_DOT11_AP_BAND_CURRENTLY_NOT_AVAILABLE, "ndis dot11 ap band currently not available"},
-    {ERROR_NDIS_DOT11_AP_BAND_NOT_ALLOWED, "ndis dot11 ap band not allowed"},
-    {ERROR_NDIS_DOT11_AP_CHANNEL_CURRENTLY_NOT_AVAILABLE, "ndis dot11 ap channel currently not available"},
-    {ERROR_NDIS_DOT11_AP_CHANNEL_NOT_ALLOWED, "ndis dot11 ap channel not allowed"},
-    {ERROR_NDIS_DOT11_AUTO_CONFIG_ENABLED, "ndis dot11 auto config enabled"},
-    {ERROR_NDIS_DOT11_MEDIA_IN_USE, "ndis dot11 media in use"},
-    {ERROR_NDIS_DOT11_POWER_STATE_INVALID, "ndis dot11 power state invalid"},
-    {ERROR_NDIS_ERROR_READING_FILE, "ndis error reading file"},
-    {ERROR_NDIS_FILE_NOT_FOUND, "ndis file not found"},
-    {ERROR_NDIS_GROUP_ADDRESS_IN_USE, "ndis group address in use"},
-    {ERROR_NDIS_INDICATION_REQUIRED, "ndis indication required"},
-    {ERROR_NDIS_INTERFACE_CLOSING, "ndis interface closing"},
-    {ERROR_NDIS_INTERFACE_NOT_FOUND, "ndis interface not found"},
-    {ERROR_NDIS_INVALID_ADDRESS, "ndis invalid address"},
-    {ERROR_NDIS_INVALID_DATA, "ndis invalid data"},
-    {ERROR_NDIS_INVALID_DEVICE_REQUEST, "ndis invalid device request"},
-    {ERROR_NDIS_INVALID_LENGTH, "ndis invalid length"},
-    {ERROR_NDIS_INVALID_OID, "ndis invalid oid"},
-    {ERROR_NDIS_INVALID_PACKET, "ndis invalid packet"},
-    {ERROR_NDIS_INVALID_PORT, "ndis invalid port"},
-    {ERROR_NDIS_INVALID_PORT_STATE, "ndis invalid port state"},
-    {ERROR_NDIS_LOW_POWER_STATE, "ndis low power state"},
-    {ERROR_NDIS_MEDIA_DISCONNECTED, "ndis media disconnected"},
-    {ERROR_NDIS_MULTICAST_EXISTS, "ndis multicast exists"},
-    {ERROR_NDIS_MULTICAST_FULL, "ndis multicast full"},
-    {ERROR_NDIS_MULTICAST_NOT_FOUND, "ndis multicast not found"},
-    {ERROR_NDIS_NOT_SUPPORTED, "ndis not supported"},
-    {ERROR_NDIS_NO_QUEUES, "ndis no queues"},
-    {ERROR_NDIS_OFFLOAD_CONNECTION_REJECTED, "ndis offload connection rejected"},
-    {ERROR_NDIS_OFFLOAD_PATH_REJECTED, "ndis offload path rejected"},
-    {ERROR_NDIS_OFFLOAD_POLICY, "ndis offload policy"},
-    {ERROR_NDIS_OPEN_FAILED, "ndis open failed"},
-    {ERROR_NDIS_PAUSED, "ndis paused"},
-    {ERROR_NDIS_PM_PROTOCOL_OFFLOAD_LIST_FULL, "ndis pm protocol offload list full"},
-    {ERROR_NDIS_PM_WOL_PATTERN_LIST_FULL, "ndis pm wol pattern list full"},
-    {ERROR_NDIS_REINIT_REQUIRED, "ndis reinit required"},
-    {ERROR_NDIS_REQUEST_ABORTED, "ndis request aborted"},
-    {ERROR_NDIS_RESET_IN_PROGRESS, "ndis reset in progress"},
-    {ERROR_NDIS_RESOURCE_CONFLICT, "ndis resource conflict"},
-    {ERROR_NDIS_UNSUPPORTED_MEDIA, "ndis unsupported media"},
-    {ERROR_NDIS_UNSUPPORTED_REVISION, "ndis unsupported revision"},
-    {ERROR_NOT_A_TIERED_VOLUME, "not a tiered volume"},
-    {ERROR_NO_APPLICABLE_APP_LICENSES_FOUND, "no applicable app licenses found"},
-    {ERROR_QUERY_STORAGE_ERROR, "query storage error"},
-    {ERROR_QUIC_ALPN_NEG_FAILURE, "quic alpn neg failure"},
-    {ERROR_QUIC_CONNECTION_IDLE, "quic connection idle"},
-    {ERROR_QUIC_CONNECTION_TIMEOUT, "quic connection timeout"},
-    {ERROR_QUIC_HANDSHAKE_FAILURE, "quic handshake failure"},
-    {ERROR_QUIC_INTERNAL_ERROR, "quic internal error"},
-    {ERROR_QUIC_PROTOCOL_VIOLATION, "quic protocol violation"},
-    {ERROR_QUIC_USER_CANCELED, "quic user canceled"},
-    {ERROR_QUIC_VER_NEG_FAILURE, "quic ver neg failure"},
-    {ERROR_SECCORE_INVALID_COMMAND, "seccore invalid command"},
-    {ERROR_SMB_BAD_CLUSTER_DIALECT, "smb bad cluster dialect"},
-    {ERROR_SMB_NO_PREAUTH_INTEGRITY_HASH_OVERLAP, "smb no preauth integrity hash overlap"},
-    {ERROR_SMB_NO_SIGNING_ALGORITHM_OVERLAP, "smb no signing algorithm overlap"},
-    {ERROR_SPACES_ALLOCATION_SIZE_INVALID, "spaces allocation size invalid"},
-    {ERROR_SPACES_CACHE_FULL, "spaces cache full"},
-    {ERROR_SPACES_CORRUPT_METADATA, "spaces corrupt metadata"},
-    {ERROR_SPACES_DRIVE_LOST_DATA, "spaces drive lost data"},
-    {ERROR_SPACES_DRIVE_NOT_READY, "spaces drive not ready"},
-    {ERROR_SPACES_DRIVE_OPERATIONAL_STATE_INVALID, "spaces drive operational state invalid"},
-    {ERROR_SPACES_DRIVE_REDUNDANCY_INVALID, "spaces drive redundancy invalid"},
-    {ERROR_SPACES_DRIVE_SECTOR_SIZE_INVALID, "spaces drive sector size invalid"},
-    {ERROR_SPACES_DRIVE_SPLIT, "spaces drive split"},
-    {ERROR_SPACES_DRT_FULL, "spaces drt full"},
-    {ERROR_SPACES_ENCLOSURE_AWARE_INVALID, "spaces enclosure aware invalid"},
-    {ERROR_SPACES_ENTRY_INCOMPLETE, "spaces entry incomplete"},
-    {ERROR_SPACES_ENTRY_INVALID, "spaces entry invalid"},
-    {ERROR_SPACES_EXTENDED_ERROR, "spaces extended error"},
-    {ERROR_SPACES_FAULT_DOMAIN_TYPE_INVALID, "spaces fault domain type invalid"},
-    {ERROR_SPACES_FLUSH_METADATA, "spaces flush metadata"},
-    {ERROR_SPACES_INCONSISTENCY, "spaces inconsistency"},
-    {ERROR_SPACES_INTERLEAVE_LENGTH_INVALID, "spaces interleave length invalid"},
-    {ERROR_SPACES_INTERNAL_ERROR, "spaces internal error"},
-    {ERROR_SPACES_LOG_NOT_READY, "spaces log not ready"},
-    {ERROR_SPACES_MAP_REQUIRED, "spaces map required"},
-    {ERROR_SPACES_MARK_DIRTY, "spaces mark dirty"},
-    {ERROR_SPACES_NOT_ENOUGH_DRIVES, "spaces not enough drives"},
-    {ERROR_SPACES_NO_REDUNDANCY, "spaces no redundancy"},
-    {ERROR_SPACES_NUMBER_OF_COLUMNS_INVALID, "spaces number of columns invalid"},
-    {ERROR_SPACES_NUMBER_OF_DATA_COPIES_INVALID, "spaces number of data copies invalid"},
-    {ERROR_SPACES_NUMBER_OF_GROUPS_INVALID, "spaces number of groups invalid"},
-    {ERROR_SPACES_PARITY_LAYOUT_INVALID, "spaces parity layout invalid"},
-    {ERROR_SPACES_POOL_WAS_DELETED, "spaces pool was deleted"},
-    {ERROR_SPACES_PROVISIONING_TYPE_INVALID, "spaces provisioning type invalid"},
-    {ERROR_SPACES_REPAIR_IN_PROGRESS, "spaces repair in progress"},
-    {ERROR_SPACES_RESILIENCY_TYPE_INVALID, "spaces resiliency type invalid"},
-    {ERROR_SPACES_UNSUPPORTED_VERSION, "spaces unsupported version"},
-    {ERROR_SPACES_UPDATE_COLUMN_STATE, "spaces update column state"},
-    {ERROR_SPACES_WRITE_CACHE_SIZE_INVALID, "spaces write cache size invalid"},
-    {ERROR_SVHDX_ERROR_NOT_AVAILABLE, "svhdx error not available"},
-    {ERROR_SVHDX_ERROR_STORED, "svhdx error stored"},
-    {ERROR_SVHDX_NO_INITIATOR, "svhdx no initiator"},
-    {ERROR_SVHDX_RESERVATION_CONFLICT, "svhdx reservation conflict"},
-    {ERROR_SVHDX_UNIT_ATTENTION_AVAILABLE, "svhdx unit attention available"},
-    {ERROR_SVHDX_UNIT_ATTENTION_CAPACITY_DATA_CHANGED, "svhdx unit attention capacity data changed"},
-    {ERROR_SVHDX_UNIT_ATTENTION_OPERATING_DEFINITION_CHANGED, "svhdx unit attention operating definition changed"},
-    {ERROR_SVHDX_UNIT_ATTENTION_REGISTRATIONS_PREEMPTED, "svhdx unit attention registrations preempted"},
-    {ERROR_SVHDX_UNIT_ATTENTION_RESERVATIONS_PREEMPTED, "svhdx unit attention reservations preempted"},
-    {ERROR_SVHDX_UNIT_ATTENTION_RESERVATIONS_RELEASED, "svhdx unit attention reservations released"},
-    {ERROR_SVHDX_VERSION_MISMATCH, "svhdx version mismatch"},
-    {ERROR_SVHDX_WRONG_FILE_TYPE, "svhdx wrong file type"},
-    {ERROR_TIERING_ALREADY_PROCESSING, "tiering already processing"},
-    {ERROR_TIERING_CANNOT_PIN_OBJECT, "tiering cannot pin object"},
-    {ERROR_TIERING_FILE_IS_NOT_PINNED, "tiering file is not pinned"},
-    {ERROR_TIERING_INVALID_FILE_ID, "tiering invalid file id"},
-    {ERROR_TIERING_NOT_SUPPORTED_ON_VOLUME, "tiering not supported on volume"},
-    {ERROR_TIERING_STORAGE_TIER_NOT_FOUND, "tiering storage tier not found"},
-    {ERROR_TIERING_VOLUME_DISMOUNT_IN_PROGRESS, "tiering volume dismount in progress"},
-    {ERROR_TIERING_WRONG_CLUSTER_NODE, "tiering wrong cluster node"},
-    {ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND, "vhdset backing storage not found"},
-    {ERROR_VHD_ALREADY_AT_OR_BELOW_MINIMUM_VIRTUAL_SIZE, "vhd already at or below minimum virtual size"},
-    {ERROR_VHD_BITMAP_MISMATCH, "vhd bitmap mismatch"},
-    {ERROR_VHD_BLOCK_ALLOCATION_FAILURE, "vhd block allocation failure"},
-    {ERROR_VHD_BLOCK_ALLOCATION_TABLE_CORRUPT, "vhd block allocation table corrupt"},
-    {ERROR_VHD_CHANGE_TRACKING_DISABLED, "vhd change tracking disabled"},
-    {ERROR_VHD_CHILD_PARENT_ID_MISMATCH, "vhd child parent id mismatch"},
-    {ERROR_VHD_CHILD_PARENT_SIZE_MISMATCH, "vhd child parent size mismatch"},
-    {ERROR_VHD_CHILD_PARENT_TIMESTAMP_MISMATCH, "vhd child parent timestamp mismatch"},
-    {ERROR_VHD_COULD_NOT_COMPUTE_MINIMUM_VIRTUAL_SIZE, "vhd could not compute minimum virtual size"},
-    {ERROR_VHD_DIFFERENCING_CHAIN_CYCLE_DETECTED, "vhd differencing chain cycle detected"},
-    {ERROR_VHD_DIFFERENCING_CHAIN_ERROR_IN_PARENT, "vhd differencing chain error in parent"},
-    {ERROR_VHD_DRIVE_FOOTER_CHECKSUM_MISMATCH, "vhd drive footer checksum mismatch"},
-    {ERROR_VHD_DRIVE_FOOTER_CORRUPT, "vhd drive footer corrupt"},
-    {ERROR_VHD_DRIVE_FOOTER_MISSING, "vhd drive footer missing"},
-    {ERROR_VHD_FORMAT_UNKNOWN, "vhd format unknown"},
-    {ERROR_VHD_FORMAT_UNSUPPORTED_VERSION, "vhd format unsupported version"},
-    {ERROR_VHD_INVALID_BLOCK_SIZE, "vhd invalid block size"},
-    {ERROR_VHD_INVALID_CHANGE_TRACKING_ID, "vhd invalid change tracking id"},
-    {ERROR_VHD_INVALID_FILE_SIZE, "vhd invalid file size"},
-    {ERROR_VHD_INVALID_SIZE, "vhd invalid size"},
-    {ERROR_VHD_INVALID_STATE, "vhd invalid state"},
-    {ERROR_VHD_INVALID_TYPE, "vhd invalid type"},
-    {ERROR_VHD_METADATA_FULL, "vhd metadata full"},
-    {ERROR_VHD_METADATA_READ_FAILURE, "vhd metadata read failure"},
-    {ERROR_VHD_METADATA_WRITE_FAILURE, "vhd metadata write failure"},
-    {ERROR_VHD_MISSING_CHANGE_TRACKING_INFORMATION, "vhd missing change tracking information"},
-    {ERROR_VHD_PARENT_VHD_ACCESS_DENIED, "vhd parent vhd access denied"},
-    {ERROR_VHD_PARENT_VHD_NOT_FOUND, "vhd parent vhd not found"},
-    {ERROR_VHD_RESIZE_WOULD_TRUNCATE_DATA, "vhd resize would truncate data"},
-    {ERROR_VHD_SHARED, "vhd shared"},
-    {ERROR_VHD_SPARSE_HEADER_CHECKSUM_MISMATCH, "vhd sparse header checksum mismatch"},
-    {ERROR_VHD_SPARSE_HEADER_CORRUPT, "vhd sparse header corrupt"},
-    {ERROR_VHD_SPARSE_HEADER_UNSUPPORTED_VERSION, "vhd sparse header unsupported version"},
-    {ERROR_VHD_UNEXPECTED_ID, "vhd unexpected id"},
-    {ERROR_VID_CHILD_GPA_PAGE_SET_CORRUPTED, "vid child gpa page set corrupted"},
-    {ERROR_VID_DUPLICATE_HANDLER, "vid duplicate handler"},
-    {ERROR_VID_EXCEEDED_KM_CONTEXT_COUNT_LIMIT, "vid exceeded km context count limit"},
-    {ERROR_VID_EXCEEDED_MBP_ENTRY_MAP_LIMIT, "vid exceeded mbp entry map limit"},
-    {ERROR_VID_HANDLER_NOT_PRESENT, "vid handler not present"},
-    {ERROR_VID_INSUFFICIENT_RESOURCES_HV_DEPOSIT, "vid insufficient resources hv deposit"},
-    {ERROR_VID_INSUFFICIENT_RESOURCES_PHYSICAL_BUFFER, "vid insufficient resources physical buffer"},
-    {ERROR_VID_INSUFFICIENT_RESOURCES_RESERVE, "vid insufficient resources reserve"},
-    {ERROR_VID_INSUFFICIENT_RESOURCES_WITHDRAW, "vid insufficient resources withdraw"},
-    {ERROR_VID_INVALID_CHILD_GPA_PAGE_SET, "vid invalid child gpa page set"},
-    {ERROR_VID_INVALID_GPA_RANGE_HANDLE, "vid invalid gpa range handle"},
-    {ERROR_VID_INVALID_MEMORY_BLOCK_HANDLE, "vid invalid memory block handle"},
-    {ERROR_VID_INVALID_MESSAGE_QUEUE_HANDLE, "vid invalid message queue handle"},
-    {ERROR_VID_INVALID_NUMA_NODE_INDEX, "vid invalid numa node index"},
-    {ERROR_VID_INVALID_NUMA_SETTINGS, "vid invalid numa settings"},
-    {ERROR_VID_INVALID_OBJECT_NAME, "vid invalid object name"},
-    {ERROR_VID_INVALID_PPM_HANDLE, "vid invalid ppm handle"},
-    {ERROR_VID_INVALID_PROCESSOR_STATE, "vid invalid processor state"},
-    {ERROR_VID_KM_INTERFACE_ALREADY_INITIALIZED, "vid km interface already initialized"},
-    {ERROR_VID_MBPS_ARE_LOCKED, "vid mbps are locked"},
-    {ERROR_VID_MBP_ALREADY_LOCKED_USING_RESERVED_PAGE, "vid mbp already locked using reserved page"},
-    {ERROR_VID_MBP_COUNT_EXCEEDED_LIMIT, "vid mbp count exceeded limit"},
-    {ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET, "vid mb property already set reset"},
-    {ERROR_VID_MB_STILL_REFERENCED, "vid mb still referenced"},
-    {ERROR_VID_MEMORY_BLOCK_LOCK_COUNT_EXCEEDED, "vid memory block lock count exceeded"},
-    {ERROR_VID_MEMORY_TYPE_NOT_SUPPORTED, "vid memory type not supported"},
-    {ERROR_VID_MESSAGE_QUEUE_ALREADY_EXISTS, "vid message queue already exists"},
-    {ERROR_VID_MESSAGE_QUEUE_CLOSED, "vid message queue closed"},
-    {ERROR_VID_MESSAGE_QUEUE_NAME_TOO_LONG, "vid message queue name too long"},
-    {ERROR_VID_MMIO_RANGE_DESTROYED, "vid mmio range destroyed"},
-    {ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED, "vid notification queue already associated"},
-    {ERROR_VID_NO_MEMORY_BLOCK_NOTIFICATION_QUEUE, "vid no memory block notification queue"},
-    {ERROR_VID_PAGE_RANGE_OVERFLOW, "vid page range overflow"},
-    {ERROR_VID_PARTITION_ALREADY_EXISTS, "vid partition already exists"},
-    {ERROR_VID_PARTITION_DOES_NOT_EXIST, "vid partition does not exist"},
-    {ERROR_VID_PARTITION_NAME_NOT_FOUND, "vid partition name not found"},
-    {ERROR_VID_PARTITION_NAME_TOO_LONG, "vid partition name too long"},
-    {ERROR_VID_PROCESS_ALREADY_SET, "vid process already set"},
-    {ERROR_VID_QUEUE_FULL, "vid queue full"},
-    {ERROR_VID_REMOTE_NODE_PARENT_GPA_PAGES_USED, "vid remote node parent gpa pages used"},
-    {ERROR_VID_RESERVE_PAGE_SET_IS_BEING_USED, "vid reserve page set is being used"},
-    {ERROR_VID_RESERVE_PAGE_SET_TOO_SMALL, "vid reserve page set too small"},
-    {ERROR_VID_SAVED_STATE_CORRUPT, "vid saved state corrupt"},
-    {ERROR_VID_SAVED_STATE_INCOMPATIBLE, "vid saved state incompatible"},
-    {ERROR_VID_SAVED_STATE_UNRECOGNIZED_ITEM, "vid saved state unrecognized item"},
-    {ERROR_VID_STOP_PENDING, "vid stop pending"},
-    {ERROR_VID_TOO_MANY_HANDLERS, "vid too many handlers"},
-    {ERROR_VID_VIRTUAL_PROCESSOR_LIMIT_EXCEEDED, "vid virtual processor limit exceeded"},
-    {ERROR_VID_VTL_ACCESS_DENIED, "vid vtl access denied"},
-    {ERROR_VIRTDISK_DISK_ALREADY_OWNED, "virtdisk disk already owned"},
-    {ERROR_VIRTDISK_DISK_ONLINE_AND_WRITABLE, "virtdisk disk online and writable"},
-    {ERROR_VIRTDISK_NOT_VIRTUAL_DISK, "virtdisk not virtual disk"},
-    {ERROR_VIRTDISK_PROVIDER_NOT_FOUND, "virtdisk provider not found"},
-    {ERROR_VIRTDISK_UNSUPPORTED_DISK_SECTOR_SIZE, "virtdisk unsupported disk sector size"},
-    {ERROR_VIRTUAL_DISK_LIMITATION, "virtual disk limitation"},
-    {ERROR_VMCOMPUTE_CONNECTION_CLOSED, "vmcompute connection closed"},
-    {ERROR_VMCOMPUTE_CONNECT_FAILED, "vmcompute connect failed"},
-    {ERROR_VMCOMPUTE_HYPERV_NOT_INSTALLED, "vmcompute hyperv not installed"},
-    {ERROR_VMCOMPUTE_IMAGE_MISMATCH, "vmcompute image mismatch"},
-    {ERROR_VMCOMPUTE_INVALID_JSON, "vmcompute invalid json"},
-    {ERROR_VMCOMPUTE_INVALID_LAYER, "vmcompute invalid layer"},
-    {ERROR_VMCOMPUTE_INVALID_STATE, "vmcompute invalid state"},
-    {ERROR_VMCOMPUTE_OPERATION_PENDING, "vmcompute operation pending"},
-    {ERROR_VMCOMPUTE_PROTOCOL_ERROR, "vmcompute protocol error"},
-    {ERROR_VMCOMPUTE_SYSTEM_ALREADY_EXISTS, "vmcompute system already exists"},
-    {ERROR_VMCOMPUTE_SYSTEM_ALREADY_STOPPED, "vmcompute system already stopped"},
-    {ERROR_VMCOMPUTE_SYSTEM_NOT_FOUND, "vmcompute system not found"},
-    {ERROR_VMCOMPUTE_TERMINATED, "vmcompute terminated"},
-    {ERROR_VMCOMPUTE_TERMINATED_DURING_START, "vmcompute terminated during start"},
-    {ERROR_VMCOMPUTE_TIMEOUT, "vmcompute timeout"},
-    {ERROR_VMCOMPUTE_TOO_MANY_NOTIFICATIONS, "vmcompute too many notifications"},
-    {ERROR_VMCOMPUTE_UNEXPECTED_EXIT, "vmcompute unexpected exit"},
-    {ERROR_VMCOMPUTE_UNKNOWN_MESSAGE, "vmcompute unknown message"},
-    {ERROR_VMCOMPUTE_UNSUPPORTED_PROTOCOL_VERSION, "vmcompute unsupported protocol version"},
-    {ERROR_VMCOMPUTE_WINDOWS_INSIDER_REQUIRED, "vmcompute windows insider required"},
-    {ERROR_VNET_VIRTUAL_SWITCH_NAME_NOT_FOUND, "vnet virtual switch name not found"},
-    {ERROR_VOLMGR_ALL_DISKS_FAILED, "volmgr all disks failed"},
-    {ERROR_VOLMGR_BAD_BOOT_DISK, "volmgr bad boot disk"},
-    {ERROR_VOLMGR_DATABASE_FULL, "volmgr database full"},
-    {ERROR_VOLMGR_DIFFERENT_SECTOR_SIZE, "volmgr different sector size"},
-    {ERROR_VOLMGR_DISK_CONFIGURATION_CORRUPTED, "volmgr disk configuration corrupted"},
-    {ERROR_VOLMGR_DISK_CONFIGURATION_NOT_IN_SYNC, "volmgr disk configuration not in sync"},
-    {ERROR_VOLMGR_DISK_CONTAINS_NON_SIMPLE_VOLUME, "volmgr disk contains non simple volume"},
-    {ERROR_VOLMGR_DISK_DUPLICATE, "volmgr disk duplicate"},
-    {ERROR_VOLMGR_DISK_DYNAMIC, "volmgr disk dynamic"},
-    {ERROR_VOLMGR_DISK_ID_INVALID, "volmgr disk id invalid"},
-    {ERROR_VOLMGR_DISK_INVALID, "volmgr disk invalid"},
-    {ERROR_VOLMGR_DISK_LAST_VOTER, "volmgr disk last voter"},
-    {ERROR_VOLMGR_DISK_LAYOUT_INVALID, "volmgr disk layout invalid"},
-    {ERROR_VOLMGR_DISK_LAYOUT_NON_BASIC_BETWEEN_BASIC_PARTITIONS, "volmgr disk layout non basic between basic partitions"},
-    {ERROR_VOLMGR_DISK_LAYOUT_NOT_CYLINDER_ALIGNED, "volmgr disk layout not cylinder aligned"},
-    {ERROR_VOLMGR_DISK_LAYOUT_PARTITIONS_TOO_SMALL, "volmgr disk layout partitions too small"},
-    {ERROR_VOLMGR_DISK_LAYOUT_PRIMARY_BETWEEN_LOGICAL_PARTITIONS, "volmgr disk layout primary between logical partitions"},
-    {ERROR_VOLMGR_DISK_LAYOUT_TOO_MANY_PARTITIONS, "volmgr disk layout too many partitions"},
-    {ERROR_VOLMGR_DISK_MISSING, "volmgr disk missing"},
-    {ERROR_VOLMGR_DISK_NOT_EMPTY, "volmgr disk not empty"},
-    {ERROR_VOLMGR_DISK_NOT_ENOUGH_SPACE, "volmgr disk not enough space"},
-    {ERROR_VOLMGR_DISK_REVECTORING_FAILED, "volmgr disk revectoring failed"},
-    {ERROR_VOLMGR_DISK_SECTOR_SIZE_INVALID, "volmgr disk sector size invalid"},
-    {ERROR_VOLMGR_DISK_SET_NOT_CONTAINED, "volmgr disk set not contained"},
-    {ERROR_VOLMGR_DISK_USED_BY_MULTIPLE_MEMBERS, "volmgr disk used by multiple members"},
-    {ERROR_VOLMGR_DISK_USED_BY_MULTIPLE_PLEXES, "volmgr disk used by multiple plexes"},
-    {ERROR_VOLMGR_DYNAMIC_DISK_NOT_SUPPORTED, "volmgr dynamic disk not supported"},
-    {ERROR_VOLMGR_EXTENT_ALREADY_USED, "volmgr extent already used"},
-    {ERROR_VOLMGR_EXTENT_NOT_CONTIGUOUS, "volmgr extent not contiguous"},
-    {ERROR_VOLMGR_EXTENT_NOT_IN_PUBLIC_REGION, "volmgr extent not in public region"},
-    {ERROR_VOLMGR_EXTENT_NOT_SECTOR_ALIGNED, "volmgr extent not sector aligned"},
-    {ERROR_VOLMGR_EXTENT_OVERLAPS_EBR_PARTITION, "volmgr extent overlaps ebr partition"},
-    {ERROR_VOLMGR_EXTENT_VOLUME_LENGTHS_DO_NOT_MATCH, "volmgr extent volume lengths do not match"},
-    {ERROR_VOLMGR_FAULT_TOLERANT_NOT_SUPPORTED, "volmgr fault tolerant not supported"},
-    {ERROR_VOLMGR_INCOMPLETE_DISK_MIGRATION, "volmgr incomplete disk migration"},
-    {ERROR_VOLMGR_INCOMPLETE_REGENERATION, "volmgr incomplete regeneration"},
-    {ERROR_VOLMGR_INTERLEAVE_LENGTH_INVALID, "volmgr interleave length invalid"},
-    {ERROR_VOLMGR_MAXIMUM_REGISTERED_USERS, "volmgr maximum registered users"},
-    {ERROR_VOLMGR_MEMBER_INDEX_DUPLICATE, "volmgr member index duplicate"},
-    {ERROR_VOLMGR_MEMBER_INDEX_INVALID, "volmgr member index invalid"},
-    {ERROR_VOLMGR_MEMBER_IN_SYNC, "volmgr member in sync"},
-    {ERROR_VOLMGR_MEMBER_MISSING, "volmgr member missing"},
-    {ERROR_VOLMGR_MEMBER_NOT_DETACHED, "volmgr member not detached"},
-    {ERROR_VOLMGR_MEMBER_REGENERATING, "volmgr member regenerating"},
-    {ERROR_VOLMGR_MIRROR_NOT_SUPPORTED, "volmgr mirror not supported"},
-    {ERROR_VOLMGR_NOTIFICATION_RESET, "volmgr notification reset"},
-    {ERROR_VOLMGR_NOT_PRIMARY_PACK, "volmgr not primary pack"},
-    {ERROR_VOLMGR_NO_REGISTERED_USERS, "volmgr no registered users"},
-    {ERROR_VOLMGR_NO_SUCH_USER, "volmgr no such user"},
-    {ERROR_VOLMGR_NO_VALID_LOG_COPIES, "volmgr no valid log copies"},
-    {ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID, "volmgr number of disks invalid"},
-    {ERROR_VOLMGR_NUMBER_OF_DISKS_IN_MEMBER_INVALID, "volmgr number of disks in member invalid"},
-    {ERROR_VOLMGR_NUMBER_OF_DISKS_IN_PLEX_INVALID, "volmgr number of disks in plex invalid"},
-    {ERROR_VOLMGR_NUMBER_OF_EXTENTS_INVALID, "volmgr number of extents invalid"},
-    {ERROR_VOLMGR_NUMBER_OF_MEMBERS_INVALID, "volmgr number of members invalid"},
-    {ERROR_VOLMGR_NUMBER_OF_PLEXES_INVALID, "volmgr number of plexes invalid"},
-    {ERROR_VOLMGR_PACK_CONFIG_OFFLINE, "volmgr pack config offline"},
-    {ERROR_VOLMGR_PACK_CONFIG_ONLINE, "volmgr pack config online"},
-    {ERROR_VOLMGR_PACK_CONFIG_UPDATE_FAILED, "volmgr pack config update failed"},
-    {ERROR_VOLMGR_PACK_DUPLICATE, "volmgr pack duplicate"},
-    {ERROR_VOLMGR_PACK_HAS_QUORUM, "volmgr pack has quorum"},
-    {ERROR_VOLMGR_PACK_ID_INVALID, "volmgr pack id invalid"},
-    {ERROR_VOLMGR_PACK_INVALID, "volmgr pack invalid"},
-    {ERROR_VOLMGR_PACK_LOG_UPDATE_FAILED, "volmgr pack log update failed"},
-    {ERROR_VOLMGR_PACK_NAME_INVALID, "volmgr pack name invalid"},
-    {ERROR_VOLMGR_PACK_OFFLINE, "volmgr pack offline"},
-    {ERROR_VOLMGR_PACK_WITHOUT_QUORUM, "volmgr pack without quorum"},
-    {ERROR_VOLMGR_PARTITION_STYLE_INVALID, "volmgr partition style invalid"},
-    {ERROR_VOLMGR_PARTITION_UPDATE_FAILED, "volmgr partition update failed"},
-    {ERROR_VOLMGR_PLEX_INDEX_DUPLICATE, "volmgr plex index duplicate"},
-    {ERROR_VOLMGR_PLEX_INDEX_INVALID, "volmgr plex index invalid"},
-    {ERROR_VOLMGR_PLEX_IN_SYNC, "volmgr plex in sync"},
-    {ERROR_VOLMGR_PLEX_LAST_ACTIVE, "volmgr plex last active"},
-    {ERROR_VOLMGR_PLEX_MISSING, "volmgr plex missing"},
-    {ERROR_VOLMGR_PLEX_NOT_RAID5, "volmgr plex not raid5"},
-    {ERROR_VOLMGR_PLEX_NOT_SIMPLE, "volmgr plex not simple"},
-    {ERROR_VOLMGR_PLEX_NOT_SIMPLE_SPANNED, "volmgr plex not simple spanned"},
-    {ERROR_VOLMGR_PLEX_REGENERATING, "volmgr plex regenerating"},
-    {ERROR_VOLMGR_PLEX_TYPE_INVALID, "volmgr plex type invalid"},
-    {ERROR_VOLMGR_PRIMARY_PACK_PRESENT, "volmgr primary pack present"},
-    {ERROR_VOLMGR_RAID5_NOT_SUPPORTED, "volmgr raid5 not supported"},
-    {ERROR_VOLMGR_STRUCTURE_SIZE_INVALID, "volmgr structure size invalid"},
-    {ERROR_VOLMGR_TOO_MANY_NOTIFICATION_REQUESTS, "volmgr too many notification requests"},
-    {ERROR_VOLMGR_TRANSACTION_IN_PROGRESS, "volmgr transaction in progress"},
-    {ERROR_VOLMGR_UNEXPECTED_DISK_LAYOUT_CHANGE, "volmgr unexpected disk layout change"},
-    {ERROR_VOLMGR_VOLUME_CONTAINS_MISSING_DISK, "volmgr volume contains missing disk"},
-    {ERROR_VOLMGR_VOLUME_ID_INVALID, "volmgr volume id invalid"},
-    {ERROR_VOLMGR_VOLUME_LENGTH_INVALID, "volmgr volume length invalid"},
-    {ERROR_VOLMGR_VOLUME_LENGTH_NOT_SECTOR_SIZE_MULTIPLE, "volmgr volume length not sector size multiple"},
-    {ERROR_VOLMGR_VOLUME_MIRRORED, "volmgr volume mirrored"},
-    {ERROR_VOLMGR_VOLUME_NOT_MIRRORED, "volmgr volume not mirrored"},
-    {ERROR_VOLMGR_VOLUME_NOT_RETAINED, "volmgr volume not retained"},
-    {ERROR_VOLMGR_VOLUME_OFFLINE, "volmgr volume offline"},
-    {ERROR_VOLMGR_VOLUME_RETAINED, "volmgr volume retained"},
-    {ERROR_VOLSNAP_ACTIVATION_TIMEOUT, "volsnap activation timeout"},
-    {ERROR_VOLSNAP_BOOTFILE_NOT_VALID, "volsnap bootfile not valid"},
-    {ERROR_VOLSNAP_NO_BYPASSIO_WITH_SNAPSHOT, "volsnap no bypassio with snapshot"},
-    {ERROR_VSMB_SAVED_STATE_CORRUPT, "vsmb saved state corrupt"},
-    {ERROR_VSMB_SAVED_STATE_FILE_NOT_FOUND, "vsmb saved state file not found"},
+  {ERROR_ALL_SIDS_FILTERED, "all sids filtered"},
+  {ERROR_ATTRIBUTE_NOT_PRESENT, "attribute not present"},
+  {ERROR_AUDITING_DISABLED, "auditing disabled"},
+  {ERROR_BCD_NOT_ALL_ENTRIES_IMPORTED, "bcd not all entries imported"},
+  {ERROR_BCD_NOT_ALL_ENTRIES_SYNCHRONIZED, "bcd not all entries synchronized"},
+  {ERROR_BCD_TOO_MANY_ELEMENTS, "bcd too many elements"},
+  {ERROR_BIZRULES_NOT_ENABLED, "bizrules not enabled"},
+  {ERROR_CLIP_DEVICE_LICENSE_MISSING, "clip device license missing"},
+  {ERROR_CLIP_KEYHOLDER_LICENSE_MISSING_OR_INVALID, "clip keyholder license missing or invalid"},
+  {ERROR_CLIP_LICENSE_DEVICE_ID_MISMATCH, "clip license device id mismatch"},
+  {ERROR_CLIP_LICENSE_EXPIRED, "clip license expired"},
+  {ERROR_CLIP_LICENSE_HARDWARE_ID_OUT_OF_TOLERANCE, "clip license hardware id out of tolerance"},
+  {ERROR_CLIP_LICENSE_INVALID_SIGNATURE, "clip license invalid signature"},
+  {ERROR_CLIP_LICENSE_NOT_FOUND, "clip license not found"},
+  {ERROR_CLIP_LICENSE_NOT_SIGNED, "clip license not signed"},
+  {ERROR_CLIP_LICENSE_SIGNED_BY_UNKNOWN_SOURCE, "clip license signed by unknown source"},
+  {ERROR_CRED_REQUIRES_CONFIRMATION, "cred requires confirmation"},
+  {ERROR_CTLOG_INCONSISTENT_TRACKING_FILE, "ctlog inconsistent tracking file"},
+  {ERROR_CTLOG_INVALID_TRACKING_STATE, "ctlog invalid tracking state"},
+  {ERROR_CTLOG_LOGFILE_SIZE_EXCEEDED_MAXSIZE, "ctlog logfile size exceeded maxsize"},
+  {ERROR_CTLOG_TRACKING_NOT_INITIALIZED, "ctlog tracking not initialized"},
+  {ERROR_CTLOG_VHD_CHANGED_OFFLINE, "ctlog vhd changed offline"},
+  {ERROR_DBG_ATTACH_PROCESS_FAILURE_LOCKDOWN, "dbg attach process failure lockdown"},
+  {ERROR_DBG_CONNECT_SERVER_FAILURE_LOCKDOWN, "dbg connect server failure lockdown"},
+  {ERROR_DBG_CREATE_PROCESS_FAILURE_LOCKDOWN, "dbg create process failure lockdown"},
+  {ERROR_DBG_START_SERVER_FAILURE_LOCKDOWN, "dbg start server failure lockdown"},
+  {ERROR_DM_OPERATION_LIMIT_EXCEEDED, "dm operation limit exceeded"},
+  {ERROR_FLT_ALREADY_ENLISTED, "flt already enlisted"},
+  {ERROR_FLT_CBDQ_DISABLED, "flt cbdq disabled"},
+  {ERROR_FLT_CONTEXT_ALLOCATION_NOT_FOUND, "flt context allocation not found"},
+  {ERROR_FLT_CONTEXT_ALREADY_DEFINED, "flt context already defined"},
+  {ERROR_FLT_CONTEXT_ALREADY_LINKED, "flt context already linked"},
+  {ERROR_FLT_DELETING_OBJECT, "flt deleting object"},
+  {ERROR_FLT_DISALLOW_FAST_IO, "flt disallow fast io"},
+  {ERROR_FLT_DO_NOT_ATTACH, "flt do not attach"},
+  {ERROR_FLT_DO_NOT_DETACH, "flt do not detach"},
+  {ERROR_FLT_DUPLICATE_ENTRY, "flt duplicate entry"},
+  {ERROR_FLT_FILTER_NOT_FOUND, "flt filter not found"},
+  {ERROR_FLT_FILTER_NOT_READY, "flt filter not ready"},
+  {ERROR_FLT_INSTANCE_ALTITUDE_COLLISION, "flt instance altitude collision"},
+  {ERROR_FLT_INSTANCE_NAME_COLLISION, "flt instance name collision"},
+  {ERROR_FLT_INSTANCE_NOT_FOUND, "flt instance not found"},
+  {ERROR_FLT_INTERNAL_ERROR, "flt internal error"},
+  {ERROR_FLT_INVALID_ASYNCHRONOUS_REQUEST, "flt invalid asynchronous request"},
+  {ERROR_FLT_INVALID_CONTEXT_REGISTRATION, "flt invalid context registration"},
+  {ERROR_FLT_INVALID_NAME_REQUEST, "flt invalid name request"},
+  {ERROR_FLT_IO_COMPLETE, "flt io complete"},
+  {ERROR_FLT_MUST_BE_NONPAGED_POOL, "flt must be nonpaged pool"},
+  {ERROR_FLT_NAME_CACHE_MISS, "flt name cache miss"},
+  {ERROR_FLT_NO_DEVICE_OBJECT, "flt no device object"},
+  {ERROR_FLT_NO_HANDLER_DEFINED, "flt no handler defined"},
+  {ERROR_FLT_NO_WAITER_FOR_REPLY, "flt no waiter for reply"},
+  {ERROR_FLT_NOT_INITIALIZED, "flt not initialized"},
+  {ERROR_FLT_NOT_SAFE_TO_POST_OPERATION, "flt not safe to post operation"},
+  {ERROR_FLT_POST_OPERATION_CLEANUP, "flt post operation cleanup"},
+  {ERROR_FLT_REGISTRATION_BUSY, "flt registration busy"},
+  {ERROR_FLT_VOLUME_ALREADY_MOUNTED, "flt volume already mounted"},
+  {ERROR_FLT_VOLUME_NOT_FOUND, "flt volume not found"},
+  {ERROR_FLT_WCOS_NOT_SUPPORTED, "flt wcos not supported"},
+  {ERROR_GRAPHICS_ADAPTER_ACCESS_NOT_EXCLUDED, "graphics adapter access not excluded"},
+  {ERROR_GRAPHICS_ADAPTER_CHAIN_NOT_READY, "graphics adapter chain not ready"},
+  {ERROR_GRAPHICS_ADAPTER_MUST_HAVE_AT_LEAST_ONE_SOURCE, "graphics adapter must have at least one source"},
+  {ERROR_GRAPHICS_ADAPTER_MUST_HAVE_AT_LEAST_ONE_TARGET, "graphics adapter must have at least one target"},
+  {ERROR_GRAPHICS_ADAPTER_WAS_RESET, "graphics adapter was reset"},
+  {ERROR_GRAPHICS_ALLOCATION_BUSY, "graphics allocation busy"},
+  {ERROR_GRAPHICS_ALLOCATION_CLOSED, "graphics allocation closed"},
+  {ERROR_GRAPHICS_ALLOCATION_CONTENT_LOST, "graphics allocation content lost"},
+  {ERROR_GRAPHICS_ALLOCATION_INVALID, "graphics allocation invalid"},
+  {ERROR_GRAPHICS_CANCEL_VIDPN_TOPOLOGY_AUGMENTATION, "graphics cancel vidpn topology augmentation"},
+  {ERROR_GRAPHICS_CANNOTCOLORCONVERT, "graphics cannotcolorconvert"},
+  {ERROR_GRAPHICS_CANT_ACCESS_ACTIVE_VIDPN, "graphics cant access active vidpn"},
+  {ERROR_GRAPHICS_CANT_EVICT_PINNED_ALLOCATION, "graphics cant evict pinned allocation"},
+  {ERROR_GRAPHICS_CANT_LOCK_MEMORY, "graphics cant lock memory"},
+  {ERROR_GRAPHICS_CANT_RENDER_LOCKED_ALLOCATION, "graphics cant render locked allocation"},
+  {ERROR_GRAPHICS_CHAINLINKS_NOT_ENUMERATED, "graphics chainlinks not enumerated"},
+  {ERROR_GRAPHICS_CHAINLINKS_NOT_POWERED_ON, "graphics chainlinks not powered on"},
+  {ERROR_GRAPHICS_CHAINLINKS_NOT_STARTED, "graphics chainlinks not started"},
+  {ERROR_GRAPHICS_CLIENTVIDPN_NOT_SET, "graphics clientvidpn not set"},
+  {ERROR_GRAPHICS_DATASET_IS_EMPTY, "graphics dataset is empty"},
+  {ERROR_GRAPHICS_DDCCI_CURRENT_CURRENT_VALUE_GREATER_THAN_MAXIMUM_VALUE, "graphics ddcci current current value greater than maximum value"},
+  {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_CHECKSUM, "graphics ddcci invalid message checksum"},
+  {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_COMMAND, "graphics ddcci invalid message command"},
+  {ERROR_GRAPHICS_DDCCI_INVALID_MESSAGE_LENGTH, "graphics ddcci invalid message length"},
+  {ERROR_GRAPHICS_DDCCI_MONITOR_RETURNED_INVALID_TIMING_STATUS_BYTE, "graphics ddcci monitor returned invalid timing status byte"},
+  {ERROR_GRAPHICS_DEPENDABLE_CHILD_STATUS, "graphics dependable child status"},
+  {ERROR_GRAPHICS_DISPLAY_DEVICE_NOT_ATTACHED_TO_DESKTOP, "graphics display device not attached to desktop"},
+  {ERROR_GRAPHICS_DRIVER_MISMATCH, "graphics driver mismatch"},
+  {ERROR_GRAPHICS_EMPTY_ADAPTER_MONITOR_MODE_SUPPORT_INTERSECTION, "graphics empty adapter monitor mode support intersection"},
+  {ERROR_GRAPHICS_FREQUENCYRANGE_ALREADY_IN_SET, "graphics frequencyrange already in set"},
+  {ERROR_GRAPHICS_FREQUENCYRANGE_NOT_IN_SET, "graphics frequencyrange not in set"},
+  {ERROR_GRAPHICS_GAMMA_RAMP_NOT_SUPPORTED, "graphics gamma ramp not supported"},
+  {ERROR_GRAPHICS_GPU_EXCEPTION_ON_DEVICE, "graphics gpu exception on device"},
+  {ERROR_GRAPHICS_INCOMPATIBLE_PRIVATE_FORMAT, "graphics incompatible private format"},
+  {ERROR_GRAPHICS_INCONSISTENT_DEVICE_LINK_STATE, "graphics inconsistent device link state"},
+  {ERROR_GRAPHICS_INDIRECT_DISPLAY_ABANDON_SWAPCHAIN, "graphics indirect display abandon swapchain"},
+  {ERROR_GRAPHICS_INDIRECT_DISPLAY_DEVICE_STOPPED, "graphics indirect display device stopped"},
+  {ERROR_GRAPHICS_INSUFFICIENT_DMA_BUFFER, "graphics insufficient dma buffer"},
+  {ERROR_GRAPHICS_INTERNAL_ERROR, "graphics internal error"},
+  {ERROR_GRAPHICS_INVALID_ACTIVE_REGION, "graphics invalid active region"},
+  {ERROR_GRAPHICS_INVALID_ALLOCATION_HANDLE, "graphics invalid allocation handle"},
+  {ERROR_GRAPHICS_INVALID_ALLOCATION_INSTANCE, "graphics invalid allocation instance"},
+  {ERROR_GRAPHICS_INVALID_ALLOCATION_USAGE, "graphics invalid allocation usage"},
+  {ERROR_GRAPHICS_INVALID_CLIENT_TYPE, "graphics invalid client type"},
+  {ERROR_GRAPHICS_INVALID_COLORBASIS, "graphics invalid colorbasis"},
+  {ERROR_GRAPHICS_INVALID_COPYPROTECTION_TYPE, "graphics invalid copyprotection type"},
+  {ERROR_GRAPHICS_INVALID_DISPLAY_ADAPTER, "graphics invalid display adapter"},
+  {ERROR_GRAPHICS_INVALID_DRIVER_MODEL, "graphics invalid driver model"},
+  {ERROR_GRAPHICS_INVALID_FREQUENCY, "graphics invalid frequency"},
+  {ERROR_GRAPHICS_INVALID_GAMMA_RAMP, "graphics invalid gamma ramp"},
+  {ERROR_GRAPHICS_INVALID_MODE_PRUNING_ALGORITHM, "graphics invalid mode pruning algorithm"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_CAPABILITY_ORIGIN, "graphics invalid monitor capability origin"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE, "graphics invalid monitor frequencyrange"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGE_CONSTRAINT, "graphics invalid monitor frequencyrange constraint"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_FREQUENCYRANGESET, "graphics invalid monitor frequencyrangeset"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_SOURCE_MODE, "graphics invalid monitor source mode"},
+  {ERROR_GRAPHICS_INVALID_MONITOR_SOURCEMODESET, "graphics invalid monitor sourcemodeset"},
+  {ERROR_GRAPHICS_INVALID_MONITORDESCRIPTOR, "graphics invalid monitordescriptor"},
+  {ERROR_GRAPHICS_INVALID_MONITORDESCRIPTORSET, "graphics invalid monitordescriptorset"},
+  {ERROR_GRAPHICS_INVALID_PATH_CONTENT_GEOMETRY_TRANSFORMATION, "graphics invalid path content geometry transformation"},
+  {ERROR_GRAPHICS_INVALID_PATH_CONTENT_TYPE, "graphics invalid path content type"},
+  {ERROR_GRAPHICS_INVALID_PATH_IMPORTANCE_ORDINAL, "graphics invalid path importance ordinal"},
+  {ERROR_GRAPHICS_INVALID_PHYSICAL_MONITOR_HANDLE, "graphics invalid physical monitor handle"},
+  {ERROR_GRAPHICS_INVALID_PIXELFORMAT, "graphics invalid pixelformat"},
+  {ERROR_GRAPHICS_INVALID_PIXELVALUEACCESSMODE, "graphics invalid pixelvalueaccessmode"},
+  {ERROR_GRAPHICS_INVALID_POINTER, "graphics invalid pointer"},
+  {ERROR_GRAPHICS_INVALID_PRIMARYSURFACE_SIZE, "graphics invalid primarysurface size"},
+  {ERROR_GRAPHICS_INVALID_SCANLINE_ORDERING, "graphics invalid scanline ordering"},
+  {ERROR_GRAPHICS_INVALID_STRIDE, "graphics invalid stride"},
+  {ERROR_GRAPHICS_INVALID_TOTAL_REGION, "graphics invalid total region"},
+  {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE, "graphics invalid video present source"},
+  {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_SOURCE_MODE, "graphics invalid video present source mode"},
+  {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_TARGET, "graphics invalid video present target"},
+  {ERROR_GRAPHICS_INVALID_VIDEO_PRESENT_TARGET_MODE, "graphics invalid video present target mode"},
+  {ERROR_GRAPHICS_INVALID_VIDEOPRESENTSOURCESET, "graphics invalid videopresentsourceset"},
+  {ERROR_GRAPHICS_INVALID_VIDEOPRESENTTARGETSET, "graphics invalid videopresenttargetset"},
+  {ERROR_GRAPHICS_INVALID_VIDPN, "graphics invalid vidpn"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_PRESENT_PATH, "graphics invalid vidpn present path"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_SOURCEMODESET, "graphics invalid vidpn sourcemodeset"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_TARGET_SUBSET_TYPE, "graphics invalid vidpn target subset type"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_TARGETMODESET, "graphics invalid vidpn targetmodeset"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_TOPOLOGY, "graphics invalid vidpn topology"},
+  {ERROR_GRAPHICS_INVALID_VIDPN_TOPOLOGY_RECOMMENDATION_REASON, "graphics invalid vidpn topology recommendation reason"},
+  {ERROR_GRAPHICS_INVALID_VISIBLEREGION_SIZE, "graphics invalid visibleregion size"},
+  {ERROR_GRAPHICS_LEADLINK_NOT_ENUMERATED, "graphics leadlink not enumerated"},
+  {ERROR_GRAPHICS_LEADLINK_START_DEFERRED, "graphics leadlink start deferred"},
+  {ERROR_GRAPHICS_LINK_CONFIGURATION_IN_PROGRESS, "graphics link configuration in progress"},
+  {ERROR_GRAPHICS_MAX_NUM_PATHS_REACHED, "graphics max num paths reached"},
+  {ERROR_GRAPHICS_MCA_INTERNAL_ERROR, "graphics mca internal error"},
+  {ERROR_GRAPHICS_MCA_INVALID_CAPABILITIES_STRING, "graphics mca invalid capabilities string"},
+  {ERROR_GRAPHICS_MCA_INVALID_TECHNOLOGY_TYPE_RETURNED, "graphics mca invalid technology type returned"},
+  {ERROR_GRAPHICS_MCA_INVALID_VCP_VERSION, "graphics mca invalid vcp version"},
+  {ERROR_GRAPHICS_MCA_MCCS_VERSION_MISMATCH, "graphics mca mccs version mismatch"},
+  {ERROR_GRAPHICS_MCA_MONITOR_VIOLATES_MCCS_SPECIFICATION, "graphics mca monitor violates mccs specification"},
+  {ERROR_GRAPHICS_MCA_UNSUPPORTED_COLOR_TEMPERATURE, "graphics mca unsupported color temperature"},
+  {ERROR_GRAPHICS_MCA_UNSUPPORTED_MCCS_VERSION, "graphics mca unsupported mccs version"},
+  {ERROR_GRAPHICS_MIRRORING_DEVICES_NOT_SUPPORTED, "graphics mirroring devices not supported"},
+  {ERROR_GRAPHICS_MODE_ALREADY_IN_MODESET, "graphics mode already in modeset"},
+  {ERROR_GRAPHICS_MODE_ID_MUST_BE_UNIQUE, "graphics mode id must be unique"},
+  {ERROR_GRAPHICS_MODE_NOT_IN_MODESET, "graphics mode not in modeset"},
+  {ERROR_GRAPHICS_MODE_NOT_PINNED, "graphics mode not pinned"},
+  {ERROR_GRAPHICS_MONITOR_COULD_NOT_BE_ASSOCIATED_WITH_ADAPTER, "graphics monitor could not be associated with adapter"},
+  {ERROR_GRAPHICS_MONITOR_NO_LONGER_EXISTS, "graphics monitor no longer exists"},
+  {ERROR_GRAPHICS_MONITOR_NOT_CONNECTED, "graphics monitor not connected"},
+  {ERROR_GRAPHICS_MONITORDESCRIPTOR_ALREADY_IN_SET, "graphics monitordescriptor already in set"},
+  {ERROR_GRAPHICS_MONITORDESCRIPTOR_ID_MUST_BE_UNIQUE, "graphics monitordescriptor id must be unique"},
+  {ERROR_GRAPHICS_MONITORDESCRIPTOR_NOT_IN_SET, "graphics monitordescriptor not in set"},
+  {ERROR_GRAPHICS_MPO_ALLOCATION_UNPINNED, "graphics mpo allocation unpinned"},
+  {ERROR_GRAPHICS_MULTISAMPLING_NOT_SUPPORTED, "graphics multisampling not supported"},
+  {ERROR_GRAPHICS_NO_ACTIVE_VIDPN, "graphics no active vidpn"},
+  {ERROR_GRAPHICS_NO_AVAILABLE_IMPORTANCE_ORDINALS, "graphics no available importance ordinals"},
+  {ERROR_GRAPHICS_NO_AVAILABLE_VIDPN_TARGET, "graphics no available vidpn target"},
+  {ERROR_GRAPHICS_NO_DISPLAY_DEVICE_CORRESPONDS_TO_NAME, "graphics no display device corresponds to name"},
+  {ERROR_GRAPHICS_NO_DISPLAY_MODE_MANAGEMENT_SUPPORT, "graphics no display mode management support"},
+  {ERROR_GRAPHICS_NO_MONITORS_CORRESPOND_TO_DISPLAY_DEVICE, "graphics no monitors correspond to display device"},
+  {ERROR_GRAPHICS_NO_MORE_ELEMENTS_IN_DATASET, "graphics no more elements in dataset"},
+  {ERROR_GRAPHICS_NO_PREFERRED_MODE, "graphics no preferred mode"},
+  {ERROR_GRAPHICS_NO_RECOMMENDED_FUNCTIONAL_VIDPN, "graphics no recommended functional vidpn"},
+  {ERROR_GRAPHICS_NO_RECOMMENDED_VIDPN_TOPOLOGY, "graphics no recommended vidpn topology"},
+  {ERROR_GRAPHICS_NO_VIDEO_MEMORY, "graphics no video memory"},
+  {ERROR_GRAPHICS_NO_VIDPNMGR, "graphics no vidpnmgr"},
+  {ERROR_GRAPHICS_NOT_A_LINKED_ADAPTER, "graphics not a linked adapter"},
+  {ERROR_GRAPHICS_NOT_EXCLUSIVE_MODE_OWNER, "graphics not exclusive mode owner"},
+  {ERROR_GRAPHICS_NOT_POST_DEVICE_DRIVER, "graphics not post device driver"},
+  {ERROR_GRAPHICS_ONLY_CONSOLE_SESSION_SUPPORTED, "graphics only console session supported"},
+  {ERROR_GRAPHICS_OPM_ALL_HDCP_HARDWARE_ALREADY_IN_USE, "graphics opm all hdcp hardware already in use"},
+  {ERROR_GRAPHICS_OPM_DRIVER_INTERNAL_ERROR, "graphics opm driver internal error"},
+  {ERROR_GRAPHICS_OPM_HDCP_SRM_NEVER_SET, "graphics opm hdcp srm never set"},
+  {ERROR_GRAPHICS_OPM_INTERNAL_ERROR, "graphics opm internal error"},
+  {ERROR_GRAPHICS_OPM_INVALID_CONFIGURATION_REQUEST, "graphics opm invalid configuration request"},
+  {ERROR_GRAPHICS_OPM_INVALID_HANDLE, "graphics opm invalid handle"},
+  {ERROR_GRAPHICS_OPM_INVALID_INFORMATION_REQUEST, "graphics opm invalid information request"},
+  {ERROR_GRAPHICS_OPM_INVALID_SRM, "graphics opm invalid srm"},
+  {ERROR_GRAPHICS_OPM_NO_VIDEO_OUTPUTS_EXIST, "graphics opm no video outputs exist"},
+  {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_ACP, "graphics opm output does not support acp"},
+  {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_CGMSA, "graphics opm output does not support cgmsa"},
+  {ERROR_GRAPHICS_OPM_OUTPUT_DOES_NOT_SUPPORT_HDCP, "graphics opm output does not support hdcp"},
+  {ERROR_GRAPHICS_OPM_RESOLUTION_TOO_HIGH, "graphics opm resolution too high"},
+  {ERROR_GRAPHICS_OPM_SESSION_TYPE_CHANGE_IN_PROGRESS, "graphics opm session type change in progress"},
+  {ERROR_GRAPHICS_OPM_SIGNALING_NOT_SUPPORTED, "graphics opm signaling not supported"},
+  {ERROR_GRAPHICS_OPM_SPANNING_MODE_ENABLED, "graphics opm spanning mode enabled"},
+  {ERROR_GRAPHICS_OPM_THEATER_MODE_ENABLED, "graphics opm theater mode enabled"},
+  {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_DOES_NOT_HAVE_COPP_SEMANTICS, "graphics opm video output does not have copp semantics"},
+  {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_DOES_NOT_HAVE_OPM_SEMANTICS, "graphics opm video output does not have opm semantics"},
+  {ERROR_GRAPHICS_OPM_VIDEO_OUTPUT_NO_LONGER_EXISTS, "graphics opm video output no longer exists"},
+  {ERROR_GRAPHICS_PARAMETER_ARRAY_TOO_SMALL, "graphics parameter array too small"},
+  {ERROR_GRAPHICS_PARTIAL_DATA_POPULATED, "graphics partial data populated"},
+  {ERROR_GRAPHICS_PATH_ALREADY_IN_TOPOLOGY, "graphics path already in topology"},
+  {ERROR_GRAPHICS_PATH_CONTENT_GEOMETRY_TRANSFORMATION_NOT_PINNED, "graphics path content geometry transformation not pinned"},
+  {ERROR_GRAPHICS_PATH_CONTENT_GEOMETRY_TRANSFORMATION_NOT_SUPPORTED, "graphics path content geometry transformation not supported"},
+  {ERROR_GRAPHICS_PATH_NOT_IN_TOPOLOGY, "graphics path not in topology"},
+  {ERROR_GRAPHICS_PINNED_MODE_MUST_REMAIN_IN_SET, "graphics pinned mode must remain in set"},
+  {ERROR_GRAPHICS_POLLING_TOO_FREQUENTLY, "graphics polling too frequently"},
+  {ERROR_GRAPHICS_PRESENT_BUFFER_NOT_BOUND, "graphics present buffer not bound"},
+  {ERROR_GRAPHICS_PRESENT_DENIED, "graphics present denied"},
+  {ERROR_GRAPHICS_PRESENT_INVALID_WINDOW, "graphics present invalid window"},
+  {ERROR_GRAPHICS_PRESENT_MODE_CHANGED, "graphics present mode changed"},
+  {ERROR_GRAPHICS_PRESENT_OCCLUDED, "graphics present occluded"},
+  {ERROR_GRAPHICS_PRESENT_REDIRECTION_DISABLED, "graphics present redirection disabled"},
+  {ERROR_GRAPHICS_PRESENT_UNOCCLUDED, "graphics present unoccluded"},
+  {ERROR_GRAPHICS_PVP_HFS_FAILED, "graphics pvp hfs failed"},
+  {ERROR_GRAPHICS_PVP_INVALID_CERTIFICATE_LENGTH, "graphics pvp invalid certificate length"},
+  {ERROR_GRAPHICS_RESOURCES_NOT_RELATED, "graphics resources not related"},
+  {ERROR_GRAPHICS_SESSION_TYPE_CHANGE_IN_PROGRESS, "graphics session type change in progress"},
+  {ERROR_GRAPHICS_SKIP_ALLOCATION_PREPARATION, "graphics skip allocation preparation"},
+  {ERROR_GRAPHICS_SOURCE_ALREADY_IN_SET, "graphics source already in set"},
+  {ERROR_GRAPHICS_SOURCE_ID_MUST_BE_UNIQUE, "graphics source id must be unique"},
+  {ERROR_GRAPHICS_SOURCE_NOT_IN_TOPOLOGY, "graphics source not in topology"},
+  {ERROR_GRAPHICS_STALE_MODESET, "graphics stale modeset"},
+  {ERROR_GRAPHICS_STALE_VIDPN_TOPOLOGY, "graphics stale vidpn topology"},
+  {ERROR_GRAPHICS_START_DEFERRED, "graphics start deferred"},
+  {ERROR_GRAPHICS_TARGET_ALREADY_IN_SET, "graphics target already in set"},
+  {ERROR_GRAPHICS_TARGET_ID_MUST_BE_UNIQUE, "graphics target id must be unique"},
+  {ERROR_GRAPHICS_TARGET_NOT_IN_TOPOLOGY, "graphics target not in topology"},
+  {ERROR_GRAPHICS_TOO_MANY_REFERENCES, "graphics too many references"},
+  {ERROR_GRAPHICS_TOPOLOGY_CHANGES_NOT_ALLOWED, "graphics topology changes not allowed"},
+  {ERROR_GRAPHICS_TRY_AGAIN_LATER, "graphics try again later"},
+  {ERROR_GRAPHICS_TRY_AGAIN_NOW, "graphics try again now"},
+  {ERROR_GRAPHICS_UNASSIGNED_MODESET_ALREADY_EXISTS, "graphics unassigned modeset already exists"},
+  {ERROR_GRAPHICS_UNKNOWN_CHILD_STATUS, "graphics unknown child status"},
+  {ERROR_GRAPHICS_UNSWIZZLING_APERTURE_UNAVAILABLE, "graphics unswizzling aperture unavailable"},
+  {ERROR_GRAPHICS_UNSWIZZLING_APERTURE_UNSUPPORTED, "graphics unswizzling aperture unsupported"},
+  {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_COMPOSITION_WINDOW_DPI_MESSAGE, "graphics vail failed to send composition window dpi message"},
+  {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_CREATE_SUPERWETINK_MESSAGE, "graphics vail failed to send create superwetink message"},
+  {ERROR_GRAPHICS_VAIL_FAILED_TO_SEND_DESTROY_SUPERWETINK_MESSAGE, "graphics vail failed to send destroy superwetink message"},
+  {ERROR_GRAPHICS_VAIL_STATE_CHANGED, "graphics vail state changed"},
+  {ERROR_GRAPHICS_VIDEO_PRESENT_TARGETS_LESS_THAN_SOURCES, "graphics video present targets less than sources"},
+  {ERROR_GRAPHICS_VIDPN_MODALITY_NOT_SUPPORTED, "graphics vidpn modality not supported"},
+  {ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE, "graphics vidpn source in use"},
+  {ERROR_GRAPHICS_VIDPN_TOPOLOGY_CURRENTLY_NOT_SUPPORTED, "graphics vidpn topology currently not supported"},
+  {ERROR_GRAPHICS_VIDPN_TOPOLOGY_NOT_SUPPORTED, "graphics vidpn topology not supported"},
+  {ERROR_GRAPHICS_WINDOWDC_NOT_AVAILABLE, "graphics windowdc not available"},
+  {ERROR_GRAPHICS_WINDOWLESS_PRESENT_DISABLED, "graphics windowless present disabled"},
+  {ERROR_GRAPHICS_WRONG_ALLOCATION_DEVICE, "graphics wrong allocation device"},
+  {ERROR_HUNG_DISPLAY_DRIVER_THREAD, "hung display driver thread"},
+  {ERROR_HV_ACCESS_DENIED, "hv access denied"},
+  {ERROR_HV_ACKNOWLEDGED, "hv acknowledged"},
+  {ERROR_HV_CPUID_FEATURE_VALIDATION, "hv cpuid feature validation"},
+  {ERROR_HV_CPUID_XSAVE_FEATURE_VALIDATION, "hv cpuid xsave feature validation"},
+  {ERROR_HV_DEVICE_NOT_IN_DOMAIN, "hv device not in domain"},
+  {ERROR_HV_EVENT_BUFFER_ALREADY_FREED, "hv event buffer already freed"},
+  {ERROR_HV_FEATURE_UNAVAILABLE, "hv feature unavailable"},
+  {ERROR_HV_INACTIVE, "hv inactive"},
+  {ERROR_HV_INSUFFICIENT_BUFFER, "hv insufficient buffer"},
+  {ERROR_HV_INSUFFICIENT_BUFFERS, "hv insufficient buffers"},
+  {ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY, "hv insufficient contiguous memory"},
+  {ERROR_HV_INSUFFICIENT_CONTIGUOUS_MEMORY_MIRRORING, "hv insufficient contiguous memory mirroring"},
+  {ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY, "hv insufficient contiguous root memory"},
+  {ERROR_HV_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY_MIRRORING, "hv insufficient contiguous root memory mirroring"},
+  {ERROR_HV_INSUFFICIENT_DEVICE_DOMAINS, "hv insufficient device domains"},
+  {ERROR_HV_INSUFFICIENT_MEMORY, "hv insufficient memory"},
+  {ERROR_HV_INSUFFICIENT_MEMORY_MIRRORING, "hv insufficient memory mirroring"},
+  {ERROR_HV_INSUFFICIENT_ROOT_MEMORY, "hv insufficient root memory"},
+  {ERROR_HV_INSUFFICIENT_ROOT_MEMORY_MIRRORING, "hv insufficient root memory mirroring"},
+  {ERROR_HV_INVALID_ALIGNMENT, "hv invalid alignment"},
+  {ERROR_HV_INVALID_CONNECTION_ID, "hv invalid connection id"},
+  {ERROR_HV_INVALID_CPU_GROUP_ID, "hv invalid cpu group id"},
+  {ERROR_HV_INVALID_CPU_GROUP_STATE, "hv invalid cpu group state"},
+  {ERROR_HV_INVALID_DEVICE_ID, "hv invalid device id"},
+  {ERROR_HV_INVALID_DEVICE_STATE, "hv invalid device state"},
+  {ERROR_HV_INVALID_HYPERCALL_CODE, "hv invalid hypercall code"},
+  {ERROR_HV_INVALID_HYPERCALL_INPUT, "hv invalid hypercall input"},
+  {ERROR_HV_INVALID_LP_INDEX, "hv invalid lp index"},
+  {ERROR_HV_INVALID_PARAMETER, "hv invalid parameter"},
+  {ERROR_HV_INVALID_PARTITION_ID, "hv invalid partition id"},
+  {ERROR_HV_INVALID_PARTITION_STATE, "hv invalid partition state"},
+  {ERROR_HV_INVALID_PORT_ID, "hv invalid port id"},
+  {ERROR_HV_INVALID_PROXIMITY_DOMAIN_INFO, "hv invalid proximity domain info"},
+  {ERROR_HV_INVALID_REGISTER_VALUE, "hv invalid register value"},
+  {ERROR_HV_INVALID_SAVE_RESTORE_STATE, "hv invalid save restore state"},
+  {ERROR_HV_INVALID_SYNIC_STATE, "hv invalid synic state"},
+  {ERROR_HV_INVALID_VP_INDEX, "hv invalid vp index"},
+  {ERROR_HV_INVALID_VP_STATE, "hv invalid vp state"},
+  {ERROR_HV_INVALID_VTL_STATE, "hv invalid vtl state"},
+  {ERROR_HV_MSR_ACCESS_FAILED, "hv msr access failed"},
+  {ERROR_HV_NESTED_VM_EXIT, "hv nested vm exit"},
+  {ERROR_HV_NO_DATA, "hv no data"},
+  {ERROR_HV_NO_RESOURCES, "hv no resources"},
+  {ERROR_HV_NOT_ACKNOWLEDGED, "hv not acknowledged"},
+  {ERROR_HV_NOT_ALLOWED_WITH_NESTED_VIRT_ACTIVE, "hv not allowed with nested virt active"},
+  {ERROR_HV_NOT_PRESENT, "hv not present"},
+  {ERROR_HV_NX_NOT_DETECTED, "hv nx not detected"},
+  {ERROR_HV_OBJECT_IN_USE, "hv object in use"},
+  {ERROR_HV_OPERATION_DENIED, "hv operation denied"},
+  {ERROR_HV_OPERATION_FAILED, "hv operation failed"},
+  {ERROR_HV_PAGE_REQUEST_INVALID, "hv page request invalid"},
+  {ERROR_HV_PARTITION_TOO_DEEP, "hv partition too deep"},
+  {ERROR_HV_PENDING_PAGE_REQUESTS, "hv pending page requests"},
+  {ERROR_HV_PROCESSOR_STARTUP_TIMEOUT, "hv processor startup timeout"},
+  {ERROR_HV_PROPERTY_VALUE_OUT_OF_RANGE, "hv property value out of range"},
+  {ERROR_HV_SMX_ENABLED, "hv smx enabled"},
+  {ERROR_HV_UNKNOWN_PROPERTY, "hv unknown property"},
+  {ERROR_IO_PREEMPTED, "io preempted"},
+  {ERROR_MONITOR_INVALID_DESCRIPTOR_CHECKSUM, "monitor invalid descriptor checksum"},
+  {ERROR_MONITOR_INVALID_DETAILED_TIMING_BLOCK, "monitor invalid detailed timing block"},
+  {ERROR_MONITOR_INVALID_MANUFACTURE_DATE, "monitor invalid manufacture date"},
+  {ERROR_MONITOR_INVALID_SERIAL_NUMBER_MONDSC_BLOCK, "monitor invalid serial number mondsc block"},
+  {ERROR_MONITOR_INVALID_STANDARD_TIMING_BLOCK, "monitor invalid standard timing block"},
+  {ERROR_MONITOR_INVALID_USER_FRIENDLY_MONDSC_BLOCK, "monitor invalid user friendly mondsc block"},
+  {ERROR_MONITOR_NO_DESCRIPTOR, "monitor no descriptor"},
+  {ERROR_MONITOR_NO_MORE_DESCRIPTOR_DATA, "monitor no more descriptor data"},
+  {ERROR_MONITOR_UNKNOWN_DESCRIPTOR_FORMAT, "monitor unknown descriptor format"},
+  {ERROR_MONITOR_WMI_DATABLOCK_REGISTRATION_FAILED, "monitor wmi datablock registration failed"},
+  {ERROR_NDIS_ADAPTER_NOT_FOUND, "ndis adapter not found"},
+  {ERROR_NDIS_ADAPTER_NOT_READY, "ndis adapter not ready"},
+  {ERROR_NDIS_ADAPTER_REMOVED, "ndis adapter removed"},
+  {ERROR_NDIS_ALREADY_MAPPED, "ndis already mapped"},
+  {ERROR_NDIS_BAD_CHARACTERISTICS, "ndis bad characteristics"},
+  {ERROR_NDIS_BAD_VERSION, "ndis bad version"},
+  {ERROR_NDIS_BUFFER_TOO_SHORT, "ndis buffer too short"},
+  {ERROR_NDIS_DEVICE_FAILED, "ndis device failed"},
+  {ERROR_NDIS_DOT11_AP_BAND_CURRENTLY_NOT_AVAILABLE, "ndis dot11 ap band currently not available"},
+  {ERROR_NDIS_DOT11_AP_BAND_NOT_ALLOWED, "ndis dot11 ap band not allowed"},
+  {ERROR_NDIS_DOT11_AP_CHANNEL_CURRENTLY_NOT_AVAILABLE, "ndis dot11 ap channel currently not available"},
+  {ERROR_NDIS_DOT11_AP_CHANNEL_NOT_ALLOWED, "ndis dot11 ap channel not allowed"},
+  {ERROR_NDIS_DOT11_AUTO_CONFIG_ENABLED, "ndis dot11 auto config enabled"},
+  {ERROR_NDIS_DOT11_MEDIA_IN_USE, "ndis dot11 media in use"},
+  {ERROR_NDIS_DOT11_POWER_STATE_INVALID, "ndis dot11 power state invalid"},
+  {ERROR_NDIS_ERROR_READING_FILE, "ndis error reading file"},
+  {ERROR_NDIS_FILE_NOT_FOUND, "ndis file not found"},
+  {ERROR_NDIS_GROUP_ADDRESS_IN_USE, "ndis group address in use"},
+  {ERROR_NDIS_INDICATION_REQUIRED, "ndis indication required"},
+  {ERROR_NDIS_INTERFACE_CLOSING, "ndis interface closing"},
+  {ERROR_NDIS_INTERFACE_NOT_FOUND, "ndis interface not found"},
+  {ERROR_NDIS_INVALID_ADDRESS, "ndis invalid address"},
+  {ERROR_NDIS_INVALID_DATA, "ndis invalid data"},
+  {ERROR_NDIS_INVALID_DEVICE_REQUEST, "ndis invalid device request"},
+  {ERROR_NDIS_INVALID_LENGTH, "ndis invalid length"},
+  {ERROR_NDIS_INVALID_OID, "ndis invalid oid"},
+  {ERROR_NDIS_INVALID_PACKET, "ndis invalid packet"},
+  {ERROR_NDIS_INVALID_PORT, "ndis invalid port"},
+  {ERROR_NDIS_INVALID_PORT_STATE, "ndis invalid port state"},
+  {ERROR_NDIS_LOW_POWER_STATE, "ndis low power state"},
+  {ERROR_NDIS_MEDIA_DISCONNECTED, "ndis media disconnected"},
+  {ERROR_NDIS_MULTICAST_EXISTS, "ndis multicast exists"},
+  {ERROR_NDIS_MULTICAST_FULL, "ndis multicast full"},
+  {ERROR_NDIS_MULTICAST_NOT_FOUND, "ndis multicast not found"},
+  {ERROR_NDIS_NO_QUEUES, "ndis no queues"},
+  {ERROR_NDIS_NOT_SUPPORTED, "ndis not supported"},
+  {ERROR_NDIS_OFFLOAD_CONNECTION_REJECTED, "ndis offload connection rejected"},
+  {ERROR_NDIS_OFFLOAD_PATH_REJECTED, "ndis offload path rejected"},
+  {ERROR_NDIS_OFFLOAD_POLICY, "ndis offload policy"},
+  {ERROR_NDIS_OPEN_FAILED, "ndis open failed"},
+  {ERROR_NDIS_PAUSED, "ndis paused"},
+  {ERROR_NDIS_PM_PROTOCOL_OFFLOAD_LIST_FULL, "ndis pm protocol offload list full"},
+  {ERROR_NDIS_PM_WOL_PATTERN_LIST_FULL, "ndis pm wol pattern list full"},
+  {ERROR_NDIS_REINIT_REQUIRED, "ndis reinit required"},
+  {ERROR_NDIS_REQUEST_ABORTED, "ndis request aborted"},
+  {ERROR_NDIS_RESET_IN_PROGRESS, "ndis reset in progress"},
+  {ERROR_NDIS_RESOURCE_CONFLICT, "ndis resource conflict"},
+  {ERROR_NDIS_UNSUPPORTED_MEDIA, "ndis unsupported media"},
+  {ERROR_NDIS_UNSUPPORTED_REVISION, "ndis unsupported revision"},
+  {ERROR_NO_APPLICABLE_APP_LICENSES_FOUND, "no applicable app licenses found"},
+  {ERROR_NOT_A_TIERED_VOLUME, "not a tiered volume"},
+  {ERROR_QUERY_STORAGE_ERROR, "query storage error"},
+  {ERROR_QUIC_ALPN_IN_USE, "quic alpn in use"},
+  {ERROR_QUIC_ALPN_NEG_FAILURE, "quic alpn neg failure"},
+  {ERROR_QUIC_CONNECTION_IDLE, "quic connection idle"},
+  {ERROR_QUIC_CONNECTION_TIMEOUT, "quic connection timeout"},
+  {ERROR_QUIC_HANDSHAKE_FAILURE, "quic handshake failure"},
+  {ERROR_QUIC_INTERNAL_ERROR, "quic internal error"},
+  {ERROR_QUIC_PROTOCOL_VIOLATION, "quic protocol violation"},
+  {ERROR_QUIC_STREAM_LIMIT_REACHED, "quic stream limit reached"},
+  {ERROR_QUIC_TLS_ACCESS_DENIED, "quic tls access denied"},
+  {ERROR_QUIC_TLS_BAD_CERTIFICATE, "quic tls bad certificate"},
+  {ERROR_QUIC_TLS_CERTIFICATE_EXPIRED, "quic tls certificate expired"},
+  {ERROR_QUIC_TLS_CERTIFICATE_REQUIRED, "quic tls certificate required"},
+  {ERROR_QUIC_TLS_CERTIFICATE_REVOKED, "quic tls certificate revoked"},
+  {ERROR_QUIC_TLS_CERTIFICATE_UNKNOWN, "quic tls certificate unknown"},
+  {ERROR_QUIC_TLS_ILLEGAL_PARAMETER, "quic tls illegal parameter"},
+  {ERROR_QUIC_TLS_INSUFFICIENT_SECURITY, "quic tls insufficient security"},
+  {ERROR_QUIC_TLS_INTERNAL_ERROR, "quic tls internal error"},
+  {ERROR_QUIC_TLS_UNEXPECTED_MESSAGE, "quic tls unexpected message"},
+  {ERROR_QUIC_TLS_UNKNOWN_CA, "quic tls unknown ca"},
+  {ERROR_QUIC_TLS_UNSUPPORTED_CERTIFICATE, "quic tls unsupported certificate"},
+  {ERROR_QUIC_TLS_USER_CANCELED, "quic tls user canceled"},
+  {ERROR_QUIC_USER_CANCELED, "quic user canceled"},
+  {ERROR_QUIC_VER_NEG_FAILURE, "quic ver neg failure"},
+  {ERROR_SECCORE_INVALID_COMMAND, "seccore invalid command"},
+  {ERROR_SMB_BAD_CLUSTER_DIALECT, "smb bad cluster dialect"},
+  {ERROR_SMB_CERT_NO_PRIVATE_KEY, "smb cert no private key"},
+  {ERROR_SMB_NO_PREAUTH_INTEGRITY_HASH_OVERLAP, "smb no preauth integrity hash overlap"},
+  {ERROR_SMB_NO_SIGNING_ALGORITHM_OVERLAP, "smb no signing algorithm overlap"},
+  {ERROR_SMB_TLS_ACCESS_DENIED, "smb tls access denied"},
+  {ERROR_SPACES_ALLOCATION_SIZE_INVALID, "spaces allocation size invalid"},
+  {ERROR_SPACES_CACHE_FULL, "spaces cache full"},
+  {ERROR_SPACES_CORRUPT_METADATA, "spaces corrupt metadata"},
+  {ERROR_SPACES_DRIVE_LOST_DATA, "spaces drive lost data"},
+  {ERROR_SPACES_DRIVE_NOT_READY, "spaces drive not ready"},
+  {ERROR_SPACES_DRIVE_OPERATIONAL_STATE_INVALID, "spaces drive operational state invalid"},
+  {ERROR_SPACES_DRIVE_REDUNDANCY_INVALID, "spaces drive redundancy invalid"},
+  {ERROR_SPACES_DRIVE_SECTOR_SIZE_INVALID, "spaces drive sector size invalid"},
+  {ERROR_SPACES_DRIVE_SPLIT, "spaces drive split"},
+  {ERROR_SPACES_DRT_FULL, "spaces drt full"},
+  {ERROR_SPACES_ENCLOSURE_AWARE_INVALID, "spaces enclosure aware invalid"},
+  {ERROR_SPACES_ENTRY_INCOMPLETE, "spaces entry incomplete"},
+  {ERROR_SPACES_ENTRY_INVALID, "spaces entry invalid"},
+  {ERROR_SPACES_EXTENDED_ERROR, "spaces extended error"},
+  {ERROR_SPACES_FAULT_DOMAIN_TYPE_INVALID, "spaces fault domain type invalid"},
+  {ERROR_SPACES_FLUSH_METADATA, "spaces flush metadata"},
+  {ERROR_SPACES_INCONSISTENCY, "spaces inconsistency"},
+  {ERROR_SPACES_INTERLEAVE_LENGTH_INVALID, "spaces interleave length invalid"},
+  {ERROR_SPACES_INTERNAL_ERROR, "spaces internal error"},
+  {ERROR_SPACES_LOG_NOT_READY, "spaces log not ready"},
+  {ERROR_SPACES_MAP_REQUIRED, "spaces map required"},
+  {ERROR_SPACES_MARK_DIRTY, "spaces mark dirty"},
+  {ERROR_SPACES_NO_REDUNDANCY, "spaces no redundancy"},
+  {ERROR_SPACES_NOT_ENOUGH_DRIVES, "spaces not enough drives"},
+  {ERROR_SPACES_NUMBER_OF_COLUMNS_INVALID, "spaces number of columns invalid"},
+  {ERROR_SPACES_NUMBER_OF_DATA_COPIES_INVALID, "spaces number of data copies invalid"},
+  {ERROR_SPACES_NUMBER_OF_GROUPS_INVALID, "spaces number of groups invalid"},
+  {ERROR_SPACES_PARITY_LAYOUT_INVALID, "spaces parity layout invalid"},
+  {ERROR_SPACES_POOL_WAS_DELETED, "spaces pool was deleted"},
+  {ERROR_SPACES_PROVISIONING_TYPE_INVALID, "spaces provisioning type invalid"},
+  {ERROR_SPACES_REPAIR_IN_PROGRESS, "spaces repair in progress"},
+  {ERROR_SPACES_RESILIENCY_TYPE_INVALID, "spaces resiliency type invalid"},
+  {ERROR_SPACES_UNSUPPORTED_VERSION, "spaces unsupported version"},
+  {ERROR_SPACES_UPDATE_COLUMN_STATE, "spaces update column state"},
+  {ERROR_SPACES_WRITE_CACHE_SIZE_INVALID, "spaces write cache size invalid"},
+  {ERROR_SVHDX_ERROR_NOT_AVAILABLE, "svhdx error not available"},
+  {ERROR_SVHDX_ERROR_STORED, "svhdx error stored"},
+  {ERROR_SVHDX_NO_INITIATOR, "svhdx no initiator"},
+  {ERROR_SVHDX_RESERVATION_CONFLICT, "svhdx reservation conflict"},
+  {ERROR_SVHDX_UNIT_ATTENTION_AVAILABLE, "svhdx unit attention available"},
+  {ERROR_SVHDX_UNIT_ATTENTION_CAPACITY_DATA_CHANGED, "svhdx unit attention capacity data changed"},
+  {ERROR_SVHDX_UNIT_ATTENTION_OPERATING_DEFINITION_CHANGED, "svhdx unit attention operating definition changed"},
+  {ERROR_SVHDX_UNIT_ATTENTION_REGISTRATIONS_PREEMPTED, "svhdx unit attention registrations preempted"},
+  {ERROR_SVHDX_UNIT_ATTENTION_RESERVATIONS_PREEMPTED, "svhdx unit attention reservations preempted"},
+  {ERROR_SVHDX_UNIT_ATTENTION_RESERVATIONS_RELEASED, "svhdx unit attention reservations released"},
+  {ERROR_SVHDX_VERSION_MISMATCH, "svhdx version mismatch"},
+  {ERROR_SVHDX_WRONG_FILE_TYPE, "svhdx wrong file type"},
+  {ERROR_TIERING_ALREADY_PROCESSING, "tiering already processing"},
+  {ERROR_TIERING_CANNOT_PIN_OBJECT, "tiering cannot pin object"},
+  {ERROR_TIERING_FILE_IS_NOT_PINNED, "tiering file is not pinned"},
+  {ERROR_TIERING_INVALID_FILE_ID, "tiering invalid file id"},
+  {ERROR_TIERING_NOT_SUPPORTED_ON_VOLUME, "tiering not supported on volume"},
+  {ERROR_TIERING_STORAGE_TIER_NOT_FOUND, "tiering storage tier not found"},
+  {ERROR_TIERING_VOLUME_DISMOUNT_IN_PROGRESS, "tiering volume dismount in progress"},
+  {ERROR_TIERING_WRONG_CLUSTER_NODE, "tiering wrong cluster node"},
+  {ERROR_VHD_ALREADY_AT_OR_BELOW_MINIMUM_VIRTUAL_SIZE, "vhd already at or below minimum virtual size"},
+  {ERROR_VHD_BITMAP_MISMATCH, "vhd bitmap mismatch"},
+  {ERROR_VHD_BLOCK_ALLOCATION_FAILURE, "vhd block allocation failure"},
+  {ERROR_VHD_BLOCK_ALLOCATION_TABLE_CORRUPT, "vhd block allocation table corrupt"},
+  {ERROR_VHD_CHANGE_TRACKING_DISABLED, "vhd change tracking disabled"},
+  {ERROR_VHD_CHILD_PARENT_ID_MISMATCH, "vhd child parent id mismatch"},
+  {ERROR_VHD_CHILD_PARENT_SIZE_MISMATCH, "vhd child parent size mismatch"},
+  {ERROR_VHD_CHILD_PARENT_TIMESTAMP_MISMATCH, "vhd child parent timestamp mismatch"},
+  {ERROR_VHD_COULD_NOT_COMPUTE_MINIMUM_VIRTUAL_SIZE, "vhd could not compute minimum virtual size"},
+  {ERROR_VHD_DIFFERENCING_CHAIN_CYCLE_DETECTED, "vhd differencing chain cycle detected"},
+  {ERROR_VHD_DIFFERENCING_CHAIN_ERROR_IN_PARENT, "vhd differencing chain error in parent"},
+  {ERROR_VHD_DRIVE_FOOTER_CHECKSUM_MISMATCH, "vhd drive footer checksum mismatch"},
+  {ERROR_VHD_DRIVE_FOOTER_CORRUPT, "vhd drive footer corrupt"},
+  {ERROR_VHD_DRIVE_FOOTER_MISSING, "vhd drive footer missing"},
+  {ERROR_VHD_FORMAT_UNKNOWN, "vhd format unknown"},
+  {ERROR_VHD_FORMAT_UNSUPPORTED_VERSION, "vhd format unsupported version"},
+  {ERROR_VHD_INVALID_BLOCK_SIZE, "vhd invalid block size"},
+  {ERROR_VHD_INVALID_CHANGE_TRACKING_ID, "vhd invalid change tracking id"},
+  {ERROR_VHD_INVALID_FILE_SIZE, "vhd invalid file size"},
+  {ERROR_VHD_INVALID_SIZE, "vhd invalid size"},
+  {ERROR_VHD_INVALID_STATE, "vhd invalid state"},
+  {ERROR_VHD_INVALID_TYPE, "vhd invalid type"},
+  {ERROR_VHD_METADATA_FULL, "vhd metadata full"},
+  {ERROR_VHD_METADATA_READ_FAILURE, "vhd metadata read failure"},
+  {ERROR_VHD_METADATA_WRITE_FAILURE, "vhd metadata write failure"},
+  {ERROR_VHD_MISSING_CHANGE_TRACKING_INFORMATION, "vhd missing change tracking information"},
+  {ERROR_VHD_PARENT_VHD_ACCESS_DENIED, "vhd parent vhd access denied"},
+  {ERROR_VHD_PARENT_VHD_NOT_FOUND, "vhd parent vhd not found"},
+  {ERROR_VHD_RESIZE_WOULD_TRUNCATE_DATA, "vhd resize would truncate data"},
+  {ERROR_VHD_SHARED, "vhd shared"},
+  {ERROR_VHD_SPARSE_HEADER_CHECKSUM_MISMATCH, "vhd sparse header checksum mismatch"},
+  {ERROR_VHD_SPARSE_HEADER_CORRUPT, "vhd sparse header corrupt"},
+  {ERROR_VHD_SPARSE_HEADER_UNSUPPORTED_VERSION, "vhd sparse header unsupported version"},
+  {ERROR_VHD_UNEXPECTED_ID, "vhd unexpected id"},
+  {ERROR_VHDSET_BACKING_STORAGE_NOT_FOUND, "vhdset backing storage not found"},
+  {ERROR_VID_CHILD_GPA_PAGE_SET_CORRUPTED, "vid child gpa page set corrupted"},
+  {ERROR_VID_DUPLICATE_HANDLER, "vid duplicate handler"},
+  {ERROR_VID_EXCEEDED_KM_CONTEXT_COUNT_LIMIT, "vid exceeded km context count limit"},
+  {ERROR_VID_EXCEEDED_MBP_ENTRY_MAP_LIMIT, "vid exceeded mbp entry map limit"},
+  {ERROR_VID_HANDLER_NOT_PRESENT, "vid handler not present"},
+  {ERROR_VID_INSUFFICIENT_RESOURCES_HV_DEPOSIT, "vid insufficient resources hv deposit"},
+  {ERROR_VID_INSUFFICIENT_RESOURCES_PHYSICAL_BUFFER, "vid insufficient resources physical buffer"},
+  {ERROR_VID_INSUFFICIENT_RESOURCES_RESERVE, "vid insufficient resources reserve"},
+  {ERROR_VID_INSUFFICIENT_RESOURCES_WITHDRAW, "vid insufficient resources withdraw"},
+  {ERROR_VID_INVALID_CHILD_GPA_PAGE_SET, "vid invalid child gpa page set"},
+  {ERROR_VID_INVALID_GPA_RANGE_HANDLE, "vid invalid gpa range handle"},
+  {ERROR_VID_INVALID_MEMORY_BLOCK_HANDLE, "vid invalid memory block handle"},
+  {ERROR_VID_INVALID_MESSAGE_QUEUE_HANDLE, "vid invalid message queue handle"},
+  {ERROR_VID_INVALID_NUMA_NODE_INDEX, "vid invalid numa node index"},
+  {ERROR_VID_INVALID_NUMA_SETTINGS, "vid invalid numa settings"},
+  {ERROR_VID_INVALID_OBJECT_NAME, "vid invalid object name"},
+  {ERROR_VID_INVALID_PPM_HANDLE, "vid invalid ppm handle"},
+  {ERROR_VID_INVALID_PROCESSOR_STATE, "vid invalid processor state"},
+  {ERROR_VID_KM_INTERFACE_ALREADY_INITIALIZED, "vid km interface already initialized"},
+  {ERROR_VID_MB_PROPERTY_ALREADY_SET_RESET, "vid mb property already set reset"},
+  {ERROR_VID_MB_STILL_REFERENCED, "vid mb still referenced"},
+  {ERROR_VID_MBP_ALREADY_LOCKED_USING_RESERVED_PAGE, "vid mbp already locked using reserved page"},
+  {ERROR_VID_MBP_COUNT_EXCEEDED_LIMIT, "vid mbp count exceeded limit"},
+  {ERROR_VID_MBPS_ARE_LOCKED, "vid mbps are locked"},
+  {ERROR_VID_MEMORY_BLOCK_LOCK_COUNT_EXCEEDED, "vid memory block lock count exceeded"},
+  {ERROR_VID_MEMORY_TYPE_NOT_SUPPORTED, "vid memory type not supported"},
+  {ERROR_VID_MESSAGE_QUEUE_ALREADY_EXISTS, "vid message queue already exists"},
+  {ERROR_VID_MESSAGE_QUEUE_CLOSED, "vid message queue closed"},
+  {ERROR_VID_MESSAGE_QUEUE_NAME_TOO_LONG, "vid message queue name too long"},
+  {ERROR_VID_MMIO_RANGE_DESTROYED, "vid mmio range destroyed"},
+  {ERROR_VID_NO_MEMORY_BLOCK_NOTIFICATION_QUEUE, "vid no memory block notification queue"},
+  {ERROR_VID_NOTIFICATION_QUEUE_ALREADY_ASSOCIATED, "vid notification queue already associated"},
+  {ERROR_VID_PAGE_RANGE_OVERFLOW, "vid page range overflow"},
+  {ERROR_VID_PARTITION_ALREADY_EXISTS, "vid partition already exists"},
+  {ERROR_VID_PARTITION_DOES_NOT_EXIST, "vid partition does not exist"},
+  {ERROR_VID_PARTITION_NAME_NOT_FOUND, "vid partition name not found"},
+  {ERROR_VID_PARTITION_NAME_TOO_LONG, "vid partition name too long"},
+  {ERROR_VID_PROCESS_ALREADY_SET, "vid process already set"},
+  {ERROR_VID_QUEUE_FULL, "vid queue full"},
+  {ERROR_VID_REMOTE_NODE_PARENT_GPA_PAGES_USED, "vid remote node parent gpa pages used"},
+  {ERROR_VID_RESERVE_PAGE_SET_IS_BEING_USED, "vid reserve page set is being used"},
+  {ERROR_VID_RESERVE_PAGE_SET_TOO_SMALL, "vid reserve page set too small"},
+  {ERROR_VID_SAVED_STATE_CORRUPT, "vid saved state corrupt"},
+  {ERROR_VID_SAVED_STATE_INCOMPATIBLE, "vid saved state incompatible"},
+  {ERROR_VID_SAVED_STATE_UNRECOGNIZED_ITEM, "vid saved state unrecognized item"},
+  {ERROR_VID_STOP_PENDING, "vid stop pending"},
+  {ERROR_VID_TOO_MANY_HANDLERS, "vid too many handlers"},
+  {ERROR_VID_VIRTUAL_PROCESSOR_LIMIT_EXCEEDED, "vid virtual processor limit exceeded"},
+  {ERROR_VID_VTL_ACCESS_DENIED, "vid vtl access denied"},
+  {ERROR_VIRTDISK_DISK_ALREADY_OWNED, "virtdisk disk already owned"},
+  {ERROR_VIRTDISK_DISK_ONLINE_AND_WRITABLE, "virtdisk disk online and writable"},
+  {ERROR_VIRTDISK_NOT_VIRTUAL_DISK, "virtdisk not virtual disk"},
+  {ERROR_VIRTDISK_PROVIDER_NOT_FOUND, "virtdisk provider not found"},
+  {ERROR_VIRTDISK_UNSUPPORTED_DISK_SECTOR_SIZE, "virtdisk unsupported disk sector size"},
+  {ERROR_VIRTUAL_DISK_LIMITATION, "virtual disk limitation"},
+  {ERROR_VMCOMPUTE_CONNECT_FAILED, "vmcompute connect failed"},
+  {ERROR_VMCOMPUTE_CONNECTION_CLOSED, "vmcompute connection closed"},
+  {ERROR_VMCOMPUTE_HYPERV_NOT_INSTALLED, "vmcompute hyperv not installed"},
+  {ERROR_VMCOMPUTE_IMAGE_MISMATCH, "vmcompute image mismatch"},
+  {ERROR_VMCOMPUTE_INVALID_JSON, "vmcompute invalid json"},
+  {ERROR_VMCOMPUTE_INVALID_LAYER, "vmcompute invalid layer"},
+  {ERROR_VMCOMPUTE_INVALID_STATE, "vmcompute invalid state"},
+  {ERROR_VMCOMPUTE_OPERATION_PENDING, "vmcompute operation pending"},
+  {ERROR_VMCOMPUTE_PROTOCOL_ERROR, "vmcompute protocol error"},
+  {ERROR_VMCOMPUTE_SYSTEM_ALREADY_EXISTS, "vmcompute system already exists"},
+  {ERROR_VMCOMPUTE_SYSTEM_ALREADY_STOPPED, "vmcompute system already stopped"},
+  {ERROR_VMCOMPUTE_SYSTEM_NOT_FOUND, "vmcompute system not found"},
+  {ERROR_VMCOMPUTE_TERMINATED, "vmcompute terminated"},
+  {ERROR_VMCOMPUTE_TERMINATED_DURING_START, "vmcompute terminated during start"},
+  {ERROR_VMCOMPUTE_TIMEOUT, "vmcompute timeout"},
+  {ERROR_VMCOMPUTE_TOO_MANY_NOTIFICATIONS, "vmcompute too many notifications"},
+  {ERROR_VMCOMPUTE_UNEXPECTED_EXIT, "vmcompute unexpected exit"},
+  {ERROR_VMCOMPUTE_UNKNOWN_MESSAGE, "vmcompute unknown message"},
+  {ERROR_VMCOMPUTE_UNSUPPORTED_PROTOCOL_VERSION, "vmcompute unsupported protocol version"},
+  {ERROR_VMCOMPUTE_WINDOWS_INSIDER_REQUIRED, "vmcompute windows insider required"},
+  {ERROR_VNET_VIRTUAL_SWITCH_NAME_NOT_FOUND, "vnet virtual switch name not found"},
+  {ERROR_VOLMGR_ALL_DISKS_FAILED, "volmgr all disks failed"},
+  {ERROR_VOLMGR_BAD_BOOT_DISK, "volmgr bad boot disk"},
+  {ERROR_VOLMGR_DATABASE_FULL, "volmgr database full"},
+  {ERROR_VOLMGR_DIFFERENT_SECTOR_SIZE, "volmgr different sector size"},
+  {ERROR_VOLMGR_DISK_CONFIGURATION_CORRUPTED, "volmgr disk configuration corrupted"},
+  {ERROR_VOLMGR_DISK_CONFIGURATION_NOT_IN_SYNC, "volmgr disk configuration not in sync"},
+  {ERROR_VOLMGR_DISK_CONTAINS_NON_SIMPLE_VOLUME, "volmgr disk contains non simple volume"},
+  {ERROR_VOLMGR_DISK_DUPLICATE, "volmgr disk duplicate"},
+  {ERROR_VOLMGR_DISK_DYNAMIC, "volmgr disk dynamic"},
+  {ERROR_VOLMGR_DISK_ID_INVALID, "volmgr disk id invalid"},
+  {ERROR_VOLMGR_DISK_INVALID, "volmgr disk invalid"},
+  {ERROR_VOLMGR_DISK_LAST_VOTER, "volmgr disk last voter"},
+  {ERROR_VOLMGR_DISK_LAYOUT_INVALID, "volmgr disk layout invalid"},
+  {ERROR_VOLMGR_DISK_LAYOUT_NON_BASIC_BETWEEN_BASIC_PARTITIONS, "volmgr disk layout non basic between basic partitions"},
+  {ERROR_VOLMGR_DISK_LAYOUT_NOT_CYLINDER_ALIGNED, "volmgr disk layout not cylinder aligned"},
+  {ERROR_VOLMGR_DISK_LAYOUT_PARTITIONS_TOO_SMALL, "volmgr disk layout partitions too small"},
+  {ERROR_VOLMGR_DISK_LAYOUT_PRIMARY_BETWEEN_LOGICAL_PARTITIONS, "volmgr disk layout primary between logical partitions"},
+  {ERROR_VOLMGR_DISK_LAYOUT_TOO_MANY_PARTITIONS, "volmgr disk layout too many partitions"},
+  {ERROR_VOLMGR_DISK_MISSING, "volmgr disk missing"},
+  {ERROR_VOLMGR_DISK_NOT_EMPTY, "volmgr disk not empty"},
+  {ERROR_VOLMGR_DISK_NOT_ENOUGH_SPACE, "volmgr disk not enough space"},
+  {ERROR_VOLMGR_DISK_REVECTORING_FAILED, "volmgr disk revectoring failed"},
+  {ERROR_VOLMGR_DISK_SECTOR_SIZE_INVALID, "volmgr disk sector size invalid"},
+  {ERROR_VOLMGR_DISK_SET_NOT_CONTAINED, "volmgr disk set not contained"},
+  {ERROR_VOLMGR_DISK_USED_BY_MULTIPLE_MEMBERS, "volmgr disk used by multiple members"},
+  {ERROR_VOLMGR_DISK_USED_BY_MULTIPLE_PLEXES, "volmgr disk used by multiple plexes"},
+  {ERROR_VOLMGR_DYNAMIC_DISK_NOT_SUPPORTED, "volmgr dynamic disk not supported"},
+  {ERROR_VOLMGR_EXTENT_ALREADY_USED, "volmgr extent already used"},
+  {ERROR_VOLMGR_EXTENT_NOT_CONTIGUOUS, "volmgr extent not contiguous"},
+  {ERROR_VOLMGR_EXTENT_NOT_IN_PUBLIC_REGION, "volmgr extent not in public region"},
+  {ERROR_VOLMGR_EXTENT_NOT_SECTOR_ALIGNED, "volmgr extent not sector aligned"},
+  {ERROR_VOLMGR_EXTENT_OVERLAPS_EBR_PARTITION, "volmgr extent overlaps ebr partition"},
+  {ERROR_VOLMGR_EXTENT_VOLUME_LENGTHS_DO_NOT_MATCH, "volmgr extent volume lengths do not match"},
+  {ERROR_VOLMGR_FAULT_TOLERANT_NOT_SUPPORTED, "volmgr fault tolerant not supported"},
+  {ERROR_VOLMGR_INCOMPLETE_DISK_MIGRATION, "volmgr incomplete disk migration"},
+  {ERROR_VOLMGR_INCOMPLETE_REGENERATION, "volmgr incomplete regeneration"},
+  {ERROR_VOLMGR_INTERLEAVE_LENGTH_INVALID, "volmgr interleave length invalid"},
+  {ERROR_VOLMGR_MAXIMUM_REGISTERED_USERS, "volmgr maximum registered users"},
+  {ERROR_VOLMGR_MEMBER_IN_SYNC, "volmgr member in sync"},
+  {ERROR_VOLMGR_MEMBER_INDEX_DUPLICATE, "volmgr member index duplicate"},
+  {ERROR_VOLMGR_MEMBER_INDEX_INVALID, "volmgr member index invalid"},
+  {ERROR_VOLMGR_MEMBER_MISSING, "volmgr member missing"},
+  {ERROR_VOLMGR_MEMBER_NOT_DETACHED, "volmgr member not detached"},
+  {ERROR_VOLMGR_MEMBER_REGENERATING, "volmgr member regenerating"},
+  {ERROR_VOLMGR_MIRROR_NOT_SUPPORTED, "volmgr mirror not supported"},
+  {ERROR_VOLMGR_NO_REGISTERED_USERS, "volmgr no registered users"},
+  {ERROR_VOLMGR_NO_SUCH_USER, "volmgr no such user"},
+  {ERROR_VOLMGR_NO_VALID_LOG_COPIES, "volmgr no valid log copies"},
+  {ERROR_VOLMGR_NOT_PRIMARY_PACK, "volmgr not primary pack"},
+  {ERROR_VOLMGR_NOTIFICATION_RESET, "volmgr notification reset"},
+  {ERROR_VOLMGR_NUMBER_OF_DISKS_IN_MEMBER_INVALID, "volmgr number of disks in member invalid"},
+  {ERROR_VOLMGR_NUMBER_OF_DISKS_IN_PLEX_INVALID, "volmgr number of disks in plex invalid"},
+  {ERROR_VOLMGR_NUMBER_OF_DISKS_INVALID, "volmgr number of disks invalid"},
+  {ERROR_VOLMGR_NUMBER_OF_EXTENTS_INVALID, "volmgr number of extents invalid"},
+  {ERROR_VOLMGR_NUMBER_OF_MEMBERS_INVALID, "volmgr number of members invalid"},
+  {ERROR_VOLMGR_NUMBER_OF_PLEXES_INVALID, "volmgr number of plexes invalid"},
+  {ERROR_VOLMGR_PACK_CONFIG_OFFLINE, "volmgr pack config offline"},
+  {ERROR_VOLMGR_PACK_CONFIG_ONLINE, "volmgr pack config online"},
+  {ERROR_VOLMGR_PACK_CONFIG_UPDATE_FAILED, "volmgr pack config update failed"},
+  {ERROR_VOLMGR_PACK_DUPLICATE, "volmgr pack duplicate"},
+  {ERROR_VOLMGR_PACK_HAS_QUORUM, "volmgr pack has quorum"},
+  {ERROR_VOLMGR_PACK_ID_INVALID, "volmgr pack id invalid"},
+  {ERROR_VOLMGR_PACK_INVALID, "volmgr pack invalid"},
+  {ERROR_VOLMGR_PACK_LOG_UPDATE_FAILED, "volmgr pack log update failed"},
+  {ERROR_VOLMGR_PACK_NAME_INVALID, "volmgr pack name invalid"},
+  {ERROR_VOLMGR_PACK_OFFLINE, "volmgr pack offline"},
+  {ERROR_VOLMGR_PACK_WITHOUT_QUORUM, "volmgr pack without quorum"},
+  {ERROR_VOLMGR_PARTITION_STYLE_INVALID, "volmgr partition style invalid"},
+  {ERROR_VOLMGR_PARTITION_UPDATE_FAILED, "volmgr partition update failed"},
+  {ERROR_VOLMGR_PLEX_IN_SYNC, "volmgr plex in sync"},
+  {ERROR_VOLMGR_PLEX_INDEX_DUPLICATE, "volmgr plex index duplicate"},
+  {ERROR_VOLMGR_PLEX_INDEX_INVALID, "volmgr plex index invalid"},
+  {ERROR_VOLMGR_PLEX_LAST_ACTIVE, "volmgr plex last active"},
+  {ERROR_VOLMGR_PLEX_MISSING, "volmgr plex missing"},
+  {ERROR_VOLMGR_PLEX_NOT_RAID5, "volmgr plex not raid5"},
+  {ERROR_VOLMGR_PLEX_NOT_SIMPLE, "volmgr plex not simple"},
+  {ERROR_VOLMGR_PLEX_NOT_SIMPLE_SPANNED, "volmgr plex not simple spanned"},
+  {ERROR_VOLMGR_PLEX_REGENERATING, "volmgr plex regenerating"},
+  {ERROR_VOLMGR_PLEX_TYPE_INVALID, "volmgr plex type invalid"},
+  {ERROR_VOLMGR_PRIMARY_PACK_PRESENT, "volmgr primary pack present"},
+  {ERROR_VOLMGR_RAID5_NOT_SUPPORTED, "volmgr raid5 not supported"},
+  {ERROR_VOLMGR_STRUCTURE_SIZE_INVALID, "volmgr structure size invalid"},
+  {ERROR_VOLMGR_TOO_MANY_NOTIFICATION_REQUESTS, "volmgr too many notification requests"},
+  {ERROR_VOLMGR_TRANSACTION_IN_PROGRESS, "volmgr transaction in progress"},
+  {ERROR_VOLMGR_UNEXPECTED_DISK_LAYOUT_CHANGE, "volmgr unexpected disk layout change"},
+  {ERROR_VOLMGR_VOLUME_CONTAINS_MISSING_DISK, "volmgr volume contains missing disk"},
+  {ERROR_VOLMGR_VOLUME_ID_INVALID, "volmgr volume id invalid"},
+  {ERROR_VOLMGR_VOLUME_LENGTH_INVALID, "volmgr volume length invalid"},
+  {ERROR_VOLMGR_VOLUME_LENGTH_NOT_SECTOR_SIZE_MULTIPLE, "volmgr volume length not sector size multiple"},
+  {ERROR_VOLMGR_VOLUME_MIRRORED, "volmgr volume mirrored"},
+  {ERROR_VOLMGR_VOLUME_NOT_MIRRORED, "volmgr volume not mirrored"},
+  {ERROR_VOLMGR_VOLUME_NOT_RETAINED, "volmgr volume not retained"},
+  {ERROR_VOLMGR_VOLUME_OFFLINE, "volmgr volume offline"},
+  {ERROR_VOLMGR_VOLUME_RETAINED, "volmgr volume retained"},
+  {ERROR_VOLSNAP_ACTIVATION_TIMEOUT, "volsnap activation timeout"},
+  {ERROR_VOLSNAP_BOOTFILE_NOT_VALID, "volsnap bootfile not valid"},
+  {ERROR_VOLSNAP_NO_BYPASSIO_WITH_SNAPSHOT, "volsnap no bypassio with snapshot"},
+  {ERROR_VSMB_SAVED_STATE_CORRUPT, "vsmb saved state corrupt"},
+  {ERROR_VSMB_SAVED_STATE_FILE_NOT_FOUND, "vsmb saved state file not found"},
 };
 
 #endif /* WIN_ERROR_MAP_H */
+

@@ -3,7 +3,7 @@
 This application uses the : [webview library](https://github.com/webview/webview.git).  
 1. For those who want to try the tool, a tutorial is available in [webapp_tutorial.md](webapp_tutorial.md).  
 2. And to dive a little bit deeper into it, a user documentation and reference is available with the file '[webapp_quick_user_doc_and_reference.md](webapp_quick_user_doc_and_reference.md)'. It basically repeats what is already indicated with the -h/--help and -u options and also what you can test in the folder 'examples/01-test_bed' coming with the source package.  
-3. The package release with sources and binaries(for Windows and Linux) is available [there](https://github.com/2nil-web/webapp/releases/tag/0.1.1-first-public-release)
+3. The package release with sources and binaries(for Windows and Linux) is available [there](https://github.com/2nil-web/webapp/releases)
 4. Prerequisites to build the app are:  
    - git to download the webview library.  
    - make and g++ to build the webview lib and the app under linux, Windows (MSys2) and eventually MacOS (this last one not tested yet).  
