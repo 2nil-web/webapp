@@ -293,7 +293,7 @@ void create_app_binds(webview_wrapper &w)
         prev_ico = w.set_icon(ico);
         return w.json_escape(prev_ico);
       },
-      "set window top left icon and return the previous one if thre was.", //
+      "set window top left icon and return the previous one if there was.", //
       -1);
 
   // Set a move callback
