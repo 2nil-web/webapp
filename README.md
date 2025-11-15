@@ -33,7 +33,7 @@ Now for a somewhat more complex app, modify the file "index.html" to have the fo
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
-    <title>My second app</title>
+    <title>🤖My second app💥</title>
     <script>
         const msg = "My wonderful app (c) <Your name>";
         console.log("Starting");
@@ -49,7 +49,7 @@ Now for a somewhat more complex app, modify the file "index.html" to have the fo
         } else {
             console.log("Starting as a web page");
             function clicked() {
-                alert("-" + msg);
+                alert("😺" + msg);
             }
         }
     </script>

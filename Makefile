@@ -129,19 +129,21 @@ ifeq (${TARGET_API},windows)
 endif
 
 SETUP_PKG=${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
-
-${SETUP_PKG}/g : upx
-	@rm -f $@
+SETUP_DEP=README.pdf tutorial/ examples/js_include/ examples/01-test_bed/ examples/03-webcrypto/ examples/07-egyptian/ ${TARGET}
 ifeq (${TARGET_API},windows)
-	@zip -qj $@ ${TARGET} build/msvc/win_cons/x64/Release/c${PREFIX}${EXEXT}
-else
-	@zip -qj $@ ${TARGET}
+	SETUP_DEP+=build/msvc/win_cons/x64/Release/c${PREFIX}${EXEXT}
 endif
+
+${SETUP_PKG} : ${SETUP_DEP} upx
+	@rm -rf $@ setup
+	@mkdir -p setup
+	@cp -R ${SETUP_DEP} setup
+	@cd setup && mkdir examples && for i in ??-*; do mv "$$i" "examples/$${i/??-}"; done && mv js_include examples && zip -rq ../$@ .
 	@echo "Package $@ is ready"
 
-setup : ${SETUP_PKG}/g
+setup : ${SETUP_PKG}
 
-deliv : ${SETUP_PKG}/g
+deliv : ${SETUP_PKG}
 	@echo "Delivering it to github."
 	@./scripts/github_release.sh $<
 #	@echo "Delivering it to gitlab"
@@ -157,7 +159,7 @@ format :
 	@js-beautify -type js -s 2 -r examples/*/*.js tutorial/*/*.js
 
 clean :
-	rm -f *~ ${SRC_DIR}/${PREFIX}.ico ${ASSETS}/README.docx ${SETUP_PKG}/g # ${PREFIX}*.vcxproj.user
+	rm -f *~ ${SRC_DIR}/${PREFIX}.ico ${ASSETS}/README.docx ${SETUP_PKG} # ${PREFIX}*.vcxproj.user
 ifeq (${TARGET_API},windows)
 	rm -rf build/gcc/win build/gcc/win_cons build/msvc .vs
 else
