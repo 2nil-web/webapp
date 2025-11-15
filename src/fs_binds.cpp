@@ -82,15 +82,14 @@ void fwrite(webview_wrapper &w, const std::string &seq, const std::string &req, 
       for (;;)
       {
         s = json_parse(req, "", n++);
-        if (s.empty())
-          break;
-          try
-          {
-            f << s;
-          } catch(std::ofstream::failure &e)
-          {
-            logE(e.what());
-          }
+        if (s.empty()) break;
+        try
+        {
+          f << s;
+        } catch(std::ofstream::failure &e)
+        {
+          logE(e.what());
+        }
       }
 
       f.close();
