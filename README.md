@@ -2,14 +2,12 @@
 
 *A tool to create standalone applications based on web technology.*  
 
+*Could be compared to Node.js with Electron, without the Software bloat.*
+
 ## 1. Tutorial
 
-The goal of the webapp tool is to allow creating applications with web technology in the simplest possible way, assuming you already have some basic knowledge of creating web pages based on HTML, CSS and Javascript. It provide a set of local Operating System API with a very low overhead (less than 1 MB).
-
-It works seamlessly, on both Windows and Linux Operating Systems.
-With this tutorial you will learn its general philosophy by creating simple applications.
-
-*Could be compared to Node.js with Electron, without the Software bloat.*
+The goal of the webapp tool is to allow creating applications with web technology in the simplest possible way, assuming you already have some basic knowledge of creating web pages based on HTML, CSS and Javascript. It provide a set of local Operating System API with a very low overhead (less than 1 MB). Works seamlessly, on both Windows and Linux Operating Systems.
+Here you will learn the general philosophy of the tool by creating simples applications.
 
 ### How to write an app in 2 steps
 
@@ -23,7 +21,7 @@ Our first application will be the everlasting "Hello World!" app.
 
 To insure your app to run on both Windows and Linux you may even drop the 2 systems binaries, they each have a weight of less than a MByte.
 
-Now if you want this application to have a persistent geometry, just add a file called ".config.ini" in its folder. And now when you will move or resize its window, the last same size and position will be used each time the app will be invoked.
+If you want this application to have a persistent size and position between each call, just add a file called ".config.ini" in its folder.
 
 #### Second step/second app
 
@@ -35,7 +33,7 @@ Now for a somewhat more complex app, modify the file "index.html" to have the fo
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
-    <title>🤖My second app💥</title>
+    <title>My second app</title>
     <script>
         const msg = "My wonderful app (c) <Your name>";
         console.log("Starting");
@@ -51,7 +49,7 @@ Now for a somewhat more complex app, modify the file "index.html" to have the fo
         } else {
             console.log("Starting as a web page");
             function clicked() {
-                alert("😺" + msg);
+                alert("-" + msg);
             }
         }
     </script>
@@ -64,10 +62,9 @@ Now for a somewhat more complex app, modify the file "index.html" to have the fo
 </html>
 ```
 
-You may also add an application icon in the folder.
-*See the call to "app.set_icon(app.ico)" in the "script" block of the index.html file.*
+You may add an icon to your application, *see the call to "app.set_icon(app.ico)" in the "script" block of the index.html file.*
 
-And when running the webapp binary the following windows will appears:
+Now when running the webapp binary the following windows appears:
 
 <p align="center"><img src="tutorial/second_app.png"><br/>Second app</p>
 
@@ -75,12 +72,12 @@ And if you click the "Click me!" button, the following dialog appears:
 
 <p align="center"><img src="tutorial/second_app-dialog.png"><br/>Native msgbox with your app</p>
 
-Also notice that in the way this app has been created, it may also run correctly under a web browser. See the below examples:
+Also notice that the way this app is created, allows it to correctly run under a web browser. See the below examples:
 
 <p align="center"><img src="tutorial/second_app-chrome.png"><br/>Second app under Chrome</p>
 <p align="center"><img src="tutorial/second_app-firefox.png"><br/>Second app under Firefox</p>
 
-But it would not always be the case, notably when using the webapp "local objects", like app, fs, gui which are not part of any web browser.
+But this may not always be the case, especially when using the webapp "local objects" methods and properties which have no counterpart in a web browser environment.
 
 #### Options and API
 
@@ -217,7 +214,7 @@ Asynchronous ones are prepended by a '*'*
 
 ## 2. Going deeper
 
-Have a look at the different examples located in the "examples" directory that comes with the sources package or the git repository.
+Now that you understand the general philosophy of the tool, you may have a look at the different examples located in the "examples" directory that comes with the sources package or the git repository.
 The binary packages (for both Windows and Linux) are available [there](https://github.com/2nil-web/webapp/releases).
 
 1. Prerequisites to build the app are:  

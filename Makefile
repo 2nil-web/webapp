@@ -128,7 +128,9 @@ ifeq (${TARGET_API},windows)
 	@( $(UPX) ${TARGET_CONS} | true  ) >/dev/null 2>&1
 endif
 
-${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip : upx
+SETUP_PKG=${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
+
+${SETUP_PKG}/g : upx
 	@rm -f $@
 ifeq (${TARGET_API},windows)
 	@zip -qj $@ ${TARGET} build/msvc/win_cons/x64/Release/c${PREFIX}${EXEXT}
@@ -137,9 +139,9 @@ else
 endif
 	@echo "Package $@ is ready"
 
-setup : ${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
+setup : ${SETUP_PKG}/g
 
-deliv : ${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
+deliv : ${SETUP_PKG}/g
 	@echo "Delivering it to github."
 	@./scripts/github_release.sh $<
 #	@echo "Delivering it to gitlab"
@@ -155,7 +157,7 @@ format :
 	@js-beautify -type js -s 2 -r examples/*/*.js tutorial/*/*.js
 
 clean :
-	rm -f *~ ${SRC_DIR}/${PREFIX}.ico ${ASSETS}/README.docx ${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip # ${PREFIX}*.vcxproj.user
+	rm -f *~ ${SRC_DIR}/${PREFIX}.ico ${ASSETS}/README.docx ${SETUP_PKG}/g # ${PREFIX}*.vcxproj.user
 ifeq (${TARGET_API},windows)
 	rm -rf build/gcc/win build/gcc/win_cons build/msvc .vs
 else
