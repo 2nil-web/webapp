@@ -6,6 +6,8 @@
 # To force cross-compiling a Windows binary under Linux then invoke the 'w64' target (needs more thorough testing ...)
 # Not tested under Mac OS but should work with the correct prerequisite (posix env, GNU make ...)
 
+ECHO=echo -e
+
 # OS is defined only under Windows
 ifeq (${OS},Windows_NT)
 SYS_VER=${OS}_$(shell  wmic os get Version |grep -v Version | tr -d ' ')
@@ -13,7 +15,6 @@ SYS_VER=${OS}_$(shell  wmic os get Version |grep -v Version | tr -d ' ')
 TARGET_API=windows
 EXEXT=.exe
 RC=windres${EXEXT}
-ECHO=echo -e
 PGF=$(subst \,/,$(subst C:\,/c/,$(PROGRAMFILES)))
 PGF86=${PGF} (x86)
 LOCAD=$(subst \,/,$(subst C:\,/c/,$(LOCALAPPDATA)))
@@ -58,7 +59,6 @@ SYS_VER=Arch_Linux_$(shell sed -n 's/^VERSION_ID=//p' /etc/os-release)
 else
 SYS_VER=$(shell lsb_release -irs | sed 'N;s/\n/_/' | sed 's/ /_/g')
 endif
-ECHO=echo
 endif
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
