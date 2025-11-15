@@ -33,41 +33,38 @@ tr:hover {
 }
 
 table {
-   user-select: none;
+  user-select: none;
 }
 
 table,
 td {
   border: 1px solid black;
   border-collapse: collapse;
-//  border-spacing: 10px;
+  //  border-spacing: 10px;
   white-space: nowrap;
-/*  text-align: end;*/
+  /*  text-align: end;*/
   font-family: Roboto;
 }
 
 
-table tr > *:nth-child(1),
-table tr > *:nth-child(3)
-{
-    display: none;
+table tr>*:nth-child(1),
+table tr>*:nth-child(3) {
+  display: none;
 }
 
-table tr > *:nth-child(1),
-table tr > *:nth-child(3),
-table tr > *:nth-child(4),
-table tr > *:nth-child(5)
-{
+table tr>*:nth-child(1),
+table tr>*:nth-child(3),
+table tr>*:nth-child(4),
+table tr>*:nth-child(5) {
   border-right-style: none;
   border-left-style: none;
 }
 
-table tr > *:nth-child(2)
-{
+table tr>*:nth-child(2) {
   border-right-style: none;
 }
-table tr > *:nth-child(6)
-{
+
+table tr>*:nth-child(6) {
   border-left-style: none;
 }
 
@@ -86,4 +83,3 @@ table tr:first-child {
 table tr:first-child {
   font-weight: bold;
 }
-
