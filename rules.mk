@@ -1,4 +1,6 @@
 
+SHELL=bash
+
 ifndef MAKEFLAGS
 ##OBJS:=$(addprefix ${TARGET_DIR}/,${OBJS})
 CPUS ?= $(shell nproc)
