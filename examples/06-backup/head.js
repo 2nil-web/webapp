@@ -232,7 +232,7 @@ async function run_backup(real_run = true) {
         } else {
           rsync_cmd = `${rsync_cmd1} "${s_uxpth}" "${dst.textContent}"`; //-e "ssh -i $HOME/.ssh/id_rsa" ';
         }
-        rsync_cmd += ' -e \\"ssh -i $HOME/.ssh/id_rsa\\" ';
+        //rsync_cmd += ' -e \\"ssh -i $HOME/.ssh/id_rsa\\" ';
         echo_cmd += rsync_cmd.replace(/\/usr\/bin\/rsync(.*)/g, "echo 'rsync $1'");
       }
       shell_cmds += "echo; tput smso; echo 'Sauvegarde " + shTit + " dans " + dst.innerText + "'; ";
