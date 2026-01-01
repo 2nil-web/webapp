@@ -39,9 +39,26 @@
 
 #define trc std::cout << __LINE__ << std::endl
 
+std::string iso_8859_1_to_utf8(std::string &str)
+{
+  std::string strOut;
+    for (std::string::iterator it = str.begin(); it != str.end(); ++it)
+    {
+        uint8_t ch = *it;
+        if (ch < 0x80) {
+            strOut.push_back(ch);
+        }
+        else {
+            strOut.push_back(0xc0 | ch >> 6);
+            strOut.push_back(0x80 | (ch & 0x3f));
+        }
+    }
+    return strOut;
+}
+
 bool set_fs_error(webview_wrapper &w, std::filesystem::path pcaller, const std::error_code ec)
 {
-  logDebug("Error number: ", ec.value());
+  //logDebug("Error number: ", ec.value());
   std::string caller;
 
   if (ec.value() != 0)
@@ -63,7 +80,7 @@ bool set_fs_error(webview_wrapper &w, std::filesystem::path pcaller, const std::
     return true;
   }
 
-  logDebug("No error with " + caller);
+  //logDebug("No error with " + caller);
   w.setvar("fs", "last_error", "No error with " + caller);
   return false;
 }
@@ -546,7 +563,7 @@ std::string csv_to_formatted_text(std::string &s, std::string col_sep = ";", std
     for (size_t c = 0; c < cols.size(); c++)
     {
       size_t adj_wi = 1 + max_widths[c] - cols[c].size();
-      logDebug("row number: ", r, ", col number: ", c, ", col: ", cols[c], ", col size: ", cols[c].size(), ", max col size: ", max_widths[c], ", adj-width: ", adj_wi);
+      //logDebug("row number: ", r, ", col number: ", c, ", col: ", cols[c], ", col size: ", cols[c].size(), ", max col size: ", max_widths[c], ", adj-width: ", adj_wi);
 
       if (r == 0) // Center the first line's columns (header line)
       {
@@ -624,7 +641,7 @@ std::string lsdir(webview_wrapper &w, std::filesystem::path path, std::string fm
     // Attention au récursif, dangereux, ça peut planter le PC ...
     if (recursive)
     {
-      logDebug("Recursive listing");
+      //logDebug("Recursive listing");
       for (const auto &e : std::filesystem::recursive_directory_iterator(path))
       {
         res += pstat(w, e, detail, json) + '\n';
@@ -817,11 +834,11 @@ void create_fs_binds(webview_wrapper &w)
       "fs_ls", //
       [&](const std::string &seq, const std::string &req, void *) {
         std::thread([&, seq, req] {
-          logDebug("SEQ: ", seq, ", REQ: ", req);
+          //logDebug("SEQ: ", seq, ", REQ: ", req);
           // std::filesystem::path path;
           std::string path, fmt, sdet, srec;
           js_params(req, path, sdet, fmt, srec);
-          logDebug("fs.ls(", path, ", ", fmt, ", ", sdet, ", ", srec, ")");
+          //logDebug("fs.ls(", path, ", ", fmt, ", ", sdet, ", ", srec, ")");
           std::string res = lsdir(w, path, fmt, str2bool(sdet), str2bool(srec));
           w.resolve(seq, 0, w.json_escape(res));
         }).detach();
@@ -858,7 +875,7 @@ void create_fs_binds(webview_wrapper &w)
           fs::path from = json_parse(req, "", 0);
           fs::path to = json_parse(req, "", 1);
           std::error_code ec;
-          logDebug(from, "==>", to);
+          //logDebug(from, "==>", to);
           fs::rename(from, to, ec);
           if (set_fs_error(w, std::filesystem::path("rename from '" + from.string() + "' to '" + to.string() + "'"), ec))
             w.resolve(seq, 0, "false");
@@ -910,13 +927,31 @@ void create_fs_binds(webview_wrapper &w)
   w.bind_doc(                                                     //
       "fs_read",                                                  //
       [&](const std::string &seq, const std::string &req, void *) //
-      {
-        std::thread([&, seq, req] {
+      {trc;
+        std::thread([&, seq, req] {trc;
           std::filesystem::path p = json_parse(req, "", 0);
+          //logDebug("apres resolve");
           w.resolve(seq, 0, w.json_escape(file2s(p)));
         }).detach();
       },
       "read a file with the provided file name and return its content, if possible.", //
+      1);
+
+  w.bind_doc(                                                     //
+      "fs_read_to_utf",                                                  //
+      [&](const std::string &seq, const std::string &req, void *) //
+      {trc;
+        std::thread([&, seq, req] {trc;
+          std::filesystem::path p = json_parse(req, "", 0);
+          auto f2s=file2s(p);
+          auto utf=iso_8859_1_to_utf8(f2s);
+          auto wjs=w.json_escape(utf);
+          w.resolve(seq, 0, wjs);
+          //logDebug("apres resolve");
+          //w.resolve(seq, 0, w.json_escape(file2s(p)));
+        }).detach();
+      },
+      "read a file with the provided file name and return its content, converted to utf, if possible.", //
       1);
 
   w.bind_doc(                                                     //
@@ -931,7 +966,7 @@ void create_fs_binds(webview_wrapper &w)
           if (file2bin(p, data))
           {
             s = to_base64(data);
-            logDebug("fs_read_to_base64: file2bin OK");
+            //logDebug("fs_read_to_base64: file2bin OK");
             // logDebug("fs_read_to_base64: "+s);
           }
           else
