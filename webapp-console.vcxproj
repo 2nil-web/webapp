@@ -210,6 +210,7 @@
     <ClInclude Include="src\sendkeys.h" />
     <ClInclude Include="src\tail.h" />
     <ClInclude Include="src\util.h" />
+    <ClInclude Include="src\is_utf8.h" />
     <ClInclude Include="src\version.h" />
     <ClInclude Include="src\werr_map.h" />
     <ClInclude Include="src\win_binds.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="src\sizeof.cpp" />
     <ClCompile Include="src\tail.cpp" />
     <ClCompile Include="src\util.cpp" />
+    <ClCompile Include="src\is_utf8.cpp" />
     <ClCompile Include="src\webapp.cpp" />
     <ClCompile Include="src\win_binds.cpp" />
     <ClCompile Include="src\winapi.cpp" />
