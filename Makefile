@@ -5,6 +5,7 @@ ASSETS=assets
 include header.mk
 
 PREFIX=webapp
+# In the src subfolder, is_utf8.cpp and is_utf8.h are taken from https://github.com/simdutf/is_utf8.git. Then thank's to Daniel Lemire and copyrights apply, at least MIT License in my case, I guess ...
 SRCS=$(wildcard ${SRC_DIR}/*.cpp)
 #SRCS:=$(filter-out ${SRC_DIR}/getopt.cpp,${SRCS})
 #SRCS:=$(addprefix ${SRC_DIR}/,${SRCS})
