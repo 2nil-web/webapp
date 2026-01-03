@@ -88,7 +88,9 @@ DO_MSBUILD=no
 endif
 
 ifneq ($(DO_MSBUILD),no)
-MSBUILD=/c/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe
+#MSBUILD=/c/Program\ Files/Microsoft\ Visual\ Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe
+MSBUILD=/c/Program\ Files/Microsoft\ Visual\ Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe
+
 DO_MSBUILD=$(shell test -f $(MSBUILD) && echo "yes" || echo "no")
 endif
 
