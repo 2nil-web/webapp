@@ -83,61 +83,64 @@ async function load_backup_list() {
   csv.forEach((row, ridx) => {
     if (row) {
       cells = row.split(';');
-      var uhd = "";
-      var notMyHost = false;
+      if (!cells[0].startsWith('#')) {
+        var uhd = "";
+        var notMyHost = false;
 
-      var rws = "";
-      cells.forEach((cell, cidx) => {
-        if (cidx < 4) {
-          if (cidx == 1) {
-            if (ridx == 0) {
-              rws += "<td></td>";
+        var rws = "";
+        cells.forEach((cell, cidx) => {
+          if (cidx < 4) {
+            if (cidx == 1) {
+
+              if (ridx == 0) {
+                rws += "<td></td>";
+              } else {
+                cell = cell.toLowerCase();
+                rws += '<td><input type="checkbox"';
+                if (cell == "yes" || cell == "true" || cell == "ok" || cell == "1") rws += " checked";
+                rws += '/></td>';
+              }
             } else {
-              cell = cell.toLowerCase();
-              rws += '<td><input type="checkbox"';
-              if (cell == "yes" || cell == "true" || cell == "ok" || cell == "1") rws += " checked";
-              rws += '/></td>';
+              if (cidx == 2 && ridx > 0 && cell != HostName) {
+                notMyHost = true;
+              }
+              rws += '<td>' + cell + "</td>";
             }
           } else {
-            if (cidx == 2 && ridx > 0 && cell != HostName) {
-              notMyHost = true;
-            }
-            rws += '<td>' + cell + "</td>";
-          }
-        } else {
-          uhd += cell;
+            uhd += cell;
 
-          if (cidx == 4) {
-            rws += '<td>';
-            if (ridx > 0) {
-              rws += '&#x1F449';
-              if (cell) uhd += '@';
-            }
+            if (cidx == 4) {
+              rws += '<td>';
+              if (ridx > 0) {
+                rws += '&#x1F449';
+                if (cell) uhd += '@';
+              }
 
-            rws += '</td>';
-          } else {
-            if (ridx > 0 && cidx == 5 && cell) uhd += ':';
-            else if (cidx == 6) {
-              rws += "<td>" + uhd + "</td>";
-              uhd += cell;
+              rws += '</td>';
+            } else {
+              if (ridx > 0 && cidx == 5 && cell) uhd += ':';
+              else if (cidx == 6) {
+                rws += "<td>" + uhd + "</td>";
+                uhd += cell;
+              }
             }
           }
+        });
+
+        tbl += '<tr onclick="sel_row(' + ridx + ')"';
+
+        // Deactivate lines of other host
+        if (notMyHost) {
+          //console.log(rws);
+          tbl += 'style="display: none;"';
+          rws = rws.replace(/<input type="checkbox" checked\/>/, '<input type="checkbox"/>');
         }
-      });
 
-      tbl += '<tr onclick="sel_row(' + ridx + ')"';
-
-      // Deactivate lines of other host
-      if (notMyHost) {
         //console.log(rws);
-        tbl += 'style="display: none;"';
-        rws = rws.replace(/<input type="checkbox" checked\/>/, '<input type="checkbox"/>');
+        tbl += '>' + rws + "</tr>";
       }
-
-      //console.log(rws);
-      tbl += '>' + rws + "</tr>";
     }
-  });
+    });
 
   tbl += "</table>";
   backup_list.innerHTML = tbl;
