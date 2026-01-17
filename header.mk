@@ -157,7 +157,7 @@ GCC=${GCC_PATH}/gcc${EXEXT}
 CC=${GCC_PATH}/gcc${EXEXT}
 CXX=${GCC_PATH}/g++${EXEXT}
 endif
-WV2SUBDIR=Microsoft.Web.WebView2.1.0.3595.46
+WV2SUBDIR=Microsoft.Web.WebView2.1.0.3650.58
 CPPFLAGS += -I ${WVDIR}/build/external/libs/${WV2SUBDIR}/build/native/include
 CPPFLAGS += -DWIN32_LEAN_AND_MEAN
 # For IDesktopWallpaper
@@ -192,6 +192,7 @@ CXXFLAGS += $(shell pkg-config --cflags ${GTK_WEBKIT})
 #LDFLAGS +=-L/usr/lib/x86_64-linux-gnu -L/usr/lib/x86_64-linux-gnu/webkit2gtk-${WK2GV} -L/usr/lib/x86_64-linux-gnu/cmake/harfbuzz -L/usr/lib/python3/dist-packages/cairo -L/usr/lib/x86_64-linux-gnu/glib-2.0 -L/usr/lib/x86_64-linux-gnu/glib-2.0
 LDLIBS += $(shell pkg-config --libs ${GTK_WEBKIT})
 #LDFLAGS += -static
+#LDFLAGS +=  -Wl,-Bstatic -Wl,-Bdynamic -lwebkit2gtk-4.1 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lgdk_pixbuf-2.0 -lsoup-3.0 -ljavascriptcoregtk-4.1
 LDFLAGS += -static-libgcc -static-libstdc++
 endif
 

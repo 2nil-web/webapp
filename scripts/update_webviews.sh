@@ -28,7 +28,7 @@ cd - >/dev/null
 
 if [ "$actual_wv_comit" != "$new_wv_comit" ]
 then
-  echo "webview github repo ($WVRepo) has a new commit $new_wv_comit versus the old one which is $actual_wv_comit"
+  echo "$(tput smul)>>> webview github repo ($WVRepo) has a new commit $new_wv_comit versus the old one which is $actual_wv_comit <<<$(tput rmul)"
 else
   echo "$(tput sitm)Your webview local repo is up to date with commit $actual_wv_comit$(tput ritm)"
 fi
