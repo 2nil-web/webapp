@@ -140,7 +140,7 @@ async function load_backup_list() {
         tbl += '>' + rws + "</tr>";
       }
     }
-    });
+  });
 
   tbl += "</table>";
   backup_list.innerHTML = tbl;

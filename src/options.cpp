@@ -436,40 +436,6 @@ void options::parse()
   }
 }
 
-// Make Windows behave as Linux with Control-D in stdin
-bool ctld_getline(std::istream &is, std::string &s, char delim = '\n')
-{
-#ifdef _WIN32
-  if (&is == &std::cin)
-  {
-    int ch;
-
-    s = {};
-    for (;;)
-    {
-      ch = _getch();
-      if (ch == '\r' && s.back() == '\n')
-        continue; // Ignore \r under Windows if it is preceded by \n ...
-      if (s.empty() && ch == 4)
-        return false; // Control-D detected
-      if ((char)ch == delim)
-      {
-        std::cout << std::endl;
-        return true;
-      }
-      if (ch >= ' ')
-        s += ch;
-      std::cout << (char)ch << std::flush;
-    }
-  }
-  else
-#endif
-      if (std::getline(is, s, delim))
-    return true;
-
-  return false;
-}
-
 void options::parse(std::istream &is)
 {
   imode = true;
@@ -483,7 +449,7 @@ void options::parse(std::istream &is)
     if (&is == &std::cin)
       std::cout << prompt;
 
-    if (!ctld_getline(is, s))
+    if (!std::getline(is, s))
       break;
 
     trim(s);

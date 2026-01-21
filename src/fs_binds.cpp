@@ -932,7 +932,7 @@ void create_fs_binds(webview_wrapper &w)
       1);
 
   w.bind_doc(                                                     //
-      "fs_read",                                              //
+      "fs_read",                                                  //
       [&](const std::string &seq, const std::string &req, void *) //
       {
         std::thread([&, seq, req] {
@@ -945,7 +945,7 @@ void create_fs_binds(webview_wrapper &w)
       1);
 
   w.bind_doc(                                                     //
-      "fs_read_txt",                                                  //
+      "fs_read_txt",                                              //
       [&](const std::string &seq, const std::string &req, void *) //
       {
         std::thread([&, seq, req] {
@@ -955,12 +955,12 @@ void create_fs_binds(webview_wrapper &w)
 
           if (is_utf8(f2s.c_str(), f2s.size()))
           {
-            logInfo(p.string()+" is valid UTF-8 file.");
+            logInfo(p.string() + " is valid UTF-8 file.");
             utf = f2s;
           }
           else
           {
-            logInfo(p.string()+" is not valid UTF-8 file, converting it.");
+            logInfo(p.string() + " is not valid UTF-8 file, converting it.");
             utf = iso_8859_1_to_utf8(f2s);
           }
 
@@ -971,41 +971,41 @@ void create_fs_binds(webview_wrapper &w)
       "read a text file with the provided file name and return its content, eventually converted to utf-8 if it is not, if possible.", //
       1);
 
-    w.bind_doc(                                                     //
-        "fs_read_to_base64",                                        //
-        [&](const std::string &seq, const std::string &req, void *) //
-        {
-          std::thread([&, seq, req] {
-            std::filesystem::path p = json_parse(req, "", 0);
-            std::vector<std::uint8_t> data;
-            std::string s = {};
+  w.bind_doc(                                                     //
+      "fs_read_to_base64",                                        //
+      [&](const std::string &seq, const std::string &req, void *) //
+      {
+        std::thread([&, seq, req] {
+          std::filesystem::path p = json_parse(req, "", 0);
+          std::vector<std::uint8_t> data;
+          std::string s = {};
 
-            if (file2bin(p, data))
-            {
-              s = to_base64(data);
-              // logDebug("fs_read_to_base64: file2bin OK");
-              //  logDebug("fs_read_to_base64: "+s);
-            }
-            else
-              logDebug("fs_read_to_base64: file2bin KO");
+          if (file2bin(p, data))
+          {
+            s = to_base64(data);
+            // logDebug("fs_read_to_base64: file2bin OK");
+            //  logDebug("fs_read_to_base64: "+s);
+          }
+          else
+            logDebug("fs_read_to_base64: file2bin KO");
 
-            w.resolve(seq, 0, w.json_escape(s));
-          }).detach();
-        },
-        "read a binary file with the provided file name and return its content in base64 encoded text, if possible.", //
-        1);
+          w.resolve(seq, 0, w.json_escape(s));
+        }).detach();
+      },
+      "read a binary file with the provided file name and return its content in base64 encoded text, if possible.", //
+      1);
 
-    w.bind_doc(     //
-        "fs_write", //
-        [&](const std::string &seq, const std::string &req, void *) { fwrite(w, seq, req); },
-        "truncate and write to the file who's name is provided as the first parameter, the content of all the following parameters, return true if the operation was OK, else false.", //
-        INT_MAX);
-    w.bind_doc(      //
-        "fs_append", //
-        [&](const std::string &seq, const std::string &req, void *) { fwrite(w, seq, req, std::ios::app); },
-        "append to the file who's name is provided as the first parameter, the content of all the following parameters, return true if the operation was OK, else false.", //
-        INT_MAX);                                                                                                                                                          //
+  w.bind_doc(     //
+      "fs_write", //
+      [&](const std::string &seq, const std::string &req, void *) { fwrite(w, seq, req); },
+      "truncate and write to the file who's name is provided as the first parameter, the content of all the following parameters, return true if the operation was OK, else false.", //
+      INT_MAX);
+  w.bind_doc(      //
+      "fs_append", //
+      [&](const std::string &seq, const std::string &req, void *) { fwrite(w, seq, req, std::ios::app); },
+      "append to the file who's name is provided as the first parameter, the content of all the following parameters, return true if the operation was OK, else false.", //
+      INT_MAX);                                                                                                                                                          //
 
-    w.decvar("fs", "last_error", "may contains the last fs object error", "No error with fs object");
-    w.decvar("fs", "cwd", "current working directory", curr_dir(w));
+  w.decvar("fs", "last_error", "may contains the last fs object error", "No error with fs object");
+  w.decvar("fs", "cwd", "current working directory", curr_dir(w));
 }
