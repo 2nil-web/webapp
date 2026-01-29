@@ -28,7 +28,7 @@
 #include <pwd.h>
 #include <grp.h>
 #endif
-#include "is_utf8.h"
+#include "is_utf8.h" // Taken from https://github.com/simdutf/is_utf8/tree/main
 #include "util.h"
 #include "log.h"
 #include "options.h"
