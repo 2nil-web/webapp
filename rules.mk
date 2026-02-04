@@ -49,6 +49,7 @@ cfg :
 	@echo "LDFLAGS: ${LDFLAGS}"
 	@echo "OS_ID: ${OS_ID}"
 	@echo "SYS_VER: ${SYS_VER}"
+	@echo "GTK_WEBKIT: ${GTK_WEBKIT}"
 	@echo "TARGET_DIR: ${TARGET_DIR}"
 	@echo "TARGET_DIR_CONS: ${TARGET_DIR_CONS}"
 	@echo "TARGET_API: ${TARGET_API}"

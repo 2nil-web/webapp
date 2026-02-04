@@ -187,7 +187,9 @@ namespace detail
 void WindowInitialState(GtkWidget *m_window, GtkWidget *m_webview)
 {
   logDebug("WindowInitialState: ", my_conf.xpos, ',', my_conf.ypos, ',', my_conf.width, ',', my_conf.height);
+#if GTK_MAJOR_VERSION == 3
   gtk_window_move(GTK_WINDOW(m_window), my_conf.xpos, my_conf.ypos);
+#endif
   logDebug("gtk_widget_set_size_request: ", my_conf.width, ',', my_conf.height);
   gtk_widget_set_size_request(GTK_WIDGET(m_window), my_conf.width, my_conf.height);
   gtk_widget_grab_focus(GTK_WIDGET(m_webview));

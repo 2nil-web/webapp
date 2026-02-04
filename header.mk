@@ -170,21 +170,19 @@ endif
 
 LD=${CXX}
 
-# GTK mess to deal with, make a choice ...
-# The GTK 4 version works under unbuntu 24.04, fedora 40, Alma linux and Arch but I think it still has some bugs (messy filter management, for example)
-# Even if it seems to be considered as a feature and not a bug (🐞🤕) but GTK 4 is also missing gtk_window_move
-# And finally debian 12 has a very buggy >GTK 4 version (not a GTK 4 issue though)
-#GTK_WEBKIT="gtk4 webkitgtk-6.0 webkit2gtk-web-extension-6.0 gtkmm-4.0"
+# GTK mess to deal with, make a choice. But for me GTK4 has too much drawbacksthat I prefer to stick with gtk3 for now ...
+# Even if it seems to be considered as a feature and not a bug (🐞🤕) but GTK 4 is also missing gtk_window_move (because of wayland, it seems) 
 # I personnally considere the GTK 3 has the only stable and almost ok for production, version (as of 2025/08).
 # Also I only have a Windows 10/11 and Debian 12 machine to make my tests, for the rest I only test on VM, from time to time ...
 # And finally I don't have any MacOS machine to make my test and compiling, so Cocoa is actually not taken into account.
-#GTK_WEBKIT="gtk+-3.0 webkit2gtk-4.1 webkit2gtk-web-extension-4.1 gtkmm-3.0"
 
 ifeq (${TARGET_API},linux)
-ifeq ($(OS_ID),debian)
-GTK_WEBKIT="gtk+-3.0 webkit2gtk-4.1"
-else
-GTK_WEBKIT="gtk4 webkitgtk-6.0"
+# Uncomment the 2 following lines if you still want to compile/link with webkitgtk-6.0
+#WKGTK="gtk4 webkitgtk-6.0"
+#GTK_WEBKIT=$(shell pkg-config ${WKGTK} && echo ${WKGTK})
+ifeq (${GTK_WEBKIT},)
+WKGTK="gtk+-3.0 webkit2gtk-4.1"
+GTK_WEBKIT=$(shell pkg-config ${WKGTK} && echo ${WKGTK})
 endif
 
 LDLIBS += -lX11
