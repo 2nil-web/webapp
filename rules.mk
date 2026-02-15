@@ -234,7 +234,7 @@ ${TARGET_DIR}/%.d: ${SRC_DIR}/%.cpp
 	@echo Checking header dependencies from $<
 	@mkdir -p ${TARGET_DIR}
 	@echo -n "${TARGET_DIR}/" > $@
-	@$(COMPILE.cpp) -isystem /usr/include -MM $< >> $@
+	$(COMPILE.cpp) -isystem /usr/include -MM $< >> $@
 
 # Inclusion des fichiers de dépendance .d
 ifdef OBJS

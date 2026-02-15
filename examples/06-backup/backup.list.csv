@@ -1,5 +1,5 @@
 Type;ToDo;Source host;Source directory;Destination [user@];[host:];directory
-win-usr;yes;PC-DENIS;C:\Users\Denis;root;home.dplalanne.fr;/dd1/public/Backups/PC-Denis/C/Users
-fam;yes;PC-DENIS;C:\Users\Public\Famille;root;home.dplalanne.fr;/dd1/public/Backups/PC-Denis/C/Users/Public
+win-usr;no;PC-DENIS;C:\Users\Denis;root;home.dplalanne.fr;/dd1/public/Backups/PC-Denis/C/Users
+fam;no;PC-DENIS;C:\Users\Public\Famille;root;home.dplalanne.fr;/dd1/public/Backups/PC-Denis/C/Users/Public
 win-usr;yes;PC-DENIS;C:\Users\Denis;root;home.dplalanne.fr;/dd0/Backups/PC-Denis/C/Users
 win-fam;yes;PC-DENIS;C:\Users\Public\Famille;root;home.dplalanne.fr;/dd0/Backups/PC-Denis/C/Users/Public
