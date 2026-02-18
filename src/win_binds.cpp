@@ -319,6 +319,34 @@ void pathdlg_thread(webview_wrapper &w, const std::string &seq, const std::strin
   std::thread([&w, seq, req, ptyp] { w.resolve(seq, 0, pathdlg(w, req, ptyp)); }).detach();
 }
 
+int MessageBoxCenteredW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType)
+{
+  // Center message box at its parent window
+  static HHOOK hHookCBT{};
+  hHookCBT = SetWindowsHookEx(
+      WH_CBT,
+      [](int nCode, WPARAM wParam, LPARAM lParam) -> LRESULT {
+        if (nCode == HCBT_CREATEWND)
+        {
+          if (((LPCBT_CREATEWND)lParam)->lpcs->lpszClass == (LPCSTR)(ATOM)32770) // #32770 = dialog box class
+          {
+            RECT rcParent{};
+            GetWindowRect(((LPCBT_CREATEWND)lParam)->lpcs->hwndParent, &rcParent);
+            ((LPCBT_CREATEWND)lParam)->lpcs->x = rcParent.left + ((rcParent.right - rcParent.left) - ((LPCBT_CREATEWND)lParam)->lpcs->cx) / 2;
+            ((LPCBT_CREATEWND)lParam)->lpcs->y = rcParent.top + ((rcParent.bottom - rcParent.top) - ((LPCBT_CREATEWND)lParam)->lpcs->cy) / 3;
+          }
+        }
+
+        return CallNextHookEx(hHookCBT, nCode, wParam, lParam);
+      },
+      0, GetCurrentThreadId());
+
+  int iRet{MessageBoxW(hWnd, lpText, lpCaption, uType)};
+
+  UnhookWindowsHookEx(hHookCBT);
+
+  return iRet;
+}
 // Possible values for type are : MB_OK=0, MB_OKCANCEL=1, MB_YESNO=2, MB_YESNOCANCEL=3
 // According to which dialog button is clicked, return one of the following string: "yes", "no", "ok", "cancel"
 std::string gui_msgbox(webview_wrapper &w, const std::string &req)
@@ -345,7 +373,7 @@ std::string gui_msgbox(webview_wrapper &w, const std::string &req)
     break;
   }
 
-  int ret = MessageBoxW((HWND)(w.window()), (htent_to_path(msg).wstring()).c_str(), w.get_title_w().c_str(), wbut);
+  int ret = MessageBoxCenteredW((HWND)(w.window()), (htent_to_path(msg).wstring()).c_str(), w.get_title_w().c_str(), wbut);
 
   switch (ret)
   {
