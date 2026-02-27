@@ -10,7 +10,8 @@ ECHO=echo -e
 
 # OS is defined only under Windows
 ifeq (${OS},Windows_NT)
-SYS_VER=${OS}_$(shell  wmic os get Version |grep -v Version | tr -d ' ')
+#SYS_VER=${OS}_$(shell  wmic os get Version |grep -v Version | tr -d ' ')
+SYS_VER=${OS}_$(shell powershell -Command '(Get-WmiObject -class Win32_OperatingSystem).Version')
 # Until now no need or will to cross compile under Windows for Linux ... May change one day ...
 TARGET_API=windows
 EXEXT=.exe
