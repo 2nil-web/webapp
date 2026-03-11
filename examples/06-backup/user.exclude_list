@@ -45,3 +45,4 @@ x64
 Excluded/
 .git/
 .gitignore
+CrossDevice/
