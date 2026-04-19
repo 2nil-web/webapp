@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>SubAdjust</title>
+  <link rel="icon" type="image/x-icon" href="app.svg">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!--link rel="stylesheet" type="text/css" href="animation.css"-->
+  <script type="text/javascript" src="head.js"></script>
+
+<body>
+  <img id="load_img" src="loader.svg" />
+  <div class="topnav">
+    <a class="flip-vertical" onclick="open_file()">Open</a>
+    <a class="rotate-360-clockwise" onclick="save_file()">Save</a>
+    <a class="rotate-360-anticlockwise" onclick="saveas_file()">Save As</a>
+    <a class="flip-horizontal" onclick="reload_file()">Reload</a>
+    <a class="change-radius" style="position: absolute; right:115px;" onclick="about()">About</a>
+    <a class="rotate-clockwise" style="position: absolute; right:44px;" onclick="save_exit()" title="">Save&Quit</a>
+    <a class="rotate-anti-clockwise" style="position: absolute; right:7px;" onclick="clean_exit()">Quit</a>
+  </div>
+  <fieldset id="fsFile">
+    <legend>Input file</legend>
+    <textarea readonly id="filepath"></textarea>
+  </fieldset>
+  <div class="topnav">
+    <fieldset id="fsGo">
+      <legend>Go to and Edit</legend>
+      <fieldset class="inFsGo">
+        <legend align="center">Middle ...</legend>
+        <a class="zoom-in" id="toMiddleLine">Line</a>
+        <a class="zoom-in" id="toMiddleSub">Sub</a>
+        <a class="zoom-in" id="toMiddleTime">Time</a>
+      </fieldset>
+      <a class="move-up" id="toTop">Start</a>
+      <a class="move-up" id="remFirst" title="Remove first subtitle lines">Delete first sub</a>
+      <a class="move-right" id="undoRem" title="Undo last removal" />Undelete</a>
+
+      <fieldset class="inFsGo" id="inputs">
+        <legend align="center">Line, sub or time value ...</legend>
+        <input class="PX62" id="current_line_number" type="number" class"smallnum" step="1" value="1" min="1" max="99999" />
+        <input class="PX62" id="current_sub_number" type="number" class"smallnum" step="1" value="1" min="1" max="99999" />
+        <input id="current_sub_time" type="time" step="1" value="00:00:00" />
+      </fieldset>
+      <a class="move-down" id="toBottom">End</a>
+      <a class="move-down" id="remLast" title="Remove last subtitle lines">Delete last sub</a>
+      <div id="Edit">
+        <input type="text" list="re_list" id="reSrch" value="/{\\an8}/g" title="Search and replace with javascript RegExp (See RegExp literal:&#013;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)" />
+        <datalist id="re_list">
+          <option value="/{\\an8}/g"></option>
+        </datalist>
+        <input type="text" id="reRepl" />
+        <!--input type="button" id="reRun" value="Replace" title="Replace all the occurrence of the RegExp to the subtitle and blinks its border.&#013;Green blinking means the RegExp was successful.&#013;Red blinking means it was not." /-->
+        <a class="move-left" id="reRun" title="Replace all the occurrence of the RegExp to the subtitle and blinks its border.&#013;Green blinking means the RegExp was successful.&#013;Red blinking means it was not.">Replace</a>
+      </div>
+    </fieldset>
+  </div>
+
+
+  <div class="topnav">
+    <fieldset id="fsAdj">
+      <legend align="center"><a class="move-down" onclick="subAdjust()" title="Click to apply to the subtitles your changes in the inputs">Subtitles Adjustment by ...</a></legend>
+      <table>
+        <tr>
+          <td>
+            <fieldset style="width: 120px" title="Actual or required start and stop of the subtitles">
+              <legend>Time limits</legend>
+              <table>
+                <tr>
+                  <td>
+                    <label for="start_time">Start</label>
+                  </td>
+                  <td>
+                    <input id="start_time" type="time" step="0.001" value="00:00:00" />
+                  </td>
+                  <td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="end_time">End</label>
+                  </td>
+                  <td>
+                    <input id="end_time" type="time" step="0.001" value="01:01:01" />
+                  </td>
+                  <td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+          <td>
+            <fieldset style="width: 200px;" title="Actual or required subtitle values are:&#013Start and stop offset (in seconds)&#013And duration coefficient">
+              <legend>Values&nbsp;(Offsets/Duration)</legend>
+              <table>
+                <tr>
+                  <td>
+                    <label for="offset">Start&nbsp;and&nbsp;stop offset&nbsp;(sec)</label>
+                  </td>
+                  <td style="width:100px">
+                    <input class="half" id="offset" type="number" step="0.001" value="" />
+                    <input class="half" id="offset2" type="number" step="0.001" value="" />
+                  </td>
+                  <td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="factor">Duration&nbsp;coeff.</label>
+                  </td>
+                  <td>
+                    <input class="PX62" id="factor" type="number" step="any" value="" />
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+
+
+  <div id="file_container">
+    <div autofocus id="file_lines" spellCheck="false"></div>
+    <div autofocus id="file_text" contentEditable=true spellCheck="false"></div>
+  </div>
+</body>
+
+</html>

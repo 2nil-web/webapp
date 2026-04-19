@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+; auto_file
+[HKEY_CLASSES_ROOT\srt_auto_file]
+[HKEY_CLASSES_ROOT\srt_auto_file\shell]
+[HKEY_CLASSES_ROOT\srt_auto_file\shell\open]
+[HKEY_CLASSES_ROOT\srt_auto_file\shell\open\command]
+;@="\"C:\\Users\\Denis\\Documents\\home\\34-subadjust2\\srt.cmd\" \"%1\""
+@="\"C:\\Users\\Denis\\Documents\\home\\33-webapp\\build\\msvc\\win\\x64\\Release\\webapp.exe\" -d -p \"C:\\Users\\Denis\\Documents\\home\\34-subadjust2\" \"%1\""
+
+; srt.cmd
+[HKEY_CLASSES_ROOT\Applications\srt.cmd]
+[HKEY_CLASSES_ROOT\Applications\srt.cmd\shell]
+[HKEY_CLASSES_ROOT\Applications\srt.cmd\shell\open]
+[HKEY_CLASSES_ROOT\Applications\srt.cmd\shell\open\command]
+;@="\"C:\\Users\\Denis\\Documents\\home\\34-subadjust2\\srt.cmd\" \"%1\""
+@="\"C:\\Users\\Denis\\Documents\\home\\33-webapp\\build\\msvc\\win\\x64\\Release\\webapp.exe\" -d -p \"C:\\Users\\Denis\\Documents\\home\\34-subadjust2\" \"%1\""

@@ -30,7 +30,7 @@ endif
 else
 ifeq ($(MAKECMDGOALS),gcc_cons)
 TARGET_DIR=${TARGET_DIR_CONS}
-CPPFLAGS:=-D_CONSOLE $(CPPFLAGS)
+CPPFLAGS:=-D_CONSOLE -Wcomment $(CPPFLAGS)
 LDFLAGS:=$(filter-out -mwindows,$(LDFLAGS))
 endif
 endif

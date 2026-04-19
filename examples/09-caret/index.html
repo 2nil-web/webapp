@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+  <title>Caret management in content editable</title>
+</head>
+<style>
+  input[type='number'] {
+    margin-top: 2px;
+    width: 30px;
+  }
+</style>
+
+<body>
+  <div id="file_text" contenteditable="true" style="height:50px;  overflow-y: auto;">
+    text1<br>text2<br>text4<br>text5<br>text6<br>
+  </div><br>
+  <button id="button" onclick="setCaret()">goto line, col</button>
+  <label for="line">line</label><input id="line" type="number" step="1" value="1" />
+  <label for="column">column</label><input id="column" type="number" step="1" value="1" />
+
+  <br><br>
+
+  <button id="button" onclick="setCursorPos()">goto char pos</button>
+  <label for="pos">position</label><input id="pos" type="number" step="1" value="1" />
+</body>
+<script>
+  if (typeof app != "undefined" && typeof app.sysname !== "undefined") {
+    //app.set_icon("app.ico");
+    app.set_title(document.title);
+    app.set_size(740, 400);
+    app.center();
+    app.show();
+
+    function exit_on_esc() {
+      if (event.keyCode === 27) app.exit();
+    }
+    document.addEventListener("keyup", exit_on_esc);
+  }
+
+  function setCaret() {
+    const element = file_text;
+    var l = 2 * parseInt(line.value);
+    var c = parseInt(column.value);
+    const range = document.createRange()
+    const selection = window.getSelection()
+
+    if (l > element.childNodes.length) {
+      l = element.childNodes.length - 1;
+      line.value = l;
+    }
+
+    if (c > element.childNodes[l].length) {
+      c = element.childNodes[l].length;
+      column.value = c / 2;
+    }
+
+    console.log(`(${l},${c})/(${element.childNodes.length},${element.childNodes[l].length})`);
+
+    range.setStart(element.childNodes[l], c)
+    range.collapse(true)
+
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+
+  function createRange(node, chars, range) {
+    if (!range) {
+      range = document.createRange()
+      range.selectNode(node);
+      range.setStart(node, 0);
+    }
+
+    if (chars.count === 0) {
+      range.setEnd(node, chars.count);
+    } else if (node && chars.count > 0) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        if (node.textContent.length < chars.count) {
+          chars.count -= node.textContent.length;
+        } else {
+          range.setEnd(node, chars.count);
+          chars.count = 0;
+        }
+      } else {
+        for (var lp = 0; lp < node.childNodes.length; lp++) {
+          range = createRange(node.childNodes[lp], chars, range);
+
+          if (chars.count === 0) {
+            break;
+          }
+        }
+      }
+    }
+
+    return range;
+  };
+
+  function setCursorPos(chars) {
+    if (chars >= 0) {
+      var selection = window.getSelection();
+
+      range = createRange(file_text.parentNode, {
+        count: chars
+      });
+
+      if (range) {
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  };
+</script>
+<html>

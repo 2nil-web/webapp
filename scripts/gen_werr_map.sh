@@ -3,8 +3,8 @@
 function gen_werr_map() {
 # To find the mingw64 include counterpart in msvc, run:
 # find 'C:/Program Files (x86)/Windows Kits/10/Include' -iname winerror.h
-MSC_WE_INC='C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/shared/winerror.h'
-GCC_WE_INC='/mingw64/include/winerror.h'
+MSC_WE_INC='XC:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared/winerror.h'
+GCC_WE_INC='/ucrt64/include/winerror.h'
 
 DEF_HEAD=WIN_ERROR_MAP_H
 

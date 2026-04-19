@@ -1,0 +1,50 @@
+
+HKCR\.srt\DefaultIcon
+(par defaut), REG_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico
+
+HKCR\srt\DefaultIcon
+(par defaut), REG_SZ, "C:\Users\Denis\Documents\home\34-subadjust2\app.ico"
+
+HKCR\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKCU\Software\Classes\.srt\DefaultIcon
+  C:\Users\Denis\Documents\home\34-subadjust2\app.ico
+
+HKCU\Software\Classes\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKLM\SOFTWARE\Classes\srt\DefaultIcon
+(par defaut), REG_SZ, "C:\Users\Denis\Documents\home\34-subadjust2\app.ico"
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001\Software\Classes\.srt\DefaultIcon
+(par defaut), REG_SZ, ":\Users\Denis\Documents\home\34-subadjust2\app.ico
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001_Classes\.srt\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001_Classes\.srt\DefaultIcon
+(par defaut), REG_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001_Classes\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+
+
+
+HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.srt\UserChoice
+
+REDO
+====
+HKCR\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKCU\Software\Classes\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001\Software\Classes\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+
+HKU\S-1-5-21-4022575152-1206140052-1198711761-1001_Classes\srt_auto_file\DefaultIcon
+(par defaut), REG_EXPAND_SZ, C:\Users\Denis\Documents\home\34-subadjust2\app.ico,0
+

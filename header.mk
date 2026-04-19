@@ -158,7 +158,7 @@ GCC=${GCC_PATH}/gcc${EXEXT}
 CC=${GCC_PATH}/gcc${EXEXT}
 CXX=${GCC_PATH}/g++${EXEXT}
 endif
-WV2SUBDIR=Microsoft.Web.WebView2.1.0.3650.58
+WV2SUBDIR=Microsoft.Web.WebView2.1.0.3856.49
 CPPFLAGS += -I ${WVDIR}/build/external/libs/${WV2SUBDIR}/build/native/include
 CPPFLAGS += -DWIN32_LEAN_AND_MEAN
 # For IDesktopWallpaper
