@@ -257,7 +257,7 @@ async function run_backup(real_run = true) {
     msys_root = "C:\\UnixTools\\msys64"
   }
   //  -o ScrollbackLines=1000  == MaxScrollbackLines
-  cmd_env = `${msys_root}\\usr\\bin\\mintty.exe -o ScrollbackLines=10000 -o Term=mintty -o Charset=UTF-8 -i app.ico -p 10,300 -s ${term_width},47 -t "Sauvegarde en cours" -h always -e /bin/bash --login -i -c `;
+  cmd_env = `${msys_root}\\usr\\bin\\mintty.exe -o ScrollbackLines=10000 -o Term=mintty -o Charset=UTF-8 -i app.ico -p 10,290 -s ${term_width},47 -t "Sauvegarde en cours" -h always -e /bin/bash --login -i -c `;
   //cmd=`${cmd_env} "${shell_cmds} tput smso smul; echo 'Sauvegarde terminée, appuyer sur <Entrée>'"`;
   cmd = cmd_env;
   if (real_run) {
