@@ -132,7 +132,7 @@ endif
 SETUP_PKG=${ASSETS}/${PREFIX}-${VERSION}-${SYS_VER}.zip
 SETUP_DEP=README.pdf tutorial/ examples/js_include/ examples/01-test_bed/ examples/03-webcrypto/ examples/07-egyptian/ ${TARGET}
 ifeq (${TARGET_API},windows)
-	SETUP_DEP+=build/msvc/win_cons/x64/Release/c${PREFIX}${EXEXT}
+#	SETUP_DEP+=build/msvc/win_cons/x64/Release/c${PREFIX}${EXEXT}
 endif
 
 ${SETUP_PKG} : ${SETUP_DEP} upx
