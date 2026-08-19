@@ -168,7 +168,7 @@ std::string u32_to_htent(std::u32string u32s, bool dec_base)
 {
   std::string s = {};
 
-  size_t i = 0;
+  //  size_t i = 0;
   for (auto c : u32s)
   {
     if (isprintable_ascii(c))
@@ -186,7 +186,7 @@ std::string u32_to_htent(std::u32string u32s, bool dec_base)
 
       s += ';';
     }
-    i++;
+    //    i++;
   }
 
   return s;

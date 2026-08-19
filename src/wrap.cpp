@@ -1417,14 +1417,14 @@ bool write_ini(std::string fname, webview_conf wvc)
     std::fstream fs(fname, std::ios::in | std::ios::binary);
     std::string line, section = "global", key, val, com;
     std::smatch m1, m2;
-    int nl = 0;
+    // int nl = 0;
     const std::regex re1("(.*)=(.*)"), re2("(.*)#(.*)");
     std::ostringstream oss;
 
     while (std::getline(fs, line))
     {
       trim(line);
-      nl++;
+      // nl++;
 
       if (line.empty() || line[0] == '#')
       {
