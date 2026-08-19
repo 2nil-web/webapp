@@ -839,7 +839,7 @@ function head_adj(off, fac, subs) {
   subs.last_appearance = adj_tc(off, fac, subs.last_appearance, "last_appearance");
   subs.last_disappearance = adj_tc(off, fac, subs.last_disappearance, "last_disappearance");
   subs.duration = adj_tc(off, fac, subs.duration, "duration");
-  console.log("subs.duration: "+subs.duration);
+  console.log("subs.duration: " + subs.duration);
 }
 
 function sub_adj(off, fac, sub) {

@@ -17,7 +17,7 @@
 .move-left:hover {
   background-color: crimson;
   transition: all .5s;
-  transform: translateX(-6px) scale(1.5) ;
+  transform: translateX(-6px) scale(1.5);
 }
 
 .move-up:hover {
