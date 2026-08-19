@@ -19,7 +19,12 @@
 SCRIPT=$(realpath "$0")
 # <=> SCRIPT="$(readlink --canonicalize-existing "$0")"
 SCRIPTPATH=$(dirname "$SCRIPT")
+if [ -f ${SCRIPTPATH}/github_access.sh ]; then
 . ${SCRIPTPATH}/github_access.sh
+else
+  echo "Missing github access, aborting"
+  exit 1
+fi
 
 function gh_curr_rel () {
   asset_path=$1
@@ -29,7 +34,7 @@ function gh_curr_rel () {
 
   if [ "${OS}" = "Windows_NT" ]
   then
-    SYS_VER=${OS}_$( wmic os get Version | grep -v Version | tr -d ' ')
+    SYS_VER=${OS}_$(powershell -Command '(Get-WmiObject -class Win32_OperatingSystem).Version')
     #SYS_VER=$(systeminfo | grep -i version | grep -i syst | sed 's/.*: *\(.*\) *.*/\1/')
   else
     OS_ID=$(sed -n 's/^ID=//p' /etc/os-release)
@@ -92,17 +97,19 @@ function gh_curr_rel () {
     upl_res=$(echo ${post_res} | jq -r 'select(.errors[].code != null)|.errors[].code')
   fi
 
-  # If post return any error code "already_exists" then there is a need to update an already existing release
+  # If post return the error code "already_exists" then there is a need to delete the previous release and repeat the upload of the new one
   if [ "$upl_res" = "already_exists" ]
   then
     echo "Updating an already existing github release asset."
-    # Essayer de cacher le message "error (at <stdin>:0): Cannot iterate over null (null)"
     ASSET_ID=$(curl -sH "Authorization: Bearer ${gh_tok}" ${gh_rel_endp}/${RELEASE_ID}/assets | jq -r '.[]|.name,.id' | sed 'N;s/\n/;/' | sed -n "s/${asset_name};//p") >/dev/null
     asset_post="{\"name\":\"$asset_name\",\"label\":\"$asset_name\"}"
 
     #echo "asset_post: $asset_post"
     #echo "ASSET_ID  : $ASSET_ID"
-    curl -sX PATCH -H "Authorization: Bearer ${gh_tok}" ${gh_rel_endp}/assets/${ASSET_ID} -d "${asset_post}" >/dev/null
+
+    curl -sX "DELETE" -H "Authorization: Bearer ${gh_tok}" ${gh_rel_endp}/assets/${ASSET_ID} -d "${asset_post}" >/dev/null
+    post_res=$(curl -sX POST -H "Authorization: Bearer ${gh_tok}" -H "Content-Type: application/octet-stream" ${gh_upl_url}?name=${asset_name} --data-binary "@${asset_path}")
+    #curl -sX "PATCH" -H "Authorization: Bearer ${gh_tok}" ${gh_rel_endp}/assets/${ASSET_ID} -d "${asset_post}" >/dev/null
   else
     echo "Uploading a new github release asset."
   fi
