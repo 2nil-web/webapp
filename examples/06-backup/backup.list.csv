@@ -1,9 +1,3 @@
 Type;ToDo;Source host;Source directory;Destination [user@];[host:];directory
-usr;yes;PC-DENIS;C:\Users\dplal;root;192.168.1.33;/dd1/public/Backups/PC-Denis/C/Users
-fam;yes;PC-DENIS;C:\Users\Public\Famille;root;192.168.1.33;/dd1/public/Backups/PC-Denis/C/Users/Public
-usr;yes;PC-DENIS;C:\Users\dplal;root;192.168.1.33;/dd3/Backups/PC-Denis/C/Users
-fam;yes;PC-DENIS;C:\Users\Public\Famille;root;192.168.1.33;/dd3/Backups/PC-Denis/C/Users/Public
-win-usr;no;PC-DENIS;C:\Users\dplal;;;/e/Backups/C/Users
-win-fam;no;PC-DENIS;C:\Users\Public\Famille;;;/e/Backups/C/Users/Public
-win-usr;no;PC-DENIS;C:\Users\dplal;;;/f/Backups/C/Users
-win-fam;no;PC-DENIS;C:\Users\Public\Famille;;;/f/Backups/C/Users/Public
+usr;no;PC-DENIS;C:\Users\dplal;root;192.168.1.33;/raid/Backups/PC-Denis/C/Users
+fam;yes;PC-DENIS;C:\Users\Public\Famille;root;192.168.1.33;/raid/Backups/PC-Denis/C/Users/Public

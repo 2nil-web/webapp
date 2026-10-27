@@ -6,11 +6,13 @@
 *.ogg
 *.pdb
 *.tlog
+*log
 *~
 .AndroidStudio2.3
 .VirtualBox
 .android
 .cargo
+.cache
 .dl
 .vs
 .vscode

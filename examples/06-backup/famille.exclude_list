@@ -1,8 +1,10 @@
 *.o
 *~
+*log
 .AndroidStudio2.3
 .android
 .dl
+.vs
 Backup
 NoBackup/
 VirtualBox VMs
